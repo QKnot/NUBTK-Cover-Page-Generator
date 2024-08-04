@@ -3,104 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NUBTK Cover Page Generator</title>
+    <title>Cover Page Generator</title>
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .input-section {
-            margin-bottom: 20px;
-        }
-        .input-section label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .input-section input, .input-section select {
-            width: 100%;
-            padding: 5px;
-            margin-bottom: 10px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-        #content {
-            width: 210mm;
-            height: 297mm;
-            padding: 20mm;
-            margin: 20px auto;
-            border: 1px solid #D3D3D3;
-            background: white;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
-        }
-        .logo {
-            width: 200px; 
-            height: 200px; 
-            margin: 0 auto 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .logo img {
-            max-width: 100%;
-            max-height: 100%;
-        }
-        #content h1, #content h2, #courseTitleText, #courseCodeText {
-            text-align: center;
-        }
-        #content h1 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        #content h2 {
-            font-size: 20px;
-            margin-bottom: 20px;
-        }
-        .assignment-details {
-            display: flex;
-            justify-content: space-between;
-            margin: 20px 0;
-        }
-        .submission-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 40px;
-        }
-        .submission-table th, .submission-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        .submission-table th {
-            background-color: #f2f2f2;
-        }
-        @media print {
-            body, #content {
-                margin: 0;
-                padding: 0;
-                width: 210mm;
-                height: 297mm;
-            }
-        }
-    </style>
-</head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script></head>
 <body>
-    <h1>NUBTK Cover Page Generator</h1>
+    <h1>Cover Page Generator</h1>
     
     <div class="input-section">
         <label for="coverType">Type of Cover Page:</label>
         <select id="coverType">
             <option value="ASSIGNMENT">Assignment</option>
             <option value="PROJECT">Project</option>
+            <option value="LAB REPORT">LAB Report</option>
+            <option value="LAB Book">LAB Book</option>
             <option value="REPORT">Report</option>
         </select>
         <label for="department">Department of:</label>
@@ -108,10 +25,10 @@
             <option value="computer_science">Computer Science and Engineering</option>
             <option value="civil_engineering">Civil Engineering</option>
             <option value="electrical_engineering">Electrical and Electronic Engineering</option>
-            <option value="architecture">Architecture (B. Arch.)</option>
+            <option value="architecture">Architecture</option>
             <option value="business_administration">Business Administration</option>
             <option value="economics">Economics</option>
-            <option value="bengali">Bengali</option>
+            <option value="bangla">Bangla</option>
             <option value="english">English</option>
             <option value="journalism">Journalism and Mass Communication</option>
         </select>
@@ -121,9 +38,6 @@
         
         <label for="courseCode">Course Code:</label>
         <input type="text" id="courseCode" value="CSE 2205">
-        
-        <label for="allocationDate">Date of Allocation:</label>
-        <input type="text" id="allocationDate" value="12 01 2024">
         
         <label for="submissionDate">Date of Submission:</label>
         <input type="text" id="submissionDate" value="25 01 2024">
@@ -155,19 +69,14 @@
     
     <div id="content">
         <div class="logo">
-            <img src="image/Nubtklogo.jpg" alt="NUBTK Logo">
+            <img src="image/Nubtklogo.jpg" alt="NUBTK">
         </div>          
         <h1>Northern University of Business & Technology Khulna</h1>
         <h2 id="departmentText"></h2>
-        <p id="courseTitleText" style="font-weight: bold;"></p>
-        <p id="courseCodeText" style="font-weight: bold;"></p>
+        <p class="center-text">Course Title: <span id="courseTitleText"></span></p>
+        <p class="center-text">Course Code: <span id="courseCodeText"></span></p>
         
-        <div class="assignment-details">
-            <p>Date of Allocation: <span id="allocationDateText"></span></p>
-            <p>Date of Submission: <span id="submissionDateText"></span></p>
-        </div>
-        
-        <h2 id="coverTypeText">ASSIGNMENT</h2>
+        <h2 id="coverTypeText"></h2>
         
         <table class="submission-table">
             <tr>
@@ -189,64 +98,8 @@
                 </td>
             </tr>
         </table>
-        
-        <p style="margin-top: 40px;">Teacher's Signature: _______________________</p>
+        <p class="center-text space-text">Date of Submission: <span id="submissionDateText"></span></p>
     </div>
-
-    <script>
-        function updateContent() {
-            const fields = [
-                'courseTitle', 'courseCode', 'allocationDate', 'submissionDate',
-                'teacherName', 'teacherDesignation', 'studentName', 'studentId',
-                'year', 'semester', 'session'
-            ];
-            
-            fields.forEach(field => {
-                const value = document.getElementById(field).value;
-                document.getElementById(field + 'Text').textContent = value;
-            });
-
-            // Update cover type
-            const coverType = document.getElementById('coverType').value;
-            document.getElementById('coverTypeText').textContent = coverType;
-
-            // Update department
-            const departmentSelect = document.getElementById('department');
-            const selectedDepartment = departmentSelect.options[departmentSelect.selectedIndex].text;
-            document.getElementById('departmentText').textContent = `Department of ${selectedDepartment}`;
-
-            // Update department abbreviation
-            const departmentAbbreviations = {
-                computer_science: "CSE",
-                civil_engineering: "CE",
-                electrical_engineering: "EEE",
-                architecture: "Arch.",
-                business_administration: "BBA",
-                economics: "Econ.",
-                bengali: "Bengali",
-                english: "English",
-                journalism: "JMC"
-            };
-            const departmentAbbreviation = departmentAbbreviations[departmentSelect.value] || "N/A";
-            document.getElementById('departmentAbbreviationText').textContent = departmentAbbreviation;
-        }
-
-        document.getElementById('updateContent').addEventListener('click', updateContent);
-
-        document.getElementById('download').addEventListener('click', () => {
-            const element = document.getElementById('content');
-            const opt = {
-                margin: 0,
-                filename: 'NUBTK_Cover_Page.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, windowWidth: 210 * 2.835, windowHeight: 297 * 2.835 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-            html2pdf().set(opt).from(element).save();
-        });
-
-        // Initial update
-        updateContent();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
