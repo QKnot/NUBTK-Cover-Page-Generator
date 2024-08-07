@@ -1,6 +1,6 @@
 function updateContent() {
     const fields = [
-        'courseTitle', 'courseCode', 'submissionDate',
+        'courseTitle', 'courseCode', 'titleName', 'submissionDate',
         'teacherName', 'teacherDesignation', 'studentName', 'studentId',
         'year', 'semester', 'session'
     ];
@@ -33,12 +33,12 @@ function updateContent() {
     const departmentAbbreviation = departmentAbbreviations[departmentSelect.value] || "N/A";
     document.getElementById('departmentAbbreviationText').textContent = departmentAbbreviation;
 }
-
 document.getElementById('updateContent').addEventListener('click', updateContent);
 
 document.getElementById('download').addEventListener('click', () => {
     const element = document.getElementById('content');
-    
+    var coverPageName = document.getElementById('coverpagename').value;
+    var sanitizedFileName = coverPageName.replace(/\s+/g, '_');
     if (!element) {
         console.error("Content element not found");
         alert("Error: Content element not found");
@@ -69,7 +69,7 @@ document.getElementById('download').addEventListener('click', () => {
         }).then(canvas => {
             const imgData = canvas.toDataURL('image/jpeg', 0.8);  // Increased quality, but still compressed
             doc.addImage(imgData, 'JPEG', 0, 0, width, height);
-            doc.save('NUBTK_Cover_Page.pdf');
+            doc.save(`${sanitizedFileName}.pdf`);
         }).catch(err => {
             console.error("Error in html2canvas:", err);
             alert("Error creating PDF. Please check console for details.");

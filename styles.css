@@ -37,8 +37,8 @@ button {
     flex-direction: column;
 }
 .logo {
-    width: 150px; 
-    height: 150px; 
+    width: 250px; 
+    height: 250px; 
     margin: 0 auto 20px;
     display: flex;
     justify-content: center;
@@ -57,6 +57,10 @@ button {
 }
 #content h2 {
     font-size: 18px;
+}
+#courseTitleText, #courseCodeText {
+    margin: 2px 0;
+    text-align: center;
 }
 .course-info {
     margin: 5px 0;
@@ -97,6 +101,7 @@ button {
 }
 .center-text {
     text-align: center;
+    margin:10px 0;
 }
 .space-text {
     margin-top: 40px; /* Reduced from 60px to 20px */
