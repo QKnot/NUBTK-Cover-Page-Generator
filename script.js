@@ -1,8 +1,7 @@
 function updateContent() {
     const fields = [
         'courseTitle', 'courseCode', 'titleName', 'submissionDate',
-        'teacherName', 'teacherDesignation', 'studentName', 'studentId',
-        'year', 'semester', 'session'
+        'teacherName', 'teacherDesignation', 'studentName', 'studentId', 'section', 'session'
     ];
     
     fields.forEach(field => {
@@ -13,12 +12,12 @@ function updateContent() {
     const coverType = document.getElementById('coverType').value;
     document.getElementById('coverTypeText').textContent = coverType;
 
-    // Update department
+    
     const departmentSelect = document.getElementById('department');
     const selectedDepartment = departmentSelect.options[departmentSelect.selectedIndex].text;
     document.getElementById('departmentText').textContent = `Department of ${selectedDepartment}`;
 
-    // Update department abbreviation
+  
     const departmentAbbreviations = {
         computer_science: "CSE",
         civil_engineering: "CE",
@@ -33,7 +32,16 @@ function updateContent() {
     const departmentAbbreviation = departmentAbbreviations[departmentSelect.value] || "N/A";
     document.getElementById('departmentAbbreviationText').textContent = departmentAbbreviation;
 }
+
+function fillDemoData() {
+    document.querySelectorAll('.demo-input').forEach(input => {
+        input.value = input.dataset.demo;
+    });
+    updateContent();
+}
+
 document.getElementById('updateContent').addEventListener('click', updateContent);
+document.getElementById('fillDemo').addEventListener('click', fillDemoData);
 
 document.getElementById('download').addEventListener('click', () => {
     const element = document.getElementById('content');
@@ -56,18 +64,18 @@ document.getElementById('download').addEventListener('click', () => {
             orientation: 'portrait',
             compress: true
         });
-        const scale = 2.5;  // Increased for better text clarity
+        const scale = 2.5;  
         const width = doc.internal.pageSize.getWidth();
         const height = doc.internal.pageSize.getHeight();
         html2canvas(element, {
             scale: scale,
             logging: false,
             useCORS: true,
-            letterRendering: true,  // Improves text rendering
-            allowTaint: true,  // Allows cross-origin images
-            backgroundColor: null  // Transparent background
+            letterRendering: true,  
+            allowTaint: true,  
+            backgroundColor: null  
         }).then(canvas => {
-            const imgData = canvas.toDataURL('image/jpeg', 0.8);  // Increased quality, but still compressed
+            const imgData = canvas.toDataURL('image/jpeg', 0.8); 
             doc.addImage(imgData, 'JPEG', 0, 0, width, height);
             doc.save(`${sanitizedFileName}.pdf`);
         }).catch(err => {
@@ -81,5 +89,14 @@ document.getElementById('download').addEventListener('click', () => {
 });
 
 
-// Initial update
+document.querySelectorAll('.demo-input').forEach(input => {
+    input.addEventListener('focus', function() {
+        this.setAttribute('placeholder', this.dataset.demo);
+    });
+
+    input.addEventListener('blur', function() {
+        this.setAttribute('placeholder', '');
+    });
+});
+
 updateContent();
