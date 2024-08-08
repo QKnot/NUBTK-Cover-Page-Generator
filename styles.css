@@ -170,8 +170,14 @@ body {
     margin-bottom: 30px;
 }
 
+/* New styles for bold text */
+.bold-text {
+    font-weight: 700 !important;
+}
+
+/* Media query for mobile devices */
 @media only screen and (max-width: 600px) {
-    h1, h2, #departmentText {
-        font-weight: 900 !important; 
+    h1, h2, #departmentText, .bold-text {
+        font-weight: 900 !important;
     }
 }
