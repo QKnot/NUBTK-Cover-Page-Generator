@@ -15,7 +15,7 @@ function updateContent() {
     
     const departmentSelect = document.getElementById('department');
     const selectedDepartment = departmentSelect.options[departmentSelect.selectedIndex].text;
-    document.getElementById('departmentText').textContent = `Department of ${selectedDepartment}`;
+    document.querySelector('#departmentText span').textContent = 'Department of ' + selectedDepartment;
 
   
     const departmentAbbreviations = {
