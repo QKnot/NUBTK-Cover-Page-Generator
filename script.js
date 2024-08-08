@@ -12,10 +12,12 @@ function updateContent() {
     const coverType = document.getElementById('coverType').value;
     document.getElementById('coverTypeText').textContent = coverType;
 
+    
     const departmentSelect = document.getElementById('department');
     const selectedDepartment = departmentSelect.options[departmentSelect.selectedIndex].text;
-    document.getElementById('departmentText').textContent = `Department of ${selectedDepartment}`;
+    document.querySelector('#departmentText span').textContent = 'Department of ' + selectedDepartment;
 
+  
     const departmentAbbreviations = {
         computer_science: "CSE",
         civil_engineering: "CE",
@@ -85,6 +87,9 @@ document.getElementById('download').addEventListener('click', () => {
         alert("Error creating PDF. Please check console for details.");
     }
 });
+
+
+
 
 document.querySelectorAll('.demo-input').forEach(input => {
     input.addEventListener('focus', function() {

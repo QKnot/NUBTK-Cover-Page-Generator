@@ -5,99 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cover Page Generator</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
+    <h1>Cover Page Generator</h1>
     <div class="container">
         <div class="input-section">
-
             <h2>Input Details</h2>
-           
-           <label for="coverpagename">Cover page name:</label>
-           
-           <input type="text" id="coverpagename" class="demo-input" data-demo="Cover Page 1">
-           
-           <label for="department">Department of:</label>
-           
-           <select id="department" class="demo-input" data-demo="Computer Science and Engineering">
-           
-           <option value="computer_science">Computer Science and Engineering</option>
-           
-           <option value="civil_engineering">Civil Engineering</option>
-           
-           <option value="electrical_engineering">Electrical and Electronic Engineering</option>
-           
-           <option value="architecture">Architecture</option>
-           
-           <option value="business_administration">Business Administration</option>
-           
-           <option value="economics">Economics</option>
-           
-           <option value="bangla">Bangla</option>
-           
-           <option value="english">English</option>
-           
-           <option value="journalism">Journalism and Mass Communication</option>
-           
-           </select>
-           
-           <label for="courseTitle">Course Title:</label>
-           
-           <input type="text" id="courseTitle" class="demo-input" data-demo="Introduction to Programming">
-           
-           <label for="courseCode">Course Code:</label>
-           
-           <input type="text" id="courseCode" class="demo-input" data-demo="CSE101">
-           
-           <label for="coverType">Type of Cover Page:</label>
-           
-           <select id="coverType" class="demo-input" data-demo="Assignment">
-           
-           <option value="Assignment">Assignment</option>
-           
-           <option value="Project">Project</option>
-           
-           <option value="LAB Report">LAB Report</option>
-           
-           <option value="LAB Book">LAB Book</option>
-           
-           <option value="Report">Report</option>
-           
-           <option value="Custom">Custom</option>
-           
-           </select>
-           
-           <label for="titleName">Custom Title:</label>
-           
-           <input type="text" id="titleName" class="demo-input" data-demo="My First Programming Assignment">
-           
-           <label for="teacherName">Teacher's Name:</label>
-           
-           <input type="text" id="teacherName" class="demo-input" data-demo="Dr. John Doe">
-           
-           <label for="teacherDesignation">Teacher's Designation:</label>
-           
-           <input type="text" id="teacherDesignation" class="demo-input" data-demo="Associate Professor">
-           
-           <label for="studentName">Student Name:</label>
-           
-           <input type="text" id="studentName" class="demo-input" data-demo="Jane Smith">
-           
-           <label for="studentId">Student ID:</label>
-           
-           <input type="text" id="studentId" class="demo-input" data-demo="2023001">
-           
-           <label for="section">Section:</label>
-           
-           <input type="text" id="section" class="demo-input" data-demo="A">
-           
-           <label for="session">Session:</label>
-           
-           <input type="text" id="session" class="demo-input" data-demo="Fall 2023">
-           
-           <label for="submissionDate">Date of Submission:</label>
-           
-           <input type="date" id="submissionDate" class="demo-input" data-demo="2023-12-31">
-           
+            <label for="coverpagename">Cover page name:</label>
+            <input type="text" id="coverpagename" class="demo-input" data-demo="Cover Page 1">
+
+            <label for="department">Department of:</label>
+            <select id="department" class="demo-input" data-demo="Computer Science and Engineering">
+                <option value="computer_science">Computer Science and Engineering</option>
+                <option value="civil_engineering">Civil Engineering</option>
+                <option value="electrical_engineering">Electrical and Electronic Engineering</option>
+                <option value="architecture">Architecture</option>
+                <option value="business_administration">Business Administration</option>
+                <option value="economics">Economics</option>
+                <option value="bangla">Bangla</option>
+                <option value="english">English</option>
+                <option value="journalism">Journalism and Mass Communication</option>
+            </select>
+
+            <label for="courseTitle">Course Title:</label>
+            <input type="text" id="courseTitle" class="demo-input" data-demo="Introduction to Programming">
+
+            <label for="courseCode">Course Code:</label>
+            <input type="text" id="courseCode" class="demo-input" data-demo="CSE101">
+
+            <label for="coverType">Type of Cover Page:</label>
+            <select id="coverType" class="demo-input" data-demo="Assignment">
+                <option value="Assignment">Assignment</option>
+                <option value="Project">Project</option>
+                <option value="LAB Report">LAB Report</option>
+                <option value="LAB Book">LAB Book</option>
+                <option value="Report">Report</option>
+                <option value="Custom">Custom</option>
+            </select>
+
+            <label for="titleName">Custom Title:</label>
+            <input type="text" id="titleName" class="demo-input" data-demo="My First Programming Assignment">
+
+            <label for="teacherName">Teacher's Name:</label>
+            <input type="text" id="teacherName" class="demo-input" data-demo="Dr. John Doe">
+
+            <label for="teacherDesignation">Teacher's Designation:</label>
+            <input type="text" id="teacherDesignation" class="demo-input" data-demo="Associate Professor">
+
+            <label for="studentName">Student Name:</label>
+            <input type="text" id="studentName" class="demo-input" data-demo="Jane Smith">
+
+            <label for="studentId">Student ID:</label>
+            <input type="text" id="studentId" class="demo-input" data-demo="2023001">
+
+            <label for="section">Section:</label>
+            <input type="text" id="section" class="demo-input" data-demo="A">
+
+            <label for="session">Session:</label>
+            <input type="text" id="session" class="demo-input" data-demo="Fall 2023">
+
+            <label for="submissionDate">Date of Submission:</label>
+            <input type="date" id="submissionDate" class="demo-input" data-demo="2023-12-31">
         </div>
 
         <div class="output-section">
@@ -111,11 +81,11 @@
                 <div class="logo">
                     <img src="image/Nubtklogo.jpg" alt="NUBTK">
                 </div>
-                <h1 class="bold-text">Northern University of Business & Technology Khulna</h1>
-                <h2 id="departmentText" class="bold-text"></h2>
+                <h1><span style="font-weight: 700;">Northern University of Business & Technology Khulna</span></h1>
+                <h2 id="departmentText"><span style="font-weight: 700;"></span></h2>
                 <p class="course-info">Course Title: <span id="courseTitleText"></span></p>
                 <p class="course-info">Course Code: <span id="courseCodeText"></span></p>
-                <h2 id="coverTypeText" class="bold-text"></h2>
+                <h2 id="coverTypeText"></h2>
                 <p class="center-text">Title: <span id="titleNameText"></span></p>
                 <table class="submission-table">
                     <tr>
@@ -124,15 +94,15 @@
                     </tr>
                     <tr>
                         <td>
-                            <span id="teacherNameText"></span><br>
-                            <span id="teacherDesignationText"></span>,<br>
-                            Department of <span id="departmentAbbreviationText"></span>, NUBTK.
+                            <p><span id="teacherNameText"></span></p>
+                            <p><span id="teacherDesignationText"></span>,</p>
+                            <p>Department of <span id="departmentAbbreviationText"></span>, NUBTK.</p>
                         </td>
                         <td>
-                            Name: <span id="studentNameText"></span><br>
-                            Student ID: <span id="studentIdText"></span><br>
-                            Section: <span id="sectionText"></span><br>
-                            Session: <span id="sessionText"></span>
+                            <p>Name: <span id="studentNameText"></span></p>
+                            <p>Student ID: <span id="studentIdText"></span></p>
+                            <p>Section: <span id="sectionText"></span></p>
+                            <p>Session: <span id="sessionText"></span></p>
                         </td>
                     </tr>
                 </table>
@@ -140,8 +110,6 @@
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
