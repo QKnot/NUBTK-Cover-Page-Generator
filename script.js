@@ -1,7 +1,7 @@
 function updateContent() {
     const fields = [
         'courseTitle', 'courseCode', 'titleName', 'submissionDate',
-        'teacherName', 'teacherDesignation', 'studentName', 'studentId', 'section', 'session'
+        'teacherName', 'studentName', 'studentId', 'section', 'session'
     ];
     
     fields.forEach(field => {
@@ -12,7 +12,9 @@ function updateContent() {
     const coverType = document.getElementById('coverType').value;
     document.getElementById('coverTypeText').textContent = coverType;
 
-    
+    const teacherDesignation = document.getElementById('teacherDesignation').value;
+    document.getElementById('teacherDesignationText').textContent = teacherDesignation;
+
     const departmentSelect = document.getElementById('department');
     const selectedDepartment = departmentSelect.options[departmentSelect.selectedIndex].text;
     document.querySelector('#departmentText span').textContent = 'Department of ' + selectedDepartment;

@@ -14,7 +14,7 @@
         <div class="input-section">
             <h2>Input Details</h2>
             <label for="coverpagename">Cover page name:</label>
-            <input type="text" id="coverpagename" class="demo-input" data-demo="coverPage">
+            <input type="text" id="coverpagename" class="demo-input" placeholder="Enter the Cover Page name" data-demo="coverPage">
 
             <label for="department">Department of:</label>
             <select id="department" class="demo-input" data-demo="Computer Science and Engineering">
@@ -30,10 +30,10 @@
             </select>
 
             <label for="courseTitle">Course Title:</label>
-            <input type="text" id="courseTitle" class="demo-input" data-demo="Data Structure">
+            <input type="text" id="courseTitle" class="demo-input" placeholder="Enter the Course Title" data-demo="Data Structure">
 
             <label for="courseCode">Course Code:</label>
-            <input type="text" id="courseCode" class="demo-input" data-demo="CSE 2201">
+            <input type="text" id="courseCode" class="demo-input" placeholder="Enter the Course Code" data-demo="CSE 2201">
 
             <label for="coverType">Type of Cover Page:</label>
             <select id="coverType" class="demo-input" data-demo="Assignment">
@@ -45,27 +45,37 @@
                 <option value="Custom">Custom</option>
             </select>
 
-            <label for="titleName">Custom Title:</label>
-            <input type="text" id="titleName" class="demo-input" data-demo="Linked List and it's application">
+            <label for="titleName">Title:</label>
+            <input type="text" id="titleName" class="demo-input" placeholder="Enter the Title" data-demo="Linked List and it's application">
 
             <label for="teacherName">Teacher's Name:</label>
-            <input type="text" id="teacherName" class="demo-input" data-demo="Md. Tahmid Hasan">
+            <input type="text" id="teacherName" class="demo-input" placeholder="Enter Teacher's name" data-demo="Md. Tahmid Hasan">
 
             <label for="teacherDesignation">Teacher's Designation:</label>
-            <input type="text" id="teacherDesignation" class="demo-input" data-demo="Lecturer">
+            <select id="teacherDesignation" class="demo-input" name="designation" data-demo="Lecturer">
+                <option value="Lecturer" selected>Lecturer</option>
+                <option value="Assistant Professor">Assistant Professor</option>
+                <option value="Associate Professor">Associate Professor</option>
+                <option value="Professor">Professor</option>
+                <option value="">Custom</option>
+            </select>
 
             <label for="studentName">Student Name:</label>
-            <input type="text" id="studentName" class="demo-input" data-demo="Rahul Kumar Ghosh">
+            <input type="text" id="studentName" class="demo-input" placeholder="Enter your Student name" data-demo="Rahul Kumar Ghosh">
 
             <label for="studentId">Student ID:</label>
-            <input type="text" id="studentId" class="demo-input" data-demo="11220120819">
+            <input type="text" id="studentId" class="demo-input" placeholder="Enter your Student id"data-demo="11220120819">
 
-            <label for="section">Section:</label>
-            <input type="text" id="section" class="demo-input" data-demo="3B">
+            <label for="section">Semester and Section:</label>
+            <input type="text" id="section" class="demo-input" placeholder="Enter your Semester and Section" data-demo="3B">
 
             <label for="session">Session:</label>
-            <input type="text" id="session" class="demo-input" data-demo="Spring-22">
-
+            <select id="session" class="demo-input" name="session" data-demo="Spring">
+                <option value="Spring">Spring</option>
+                <option value="Fall">Fall</option>
+                <option value="Summer">Summer</option>
+            </select>
+    
             <label for="submissionDate">Date of Submission:</label>
             <input type="date" id="submissionDate" class="demo-input" data-demo="2023-08-12">
         </div>
@@ -74,7 +84,7 @@
             <div class="button-container">
                 <button id="updateContent" class="interactive-button">Update Content</button>
                 <button id="download" class="interactive-button">Download PDF</button>
-                <button id="fillDemo" class="interactive-button">Fill Demo Data</button>
+                <button id="fillDemo" class="interactive-button">Fill My Data</button>
             </div>
 
             <div id="content">
@@ -110,6 +120,9 @@
             </div>
         </div>
     </div>
+    <footer>
+
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>

@@ -170,8 +170,63 @@ body {
     margin-bottom: 30px;
 }
 
-@media only screen and (max-width: 600px) {
-    h1, h2, #departmentText {
-        font-weight: 900 !important; 
+@media only screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .input-section, .output-section {
+        width: 100%;
+        max-width: none;
+    }
+
+    .input-section input, .input-section select {
+        font-size: 16px; 
+    }
+
+    .interactive-button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    #content {
+        width: 100%;
+        height: auto;
+        padding: 10mm;
+    }
+
+    .logo {
+        width: 150px;
+        height: 150px;
+    }
+
+    #content h1 {
+        font-size: 18px;
+    }
+
+    #content h2 {
+        font-size: 16px;
+    }
+
+    .submission-table th, .submission-table td {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .input-section label,
+    .input-section input,
+    .input-section select,
+    .interactive-button {
+        min-height: 44px; 
+    }
+
+    .input-section {
+        padding: 10px;
+    }
+
+    .button-container {
+        display: flex;
+        flex-direction: column;
     }
 }
