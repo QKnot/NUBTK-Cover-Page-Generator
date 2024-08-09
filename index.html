@@ -77,14 +77,14 @@
             </select>
     
             <label for="submissionDate">Date of Submission:</label>
-            <input type="date" id="submissionDate" class="demo-input" data-demo="2023-08-12">
+            <input type="date" id="submissionDate" class="demo-input" data-demo="01/01/2024">
         </div>
 
         <div class="output-section">
             <div class="button-container">
                 <button id="updateContent" class="interactive-button">Update Content</button>
                 <button id="download" class="interactive-button">Download PDF</button>
-                <button id="fillDemo" class="interactive-button">Fill My Data</button>
+                <button id="fillDemo" class="interactive-button">Fill Demo Data</button>
             </div>
 
             <div id="content">
@@ -105,7 +105,7 @@
                     <tr>
                         <td>
                             <p><span id="teacherNameText"></span></p>
-                            <p><span id="teacherDesignationText"></span>,</p>
+                            <p><span id="teacherDesignationText"></span></p>
                             <p>Department of <span id="departmentAbbreviationText"></span>, NUBTK.</p>
                         </td>
                         <td>
@@ -120,9 +120,18 @@
             </div>
         </div>
     </div>
-    <footer>
-
+    <footer class="site-footer">
+        <div class="footer-content">
+          <p>&copy; 2024 Cover Page Generator. All rights reserved.</p>
+          <nav class="footer-nav">
+            <a href="https://github.com/QKnot/Cover-Page-Generator.git" target="_blank" rel="noopener noreferrer" class="footer-icon">
+              <i class="fab fa-github" title="Github"></i>
+            </a>
+            <a href="https://qknot.github.io/Portfolio/" target="_blank" rel="noopener noreferrer">Developer</a>
+          </nav>
+        </div>
     </footer>
     <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 </body>
 </html>

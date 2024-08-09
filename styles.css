@@ -230,3 +230,82 @@ body {
         flex-direction: column;
     }
 }
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    flex: 1;
+  }
+  
+  .site-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    padding: 30px 0;
+    margin-top: 40px;
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+  }
+  
+  .site-footer p {
+    margin: 0;
+    font-size: 14px;
+    color: #6c757d;
+  }
+  
+  .footer-nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .footer-nav a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-nav a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+  
+  .footer-icon {
+    color: #6c757d;
+    font-size: 24px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-icon:hover {
+    color: #343a40;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .footer-content {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .footer-nav {
+      margin-top: 15px;
+    }
+  
+    .footer-nav a {
+      margin: 0 10px;
+    }
+  }

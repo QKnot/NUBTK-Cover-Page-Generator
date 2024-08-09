@@ -8,6 +8,9 @@ function updateContent() {
         const value = document.getElementById(field).value;
         document.getElementById(field + 'Text').textContent = value;
     });
+    const submissionDate = document.getElementById('submissionDate').value;
+    const formattedDate = submissionDate ? formatDate(submissionDate) : '';
+    document.getElementById('submissionDateText').textContent = formattedDate;
 
     const coverType = document.getElementById('coverType').value;
     document.getElementById('coverTypeText').textContent = coverType;
@@ -33,6 +36,14 @@ function updateContent() {
     };
     const departmentAbbreviation = departmentAbbreviations[departmentSelect.value] || "N/A";
     document.getElementById('departmentAbbreviationText').textContent = departmentAbbreviation;
+}
+
+function formatDate(inputDate) {
+    const date = new Date(inputDate);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // getMonth() returns 0-11
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
 }
 
 function fillDemoData() {
