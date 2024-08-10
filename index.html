@@ -35,7 +35,7 @@
             <label for="courseCode">Course Code:</label>
             <input type="text" id="courseCode" class="demo-input" placeholder="Enter the Course Code" data-demo="CSE 2201">
 
-            <label for="coverType">Type of Cover Page:</label>
+            <!-- <label for="coverType">Type of Cover Page:</label>
             <select id="coverType" class="demo-input" data-demo="Assignment">
                 <option value="Assignment">Assignment</option>
                 <option value="Project">Project</option>
@@ -43,8 +43,9 @@
                 <option value="LAB Book">LAB Book</option>
                 <option value="Report">Report</option>
                 <option value="Custom">Custom</option>
-            </select>
-
+            </select> -->
+            <label for="coverType">Type of Cover Page:</label>
+            <input type="text" id="coverType" class="demo-input" Placeholder="Enter Cover Page Type" data-demo="ASSIGNMENT">
             <label for="titleName">Title:</label>
             <input type="text" id="titleName" class="demo-input" placeholder="Enter the Title" data-demo="Linked List and it's application">
 
@@ -53,11 +54,22 @@
 
             <label for="teacherDesignation">Teacher's Designation:</label>
             <select id="teacherDesignation" class="demo-input" name="designation" data-demo="Lecturer">
+                <option value="">Select a Teacher Designation</option>
                 <option value="Lecturer" selected>Lecturer</option>
+                <option value="Senior Lecturer">Senior Lecturer</option>
                 <option value="Assistant Professor">Assistant Professor</option>
                 <option value="Associate Professor">Associate Professor</option>
                 <option value="Professor">Professor</option>
-                <option value="">Custom</option>
+                <option value="Distinguished Professor">Distinguished Professor</option>
+                <option value="Emeritus Professor">Emeritus Professor</option>
+                <option value="Adjunct Professor">Adjunct Professor</option>
+                <option value="Visiting Professor">Visiting Professor</option>
+                <option value="Research Professor">Research Professor</option>
+                <option value="Teaching Assistant">Teaching Assistant</option>
+                <option value="Instructor">Instructor</option>
+                <option value="Postdoctoral Researcher">Postdoctoral Researcher</option>
+                <option value="Department Head">Department Head</option>
+                <option value="Dean">Dean</option>
             </select>
             <label for="studentName">Student Name:</label>
             <input type="text" id="studentName" class="demo-input" placeholder="Enter your Student name" data-demo="Rahul Kumar Ghosh">
@@ -70,6 +82,7 @@
 
             <label for="session">Session:</label>
             <select id="session" class="demo-input" name="session" data-demo="Spring">
+                <option value="">Select a Session</option>
                 <option value="Spring">Spring</option>
                 <option value="Fall">Fall</option>
                 <option value="Summer">Summer</option>
@@ -94,7 +107,7 @@
                 <h2 id="departmentText"><span style="font-weight: 700;"></span></h2>
                 <p class="course-info">Course Title: <span id="courseTitleText"></span></p>
                 <p class="course-info">Course Code: <span id="courseCodeText"></span></p>
-                <h2 id="coverTypeText"></h2>
+                <h2 id="coverTypeText"><span style="font-weight: 700;"></span></h2>
                 <p class="center-text">Title: <span id="titleNameText"></span></p>
                 <table class="submission-table">
                     <tr>

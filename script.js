@@ -3,12 +3,12 @@ function updateContent() {
         'courseTitle', 'courseCode', 'titleName', 'submissionDate',
         'teacherName', 'studentName', 'studentId', 'section', 'session'
     ];
-
     
     fields.forEach(field => {
         const value = document.getElementById(field).value;
         document.getElementById(field + 'Text').textContent = value;
     });
+
     const submissionDate = document.getElementById('submissionDate').value;
     const formattedDate = submissionDate ? formatDate(submissionDate) : '';
     document.getElementById('submissionDateText').textContent = formattedDate;
@@ -22,15 +22,14 @@ function updateContent() {
     const departmentSelect = document.getElementById('department');
     const selectedDepartment = departmentSelect.options[departmentSelect.selectedIndex].text;
     document.querySelector('#departmentText span').textContent = 'Department of ' + selectedDepartment;
-
   
     const departmentAbbreviations = {
         computer_science: "CSE",
         civil_engineering: "CE",
         electrical_engineering: "EEE",
-        architecture: "Arch.",
+        architecture: "Arch",
         business_administration: "BBA",
-        economics: "Econ.",
+        economics: "Econ",
         bangla: "Bangla",
         english: "English",
         journalism: "JMC"
@@ -54,10 +53,36 @@ function fillDemoData() {
     updateContent();
 }
 
+function areAllFieldsFilled() {
+    const requiredFields = [
+        'courseTitle', 'courseCode', 'coverType', 'titleName', 'submissionDate',
+        'teacherName', 'teacherDesignation', 'studentName', 'studentId', 'section', 'session'
+    ];
+
+    for (let field of requiredFields) {
+        const value = document.getElementById(field).value.trim();
+        if (!value) {
+            return false;
+        }
+    }
+
+    const departmentValue = document.getElementById('department').value;
+    if (departmentValue === "") {
+        return false;
+    }
+
+    return true;
+}
+
 document.getElementById('updateContent').addEventListener('click', updateContent);
 document.getElementById('fillDemo').addEventListener('click', fillDemoData);
 
 document.getElementById('download').addEventListener('click', () => {
+    if (!areAllFieldsFilled()) {
+        alert("Please fill in all input fields before downloading the PDF.");
+        return;
+    }
+
     const element = document.getElementById('content');
     var coverPageName = document.getElementById('coverpagename').value;
     var sanitizedFileName = coverPageName.replace(/\s+/g, '_');
@@ -101,9 +126,6 @@ document.getElementById('download').addEventListener('click', () => {
         alert("Error creating PDF. Please check console for details.");
     }
 });
-
-
-
 
 document.querySelectorAll('.demo-input').forEach(input => {
     input.addEventListener('focus', function() {
