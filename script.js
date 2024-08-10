@@ -1,4 +1,3 @@
-// Event listener for input changes
 function addInputListeners() {
     const inputs = document.querySelectorAll('input, select');
     inputs.forEach(input => {
@@ -57,7 +56,6 @@ function formatDate(inputDate) {
 function fillDemoData() {
     document.querySelectorAll('.demo-input').forEach(input => {
         input.value = input.dataset.demo;
-        // Trigger the input event to update content
         input.dispatchEvent(new Event('input'));
     });
 }
@@ -145,8 +143,7 @@ document.querySelectorAll('.demo-input').forEach(input => {
     });
 });
 
-// Call this function to add input listeners when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     addInputListeners();
-    updateContent(); // Initial update
+    updateContent(); 
 });
