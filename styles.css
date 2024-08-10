@@ -16,6 +16,8 @@ body {
 .input-section {
     flex: 1;
     max-width: 300px;
+    height: 1123.27px;
+    width: 300px;
     background-color: white;
     padding: 20px;
     border-radius: 8px;
@@ -150,15 +152,6 @@ body {
     background-color: #f2f2f2;
     text-align: center; 
 }
-
-/* @media print {
-    body, #content {
-        margin: 0;
-        padding: 0;
-        width: 210mm;
-        height: 297mm;
-    }
-} */
 
 .center-text {
     text-align: center;

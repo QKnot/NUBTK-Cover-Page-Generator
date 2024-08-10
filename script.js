@@ -3,6 +3,7 @@ function updateContent() {
         'courseTitle', 'courseCode', 'titleName', 'submissionDate',
         'teacherName', 'studentName', 'studentId', 'section', 'session'
     ];
+
     
     fields.forEach(field => {
         const value = document.getElementById(field).value;
