@@ -151,14 +151,14 @@ body {
     text-align: center; 
 }
 
-@media print {
+/* @media print {
     body, #content {
         margin: 0;
         padding: 0;
         width: 210mm;
         height: 297mm;
     }
-}
+} */
 
 .center-text {
     text-align: center;
@@ -168,67 +168,6 @@ body {
 .space-text {
     margin-top: 40px; 
     margin-bottom: 30px;
-}
-
-@media only screen and (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
-
-    .input-section, .output-section {
-        width: 100%;
-        max-width: none;
-    }
-
-    .input-section input, .input-section select {
-        font-size: 16px; 
-    }
-
-    .interactive-button {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    #content {
-        width: 100%;
-        height: auto;
-        padding: 10mm;
-    }
-
-    .logo {
-        width: 150px;
-        height: 150px;
-    }
-
-    #content h1 {
-        font-size: 18px;
-    }
-
-    #content h2 {
-        font-size: 16px;
-    }
-
-    .submission-table th, .submission-table td {
-        font-size: 12px;
-    }
-}
-
-@media only screen and (max-width: 768px) {
-    .input-section label,
-    .input-section input,
-    .input-section select,
-    .interactive-button {
-        min-height: 44px; 
-    }
-
-    .input-section {
-        padding: 10px;
-    }
-
-    .button-container {
-        display: flex;
-        flex-direction: column;
-    }
 }
 
 body {
@@ -294,18 +233,3 @@ body {
     color: #343a40;
   }
   
-  @media only screen and (max-width: 768px) {
-    .footer-content {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-  
-    .footer-nav {
-      margin-top: 15px;
-    }
-  
-    .footer-nav a {
-      margin: 0 10px;
-    }
-  }
