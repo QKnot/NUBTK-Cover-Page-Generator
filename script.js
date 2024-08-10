@@ -1,3 +1,11 @@
+// Event listener for input changes
+function addInputListeners() {
+    const inputs = document.querySelectorAll('input, select');
+    inputs.forEach(input => {
+        input.addEventListener('input', updateContent);
+    });
+}
+
 function updateContent() {
     const fields = [
         'courseTitle', 'courseCode', 'titleName', 'submissionDate',
@@ -49,8 +57,9 @@ function formatDate(inputDate) {
 function fillDemoData() {
     document.querySelectorAll('.demo-input').forEach(input => {
         input.value = input.dataset.demo;
+        // Trigger the input event to update content
+        input.dispatchEvent(new Event('input'));
     });
-    updateContent();
 }
 
 function areAllFieldsFilled() {
@@ -74,7 +83,6 @@ function areAllFieldsFilled() {
     return true;
 }
 
-document.getElementById('updateContent').addEventListener('click', updateContent);
 document.getElementById('fillDemo').addEventListener('click', fillDemoData);
 
 document.getElementById('download').addEventListener('click', () => {
@@ -137,4 +145,8 @@ document.querySelectorAll('.demo-input').forEach(input => {
     });
 });
 
-updateContent();
+// Call this function to add input listeners when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    addInputListeners();
+    updateContent(); // Initial update
+});
