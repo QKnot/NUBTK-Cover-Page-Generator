@@ -138,19 +138,39 @@ body {
     width: 100%;
     border-collapse: collapse;
     margin-top: 30px;
-    margin-bottom: 100px;
+    margin-bottom: 150px;
 }
 
 .submission-table th, .submission-table td {
     border: 1px solid #000;
     padding: 8px;
-    text-align: left;
-    width: 50%; 
+    width: 50%;
 }
 
 .submission-table th {
     background-color: #f2f2f2;
     text-align: center; 
+}
+
+.submission-table td {
+    vertical-align: middle;
+    text-align: left;
+}
+
+.submission-table td p {
+    margin: 0 0 5px 0;
+}
+
+.submission-table td p:last-child {
+    margin-bottom: 0;
+}
+
+.submission-table td .centered-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
 .center-text {
