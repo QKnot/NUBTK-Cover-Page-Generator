@@ -249,7 +249,7 @@ body {
 
 
 
-  .modal {
+.modal {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -305,7 +305,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 15px;
-    background-color: #f8f9fa;
+    background-color: #f8fafa;
     border: 1px solid #dee2e6;
     border-radius: 8px;
     cursor: pointer;
