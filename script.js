@@ -147,3 +147,65 @@ document.addEventListener('DOMContentLoaded', () => {
     addInputListeners();
     updateContent(); 
 });
+
+
+
+
+
+function generateShareableLink() {
+    const inputs = document.querySelectorAll('.input-section input, .input-section select');
+    const data = {};
+    inputs.forEach(input => {
+        data[input.id] = input.value;
+    });
+    const encodedData = encodeURIComponent(JSON.stringify(data));
+    return `${window.location.origin}${window.location.pathname}?data=${encodedData}`;
+}
+
+
+function shareLink() {
+    const shareableLink = generateShareableLink();
+    
+    if (navigator.share) {
+        navigator.share({
+            title: 'Cover Page Generator Data',
+            text: 'Check out my cover page data!',
+            url: shareableLink,
+        })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing', error));
+    } else {
+        prompt('Copy this link to share:', shareableLink);
+    }
+}
+
+
+function loadSharedData() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const sharedData = urlParams.get('data');
+    
+    if (sharedData) {
+        try {
+            const data = JSON.parse(decodeURIComponent(sharedData));
+            Object.keys(data).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.value = data[key];
+                    element.dispatchEvent(new Event('input'));
+                }
+            });
+        } catch (error) {
+            console.error('Error loading shared data:', error);
+        }
+    }
+}
+
+
+document.getElementById('shareButton').addEventListener('click', shareLink);
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    addInputListeners();
+    updateContent();
+    loadSharedData(); 
+});
