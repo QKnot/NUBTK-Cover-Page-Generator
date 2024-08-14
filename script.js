@@ -148,10 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateContent(); 
 });
 
-
-
-
-
 function generateShareableLink() {
     const inputs = document.querySelectorAll('.input-section input, .input-section select');
     const data = {};
@@ -209,3 +205,74 @@ document.addEventListener('DOMContentLoaded', () => {
     updateContent();
     loadSharedData(); 
 });
+
+
+
+
+function shareLink() {
+    const shareableLink = generateShareableLink();
+    const modal = document.getElementById('shareModal');
+    const span = document.getElementsByClassName("close")[0];
+    
+
+    modal.style.display = "block";
+
+ 
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+
+    document.getElementById('copyLink').onclick = function() {
+        navigator.clipboard.writeText(shareableLink).then(() => {
+            alert('Link copied to clipboard!');
+        });
+    }
+
+
+    document.getElementById('shareTwitter').onclick = function() {
+        window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareableLink)}&text=Check out my cover page data!`, '_blank');
+    }
+
+    document.getElementById('shareFacebook').onclick = function() {
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareableLink)}`, '_blank');
+    }
+
+    document.getElementById('shareLinkedIn').onclick = function() {
+        window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(shareableLink)}&title=Cover Page Generator Data`, '_blank');
+    }
+
+
+    document.getElementById('shareDiscord').onclick = function() {
+
+        navigator.clipboard.writeText(shareableLink).then(() => {
+            alert('Link copied to clipboard! You can now paste it in Discord.');
+        });
+    }
+
+
+    document.getElementById('shareMail').onclick = function() {
+        const subject = encodeURIComponent("Cover Page Generator Data");
+        const body = encodeURIComponent(`Check out my cover page data: ${shareableLink}`);
+        window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    }
+}
+
+
+document.getElementById('shareDiscord').onclick = function() {
+    navigator.clipboard.writeText(shareableLink).then(() => {
+        const button = document.getElementById('shareDiscord');
+        const originalText = button.innerHTML;
+        button.innerHTML = '<img src="path/to/check-icon.svg" alt="Success"><span>Copied!</span>';
+        setTimeout(() => {
+            button.innerHTML = originalText;
+        }, 2000);
+    });
+}
