@@ -247,8 +247,6 @@ body {
   }
   
 
-
-
 .modal {
     display: none;
     position: fixed;
@@ -305,25 +303,20 @@ body {
     align-items: center;
     justify-content: center;
     padding: 15px;
-    background-color: #f8fafa;
-    border: 1px solid #dee2e6;
+    background-color: #818add;
+    border: 1px solid #201e1e;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .share-option:hover {
-    background-color: #e9ecef;
+    background-color: #67a583;
     transform: translateY(-2px);
 }
 
-.share-option img {
-    width: 24px;
-    height: 24px;
-    margin-bottom: 8px;
-}
 
 .share-option span {
     font-size: 14px;
-    color: #495057;
+    color: #050101;
 }

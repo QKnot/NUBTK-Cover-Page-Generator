@@ -39,7 +39,8 @@ function updateContent() {
         economics: "Econ",
         bangla: "Bangla",
         english: "English",
-        journalism: "JMC"
+        journalism: "JMC",
+        LAW:"Law"
     };
     const departmentAbbreviation = departmentAbbreviations[departmentSelect.value] || "N/A";
     document.getElementById('departmentAbbreviationText').textContent = departmentAbbreviation;
@@ -48,17 +49,17 @@ function updateContent() {
 function formatDate(inputDate) {
     const date = new Date(inputDate);
     const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // getMonth() returns 0-11
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
 }
 
-function fillDemoData() {
-    document.querySelectorAll('.demo-input').forEach(input => {
-        input.value = input.dataset.demo;
-        input.dispatchEvent(new Event('input'));
-    });
-}
+// function fillDemoData() {
+//     document.querySelectorAll('.demo-input').forEach(input => {
+//         input.value = input.dataset.demo;
+//         input.dispatchEvent(new Event('input'));
+//     });
+// }
 
 function areAllFieldsFilled() {
     const requiredFields = [
@@ -81,7 +82,7 @@ function areAllFieldsFilled() {
     return true;
 }
 
-document.getElementById('fillDemo').addEventListener('click', fillDemoData);
+// document.getElementById('fillDemo').addEventListener('click', fillDemoData);
 
 document.getElementById('download').addEventListener('click', () => {
     if (!areAllFieldsFilled()) {
