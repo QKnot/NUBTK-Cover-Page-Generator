@@ -4,21 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cover Page Generator</title>
+    <link rel="icon" href="image/cfg.png" type="image/png">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
 </head>
 <body>
     <h1>Cover Page Generator</h1>
     <div class="container">
         <div class="input-section">
             <h2>Input Details</h2>
+        
             <label for="coverpagename">Cover page name:</label>
-            <input type="text" id="coverpagename" class="demo-input" placeholder="Enter the Cover Page name" data-demo="coverPage">
-
+            <input type="text" id="coverpagename" class="demo-input" placeholder="Enter a cover page name" data-demo="Database Cover Page" list="coverpagenameList">
+            <datalist id="coverpagenameList"></datalist>
+        
             <label for="department">Department of:</label>
-            <select id="department" class="demo-input" data-demo="Computer Science and Engineering">
+            <select id="department">
+                <option value="">Select a Department</option>
                 <option value="computer_science">Computer Science and Engineering</option>
                 <option value="civil_engineering">Civil Engineering</option>
                 <option value="electrical_engineering">Electrical and Electronic Engineering</option>
@@ -30,34 +35,45 @@
                 <option value="journalism">Journalism and Mass Communication</option>
                 <option value="LAW">Law</option>
             </select>
-
+        
             <label for="courseTitle">Course Title:</label>
-            <input type="text" id="courseTitle" class="demo-input" placeholder="Enter the Course Title" data-demo="Data Structure">
-
+            <input type="text" id="courseTitle" class="demo-input" placeholder="Enter a course title." data-demo="Database Management System" list="courseTitleList">
+            <datalist id="courseTitleList"></datalist>
+        
             <label for="courseCode">Course Code:</label>
-            <input type="text" id="courseCode" class="demo-input" placeholder="Enter the Course Code" data-demo="CSE 2201">
-
-            <!-- <label for="coverType">Type of Cover Page:</label>
-            <select id="coverType" class="demo-input" data-demo="Assignment">
-                <option value="Assignment">Assignment</option>
-                <option value="Project">Project</option>
-                <option value="LAB Report">LAB Report</option>
-                <option value="LAB Book">LAB Book</option>
-                <option value="Report">Report</option>
-                <option value="Custom">Custom</option>
-            </select> -->
+            <input type="text" id="courseCode" class="demo-input" placeholder="Enter the course code." data-demo="CSE 3101" list="courseCodeList">
+            <datalist id="courseCodeList">
+                <option value="CSE ">
+                <option value="MATH ">
+                <option value="PHY ">
+                <option value="IPE ">
+                <option value="ENG ">
+                <option value="HUM ">
+                <option value="GED ">
+            </datalist>
+        
             <label for="coverType">Type of Cover Page:</label>
-            <input type="text" id="coverType" class="demo-input" Placeholder="Enter Cover Page Type" data-demo="ASSIGNMENT">
+            <input type="text" id="coverType" class="demo-input" placeholder="Enter the cover page type." data-demo="ASSIGNMENT" list="coverTypeList">
+            <datalist id="coverTypeList">
+                <option value="ASSIGNMENT ">
+                <option value="LAB ">
+                <option value="LAB BOOK ">
+                <option value="PROJECT ">
+                <option value="PRESENTATION ">
+            </datalist>
+        
             <label for="titleName">Title:</label>
-            <input type="text" id="titleName" class="demo-input" placeholder="Enter the Title" data-demo="Linked List and it's application">
-
+            <input type="text" id="titleName" class="demo-input" placeholder="Enter the course title." data-demo="Creating a Student Cover Page Database Using SQL (Standard Query Language)" list="titleNameList">
+            <datalist id="titleNameList"></datalist>
+        
             <label for="teacherName">Teacher's Name:</label>
-            <input type="text" id="teacherName" class="demo-input" placeholder="Enter Teacher's name" data-demo="Md. Tahmid Hasan">
-
+            <input type="text" id="teacherName" class="demo-input" placeholder="Enter the course teacher's name." data-demo="Kazi Asif Ahmed" list="teacherNameList">
+            <datalist id="teacherNameList"></datalist>
+        
             <label for="teacherDesignation">Teacher's Designation:</label>
-            <select id="teacherDesignation" class="demo-input" name="designation" data-demo="Lecturer">
+            <select id="teacherDesignation">
                 <option value="">Select a Teacher Designation</option>
-                <option value="Lecturer" selected>Lecturer</option>
+                <option value="Lecturer">Lecturer</option>
                 <option value="Senior Lecturer">Senior Lecturer</option>
                 <option value="Assistant Professor">Assistant Professor</option>
                 <option value="Associate Professor">Associate Professor</option>
@@ -73,25 +89,44 @@
                 <option value="Department Head">Department Head</option>
                 <option value="Dean">Dean</option>
             </select>
+
+            <label for="teacherDepartment">Teacher's Department(Optional):</label>
+            <select id="teacherDepartment">
+                <option value="">Select a Department</option>
+                <option value="computer_science">Computer Science and Engineering</option>
+                <option value="civil_engineering">Civil Engineering</option>
+                <option value="electrical_engineering">Electrical and Electronic Engineering</option>
+                <option value="architecture">Architecture</option>
+                <option value="business_administration">Business Administration</option>
+                <option value="economics">Economics</option>
+                <option value="bangla">Bangla</option>
+                <option value="english">English</option>
+                <option value="journalism">Journalism and Mass Communication</option>
+                <option value="LAW">Law</option>
+            </select>
+
             <label for="studentName">Student Name:</label>
-            <input type="text" id="studentName" class="demo-input" placeholder="Enter your Student name" data-demo="Rahul Kumar Ghosh">
-
+            <input type="text" id="studentName" class="demo-input" placeholder="Enter the student's name." data-demo="Rahul Kumar Ghosh" list="studentNameList">
+            <datalist id="studentNameList"></datalist>
+        
             <label for="studentId">Student ID:</label>
-            <input type="text" id="studentId" class="demo-input" placeholder="Enter your Student id"data-demo="11220120819">
-
+            <input type="text" id="studentId" class="demo-input" placeholder="Enter the student's ID." data-demo="11220120819" list="studentIdList">
+            <datalist id="studentIdList"></datalist>
+        
             <label for="section">Semester and Section:</label>
-            <input type="text" id="section" class="demo-input" placeholder="Enter your Semester and Section" data-demo="3B">
-
+            <input type="text" id="section" class="demo-input" placeholder="Enter the student's semester and section." data-demo="5B" list="sectionList">
+            <datalist id="sectionList"></datalist>
+        
             <label for="session">Session:</label>
-            <select id="session" class="demo-input" name="session" data-demo="Spring">
+            <select id="session">
                 <option value="">Select a Session</option>
                 <option value="Spring">Spring</option>
                 <option value="Fall">Fall</option>
                 <option value="Summer">Summer</option>
             </select>
-    
+        
             <label for="submissionDate">Date of Submission:</label>
-            <input type="date" id="submissionDate" class="demo-input" data-demo="01/01/2024">
+            <input type="date" id="submissionDate">
         </div>
 
         <div class="output-section">

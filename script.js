@@ -42,7 +42,16 @@ function updateContent() {
         journalism: "JMC",
         LAW:"Law"
     };
-    const departmentAbbreviation = departmentAbbreviations[departmentSelect.value] || "N/A";
+    const teacherDepartmentSelect = document.getElementById('teacherDepartment');
+    // const departmentAbbreviation = departmentAbbreviations[departmentSelect.value] || departmentAbbreviations[teacherDepartmentSelect.value] || "N/A";
+    let departmentAbbreviation;
+    if (teacherDepartmentSelect.value !== "") {
+        departmentAbbreviation = departmentAbbreviations[teacherDepartmentSelect.value];
+    } else if (departmentSelect.value !== "") {
+        departmentAbbreviation = departmentAbbreviations[departmentSelect.value];
+    } else {
+        departmentAbbreviation = "N/A";
+    }
     document.getElementById('departmentAbbreviationText').textContent = departmentAbbreviation;
 }
 
