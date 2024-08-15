@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <h1>Cover Page Generator</h1>
@@ -131,11 +132,9 @@
         <div class="output-section">
             <div class="button-container">
                 <button id="download" class="interactive-button">Download PDF</button>
-                <!-- <button id="fillDemo" class="interactive-button">Fill Demo Data</button> -->
                 <button id="shareButton" class="interactive-button">Share</button>
-                <!-- <button id="print" class="interactive-button">Print</button> -->
+                <button id="userGuideButton" class="interactive-button">User Guide</button>
             </div>
-
             <div id="content">
                 <div class="logo">
                     <img src="image/Nubtklogo.jpg" alt="NUBTK">
@@ -180,10 +179,20 @@
               <span>Copy Link</span>
             </button>
             <button id="shareMail" class="share-option">
-                <i class="fab fa-google"></i>
+                <i class="fas fa-envelope"></i>
                 <span>Email</span>
-            </button>            
+            </button>
+            <button id="shareMailNubtk" class="share-option">
+                <i class="fas fa-envelope"></i>
+                <span>NUBTK</span>
+            </button>              
           </div>
+        </div>
+    </div>
+    <div id="readmeModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="readmeContent"></div>
         </div>
     </div>
     <footer class="site-footer">
@@ -197,6 +206,7 @@
           </nav>
         </div>
     </footer>
+    <div id="notification" class="notification"></div>
     <script src="script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 </body>

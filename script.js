@@ -63,16 +63,10 @@ function formatDate(inputDate) {
     return `${day}/${month}/${year}`;
 }
 
-// function fillDemoData() {
-//     document.querySelectorAll('.demo-input').forEach(input => {
-//         input.value = input.dataset.demo;
-//         input.dispatchEvent(new Event('input'));
-//     });
-// }
 
 function areAllFieldsFilled() {
     const requiredFields = [
-        'courseTitle', 'courseCode', 'coverType', 'titleName', 'submissionDate',
+        'coverpagename', 'courseTitle', 'courseCode', 'coverType', 'titleName', 'submissionDate',
         'teacherName', 'teacherDesignation', 'studentName', 'studentId', 'section', 'session'
     ];
 
@@ -91,11 +85,10 @@ function areAllFieldsFilled() {
     return true;
 }
 
-// document.getElementById('fillDemo').addEventListener('click', fillDemoData);
 
 document.getElementById('download').addEventListener('click', () => {
     if (!areAllFieldsFilled()) {
-        alert("Please fill in all input fields before downloading the PDF.");
+        showNotification('Please fill in all input fields before downloading the PDF.');
         return;
     }
 
@@ -217,21 +210,16 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
-
 function shareLink() {
     const shareableLink = generateShareableLink();
     const modal = document.getElementById('shareModal');
     const span = document.getElementsByClassName("close")[0];
     
-
     modal.style.display = "block";
 
- 
     span.onclick = function() {
         modal.style.display = "none";
     }
-
 
     window.onclick = function(event) {
         if (event.target == modal) {
@@ -239,17 +227,85 @@ function shareLink() {
         }
     }
 
-
     document.getElementById('copyLink').onclick = function() {
         navigator.clipboard.writeText(shareableLink).then(() => {
-            alert('Link copied to clipboard!');
+          showNotification('Link copied to clipboard!');
         });
     }
 
     document.getElementById('shareMail').onclick = function() {
         const subject = encodeURIComponent("Cover Page Generator Data");
-        const body = encodeURIComponent(`Check out my cover page data: ${shareableLink}`);
+        const body = encodeURIComponent(`Mehedi vai, check out my cover page data through the following link: ${shareableLink}`);
         window.location.href = `mailto:?subject=${subject}&body=${body}`;
     }
+
+    document.getElementById('shareMailNubtk').onclick = function() {
+        const recipient = "haquenubtk@gmail.com";
+        const subject = encodeURIComponent("Cover Page Generator Data");
+        const body = encodeURIComponent(`Check out my cover page data: ${shareableLink}`);
+        window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+    }
+    
 }
 
+function showNotification(message) {
+    const notification = document.getElementById('notification');
+    notification.textContent = message;
+    notification.classList.add('show');
+    
+    setTimeout(() => {
+      notification.classList.remove('show');
+    }, 3000);
+}
+
+
+function displayReadmeContent() {
+    fetch('README.md')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(data => {
+            const htmlContent = marked.parse(data);
+            
+            var modal = document.getElementById('readmeModal');
+            var readmeContent = document.getElementById('readmeContent');
+            var span = document.getElementsByClassName("close")[0];
+            
+            readmeContent.innerHTML = htmlContent;
+            modal.style.display = "block";
+            
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+            
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error: ' + error.message);
+        });
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var userGuideButton = document.getElementById('userGuideButton');
+    if (userGuideButton) {
+        userGuideButton.addEventListener('click', displayReadmeContent);
+    }
+
+   
+    var closeButton = document.querySelector('#readmeModal .close');
+    if (closeButton) {
+        closeButton.addEventListener('click', function() {
+            document.getElementById('readmeModal').style.display = "none";
+        });
+    }
+});
