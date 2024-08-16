@@ -66,7 +66,7 @@ function formatDate(inputDate) {
 
 function areAllFieldsFilled() {
     const requiredFields = [
-        'coverpagename', 'courseTitle', 'courseCode', 'coverType', 'titleName', 'submissionDate',
+        'courseTitle', 'courseCode', 'coverType', 'titleName', 'submissionDate',
         'teacherName', 'teacherDesignation', 'studentName', 'studentId', 'section', 'session'
     ];
 
@@ -93,7 +93,12 @@ document.getElementById('download').addEventListener('click', () => {
     }
 
     const element = document.getElementById('content');
-    var coverPageName = document.getElementById('coverpagename').value;
+    let coverPageName;
+    if(document.getElementById('coverpagename').value !== ""){
+        coverPageName = document.getElementById('coverpagename').value;
+    }else{
+        coverPageName = document.getElementById('studentName').value;
+    }
     var sanitizedFileName = coverPageName.replace(/\s+/g, '_');
     if (!element) {
         console.error("Content element not found");
@@ -235,14 +240,14 @@ function shareLink() {
 
     document.getElementById('shareMail').onclick = function() {
         const subject = encodeURIComponent("Cover Page Generator Data");
-        const body = encodeURIComponent(`Mehedi vai, check out my cover page data through the following link: ${shareableLink}`);
+        const body = encodeURIComponent(`Check out my cover page data through the following link: ${shareableLink}`);
         window.location.href = `mailto:?subject=${subject}&body=${body}`;
     }
 
     document.getElementById('shareMailNubtk').onclick = function() {
         const recipient = "haquenubtk@gmail.com";
         const subject = encodeURIComponent("Cover Page Generator Data");
-        const body = encodeURIComponent(`Check out my cover page data: ${shareableLink}`);
+        const body = encodeURIComponent(`Check out my cover page data through the following link: ${shareableLink}`);
         window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
     }
     
