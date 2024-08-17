@@ -151,17 +151,16 @@ document.querySelectorAll('.demo-input').forEach(input => {
     });
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    addInputListeners();
-    updateContent(); 
-});
-
 function generateShareableLink() {
     const inputs = document.querySelectorAll('.input-section input, .input-section select');
     const data = {};
     inputs.forEach(input => {
         data[input.id] = input.value;
     });
+    
+    const logoSelect = document.getElementById('logoSelect');
+    data.logoSelection = Array.from(logoSelect.selectedOptions).map(option => option.value);
+
     const encodedData = encodeURIComponent(JSON.stringify(data));
     return `${window.location.origin}${window.location.pathname}?data=${encodedData}`;
 }
@@ -194,8 +193,19 @@ function loadSharedData() {
             Object.keys(data).forEach(key => {
                 const element = document.getElementById(key);
                 if (element) {
-                    element.value = data[key];
-                    element.dispatchEvent(new Event('input'));
+                    if (key === 'logoSelect') {
+                        const logoSelect = document.getElementById('logoSelect');
+                        data.logoSelection.forEach(logo => {
+                            const option = logoSelect.querySelector(`option[value="${logo}"]`);
+                            if (option) {
+                                option.selected = true;
+                            }
+                        });
+                        logoSelect.dispatchEvent(new Event('change'));
+                    } else {
+                        element.value = data[key];
+                        element.dispatchEvent(new Event('input'));
+                    }
                 }
             });
         } catch (error) {
@@ -204,19 +214,31 @@ function loadSharedData() {
     }
 }
 
-
-document.getElementById('shareButton').addEventListener('click', shareLink);
+document.getElementById('shareButton').addEventListener('click', async () => await shareLink());
 
 
 document.addEventListener('DOMContentLoaded', () => {
     addInputListeners();
     updateContent();
     loadSharedData(); 
+    handleLogoSelection(); 
 });
 
+async function shortenUrl(longUrl) {
+    try {
+        const response = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`);
+        if (!response.ok) throw new Error('Network response was not ok');
+        return await response.text();
+    } catch (error) {
+        console.error('Error shortening URL:', error);
+        return longUrl;
+    }
+}
 
-function shareLink() {
+async function shareLink() {
     const shareableLink = generateShareableLink();
+    const shortLink = await shortenUrl(shareableLink);
+    
     const modal = document.getElementById('shareModal');
     const span = document.getElementsByClassName("close")[0];
     
@@ -233,24 +255,23 @@ function shareLink() {
     }
 
     document.getElementById('copyLink').onclick = function() {
-        navigator.clipboard.writeText(shareableLink).then(() => {
-          showNotification('Link copied to clipboard!');
+        navigator.clipboard.writeText(shortLink).then(() => {
+          showNotification('Short link copied to clipboard!');
         });
     }
 
     document.getElementById('shareMail').onclick = function() {
         const subject = encodeURIComponent("Cover Page Generator Data");
-        const body = encodeURIComponent(`Check out my cover page data through the following link: ${shareableLink}`);
+        const body = encodeURIComponent(`Check out my cover page data through the following link: ${shortLink}`);
         window.location.href = `mailto:?subject=${subject}&body=${body}`;
     }
 
     document.getElementById('shareMailNubtk').onclick = function() {
         const recipient = "haquenubtk@gmail.com";
         const subject = encodeURIComponent("Cover Page Generator Data");
-        const body = encodeURIComponent(`Check out my cover page data through the following link: ${shareableLink}`);
+        const body = encodeURIComponent(`Check out my cover page data through the following link: ${shortLink}`);
         window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
     }
-    
 }
 
 function showNotification(message) {
@@ -313,4 +334,41 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('readmeModal').style.display = "none";
         });
     }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const logoSelect = document.getElementById('logoSelect');
+    const logoContainer = document.getElementById('logoContainer');
+
+    logoSelect.addEventListener('change', handleLogoSelection);
+
+    function handleLogoSelection() {
+        const logoContainer = document.getElementById('logoContainer');
+        logoContainer.innerHTML = '';
+        
+        Array.from(logoSelect.selectedOptions).forEach(option => {
+            const width = option.dataset.width || 250;  
+            const height = option.dataset.height || 250; 
+            addLogoToContent(option.value, option.text, width, height);
+        });
+    
+        if (logoContainer.children.length === 0) {
+            addLogoToContent('image/Nubtklogo.jpg', 'NUBTK Logo', 250, 250);
+        }
+    }
+
+    function addLogoToContent(src, alt, width, height) {
+        const logo = document.createElement('div');
+        logo.className = 'logo';
+        logo.style.width = `${width}px`;
+        logo.style.height = `${height}px`;
+        logo.innerHTML = `<img src="${src}" alt="${alt}">`;
+        logoContainer.appendChild(logo);
+    }
+
+    addLogoToContent('image/Nubtklogo.jpg', 'NUBTK Logo');
+
+    addInputListeners();
+    updateContent();
+    loadSharedData();
 });

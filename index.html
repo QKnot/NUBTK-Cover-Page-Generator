@@ -17,7 +17,12 @@
     <div class="container">
         <div class="input-section">
             <h2>Input Details</h2>
-        
+            <label for="logoSelect">Select Logos:</label>
+            <select id="logoSelect">
+                <option value="image/Nubtklogo.jpg" data-width="250" data-height="250">NUBTK Logo</option>
+                <option value="image/Nubtklogo1.png" data-width="500" data-height="300">NUBTK Logo 1</option>
+                <option value="image/Nubtklogo2.png" data-width="400" data-height="300">NUBTK Logo 2</option>
+              </select>
             <label for="coverpagename">Cover page name:</label>
             <input type="text" id="coverpagename" class="demo-input" placeholder="Enter a cover page name" data-demo="Database Cover Page" list="coverpagenameList">
             <datalist id="coverpagenameList"></datalist>
@@ -137,9 +142,8 @@
                 <button id="userGuideButton" class="interactive-button">User Guide</button>
             </div>
             <div id="content">
-                <div class="logo">
-                    <img src="image/Nubtklogo.jpg" alt="NUBTK">
-                </div>
+                <div id="logoContainer" class="logo-container">
+                </div>            
                 <h1><span style="font-weight: 700;">Northern University of Business & Technology Khulna</span></h1>
                 <h2 id="departmentText"><span style="font-weight: 700;"></span></h2>
                 <p class="course-info">Course Title: <span id="courseTitleText"></span></p>

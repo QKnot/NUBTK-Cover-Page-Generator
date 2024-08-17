@@ -1,4 +1,6 @@
-# NUBTK Cover-Page-Generator
+# Northern University of Business & Technology Khulna: Cover Page Generator
+
+The Cover-Page-Generator is an open-source project designed to streamline the creation of cover pages for Northern University of Business & Technology Khulna. 
 
 ## Button Functionalities
 -------------------------
@@ -10,10 +12,10 @@
 
     - Using the **Mail** button, you can share the link through email.
 
-    - Using the **NUBTK** button, you can share the link with [haquenubtk@gmail.com](mailto:haquenubtk@gmail.com), located at Northern University of Business Technology Khulna, 4th floor, Mehedhi vai.
+    - Using the **NUBTK** button, you can share the link with [haquenubtk@gmail.com](mailto:haquenubtk@gmail.com), located at Northern University of Business Technology Khulna, 4th floor, Mehedi vai.
 
 
 ## Additional Information
 ------------------------
 
-For more details on how to set up and customize the Cover-Page-Generator project, please refer to the project's documentation and source code.
+For more details on how to set up and customize the Cover-Page-Generator project, please refer to the project's documentation and source code. This is an open-source project, so you are encouraged to share ideas and code with others to enhance its development.
