@@ -495,3 +495,21 @@ body {
   max-height: 100%;
   object-fit: contain;
 }
+
+#generateQRCode {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+#qrcode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+#downloadQRCode {
+  display: block;
+  margin: 20px auto;
+}

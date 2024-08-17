@@ -372,3 +372,48 @@ document.addEventListener('DOMContentLoaded', () => {
     updateContent();
     loadSharedData();
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const generateQRCodeBtn = document.getElementById('generateQRCode');
+    const qrCodeModal = document.getElementById('qrCodeModal');
+    const closeQRCodeModal = qrCodeModal.querySelector('.close');
+    const downloadQRCodeBtn = document.getElementById('downloadQRCode');
+  
+    generateQRCodeBtn.addEventListener('click', generateAndShowQRCode);
+    closeQRCodeModal.addEventListener('click', () => qrCodeModal.style.display = 'none');
+    downloadQRCodeBtn.addEventListener('click', downloadQRCode);
+  
+    window.addEventListener('click', (event) => {
+      if (event.target === qrCodeModal) {
+        qrCodeModal.style.display = 'none';
+      }
+    });
+});
+  
+async function generateAndShowQRCode() {
+    const coversite = "http://127.0.0.1:5501/index.html?data=%7B%22logoSelect%22%3A%22image%2FNubtklogo.jpg%22%2C%22coverpagename%22%3A%22%22%2C%22department%22%3A%22%22%2C%22courseTitle%22%3A%22%22%2C%22courseCode%22%3A%22%22%2C%22coverType%22%3A%22%22%2C%22titleName%22%3A%22%22%2C%22teacherName%22%3A%22%22%2C%22teacherDesignation%22%3A%22%22%2C%22teacherDepartment%22%3A%22%22%2C%22studentName%22%3A%22%22%2C%22studentId%22%3A%22%22%2C%22section%22%3A%22%22%2C%22session%22%3A%22%22%2C%22submissionDate%22%3A%22%22%2C%22logoSelection%22%3A%5B%22image%2FNubtklogo.jpg%22%5D%7D";
+    const shareableLink = generateShareableLink();
+    let shortLink;
+    if(coversite !== shareableLink){
+        shortLink = await shortenUrl(shareableLink);
+    } else {
+        shortLink = "https://qknot.github.io/NUBTK-Cover-Page-Generator/";
+    }
+    const qr = qrcode(0, 'M');
+    qr.addData(shortLink);
+    qr.make();
+
+    const qrCodeElement = document.getElementById('qrcode');
+    qrCodeElement.innerHTML = qr.createImgTag(5);
+
+    document.getElementById('qrCodeModal').style.display = 'block';
+}
+  
+  function downloadQRCode() {
+    const qrCodeImg = document.querySelector('#qrcode img');
+    const link = document.createElement('a');
+    link.download = 'qrcode.png';
+    link.href = qrCodeImg.src;
+    link.click();
+  }

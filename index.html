@@ -11,19 +11,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 </head>
 <body>
-    <h1>Northern University of Business & Technology Khulna Cover Page Generator</h1>
+    <h1>Northern University of Business & Technology Khulna <br> Cover Page Generator</h1>
     <div class="container">
         <div class="input-section">
             <h2>Input Details</h2>
-            <label for="logoSelect">Select Logos:</label>
+            <label for="logoSelect">Select Logos(Optional):</label>
             <select id="logoSelect">
                 <option value="image/Nubtklogo.jpg" data-width="250" data-height="250">NUBTK Logo</option>
-                <option value="image/Nubtklogo1.png" data-width="500" data-height="300">NUBTK Logo 1</option>
-                <option value="image/Nubtklogo2.png" data-width="400" data-height="300">NUBTK Logo 2</option>
+                <option value="image/Nubtklogo1x.png" data-width="500" data-height="200">NUBTK Logo 1</option>
+                <option value="image/Nubtklogo2x.png" data-width="500" data-height="200">NUBTK Logo 2</option>
               </select>
-            <label for="coverpagename">Cover page name:</label>
+            <label for="coverpagename">Cover page name(Optional):</label>
             <input type="text" id="coverpagename" class="demo-input" placeholder="Enter a cover page name" data-demo="Database Cover Page" list="coverpagenameList">
             <datalist id="coverpagenameList"></datalist>
         
@@ -134,7 +135,15 @@
             <label for="submissionDate">Date of Submission:</label>
             <input type="date" id="submissionDate">
         </div>
-
+        <button id="generateQRCode" class="interactive-button">Generate QR Code</button>
+        <div id="qrCodeModal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <h2>QR Code</h2>
+              <div id="qrcode"></div>
+              <button id="downloadQRCode" class="interactive-button">Download QR Code</button>
+            </div>
+        </div>
         <div class="output-section">
             <div class="button-container">
                 <button id="download" class="interactive-button">Download PDF</button>
