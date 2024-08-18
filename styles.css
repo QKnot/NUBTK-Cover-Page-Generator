@@ -16,7 +16,7 @@ body {
 .input-section {
     flex: 1;
     max-width: 300px;
-    height: 1123.27px;
+    height: 1147.27px;
     width: 300px;
     background-color: white;
     padding: 20px;
@@ -292,26 +292,7 @@ body {
   color: #3498db;
 }
 
-/* @media (max-width: 768px) {
-  .footer-content {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .footer-section {
-    margin-bottom: 30px;
-  }
-
-  .footer-nav {
-    justify-content: center;
-  }
-
-  .social-icons {
-    justify-content: center;
-  }
-} */
   
-
   :root {
     --primary-color: #3498db;
     --secondary-color: #2ecc71;

@@ -31,17 +31,18 @@ function updateContent() {
     document.querySelector('#departmentText span').textContent = 'Department of ' + selectedDepartment;
   
     const departmentAbbreviations = {
-        computer_science: "CSE",
-        civil_engineering: "CE",
-        electrical_engineering: "EEE",
-        architecture: "Arch",
-        business_administration: "BBA",
-        economics: "Econ",
-        bangla: "Bangla",
-        english: "English",
-        journalism: "JMC",
-        LAW:"Law"
+        computer_science: "CSE",                
+        civil_engineering: "CE",                
+        electrical_engineering: "EEE",          
+        architecture: "Arch",                   
+        business_administration: "BBA",         
+        economics: "ECO",                       
+        bangla: "BNG",                          
+        english: "ENG",                         
+        journalism: "JMC",                      
+        law: "LAW"                              
     };
+    
     const teacherDepartmentSelect = document.getElementById('teacherDepartment');
     // const departmentAbbreviation = departmentAbbreviations[departmentSelect.value] || departmentAbbreviations[teacherDepartmentSelect.value] || "N/A";
     let departmentAbbreviation;
