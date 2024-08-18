@@ -1,6 +1,7 @@
-# Northern University of Business & Technology Khulna: Cover Page Generator
+# NUBTK Cover Page Generator
+----------------------------
 
-The Cover-Page-Generator is an open-source project designed to streamline the creation of cover pages for Northern University of Business & Technology Khulna. 
+The Cover-Page-Generator is an open-source project designed to streamline the creation of cover pages for Northern University of Business & Technology Khulna(NUBTK). 
 ## Input Section 
 -----------------
 - `Select Logos`: You can select different types of logos for your cover page. `Note`: If you don't select any logo, the first logo will be used by default.
@@ -27,14 +28,20 @@ Every update in the input section updates the preview section. Before downloadin
 
     - Using the `NUBTK` button, you can share the link with [haquenubtk@gmail.com](mailto:haquenubtk@gmail.com), located at Northern University of Business Technology Khulna, 4th floor, Mehedi vai.
 
-- With the `Generate QR Code` button, you can generate a QR code for the current input data, allowing you to share the link locally.
-    - Below the QR code, you can download the QR code. <br> <br>
+    - With the `Generate QR Code` button, you can generate a QR code for the current input data, allowing you to share the link locally.
+        - Below the QR code, you can download the QR code. <br> <br>
 
 
 If it's overwhelming to fill in all the input sections, you can enter your common data like `Student Name, Student ID, Semester and Section, Session` and other information, then go to `share button -> copy link`. You can save the link in your browser as a bookmark or by any other method. When you trigger the link, your cover page data will be filled in automatically. <br> <br>
 
-` Note: Use desktop mode when using the mobile browser for a better experience.`
-## Additional Information
-------------------------
 
-For more details on how to set up and customize the Cover-Page-Generator project, please refer to the project's source code. This is an open-source project, so you are encouraged to share ideas and code with others to enhance its development.
+## Additional Information
+-------------------------
+
+For more details on how to set up and customize the Cover-Page-Generator project, please refer to the project's source code. This is an open-source project, so you are encouraged to share ideas and code with others to enhance its development. 
+
+## Contribute
+--------------
+To contribute to this project, please check out the [repository](https://github.com/QKnot/NUBTK-Cover-Page-Generator) and feel free to [contact us](https://qknot.github.io/Portfolio/) for more information.
+
+**Note:** For the best experience, please switch to desktop mode when using a mobile browser, as there are some screen responsiveness issues that we are currently working to resolve.

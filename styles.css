@@ -496,11 +496,11 @@ body {
   object-fit: contain;
 }
 
-#generateQRCode {
+/* #generateQRCode {
   position: absolute;
   top: 20px;
   right: 20px;
-}
+} */
 
 #qrcode {
   display: flex;
