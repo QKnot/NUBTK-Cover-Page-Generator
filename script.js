@@ -463,13 +463,24 @@ function closeScanner() {
     html5QrCode.stop().catch(err => console.error(err));
 }
 
-function onScanSuccess(decodedText, decodedResult) {
+async function onScanSuccess(decodedText, decodedResult) {
     closeScanner();
     
     try {
-        const data = JSON.parse(decodeURIComponent(decodedText.split('?data=')[1]));
-        populateFormFields(data);
-        showNotification('Form fields have been populated from the QR code.');
+        const response = await fetch(decodedText, { method: 'HEAD', redirect: 'follow' });
+        const fullUrl = response.url;
+        
+        
+        const urlParams = new URLSearchParams(new URL(fullUrl).search);
+        const encodedData = urlParams.get('data');
+        
+        if (encodedData) {
+            const data = JSON.parse(decodeURIComponent(encodedData));
+            populateFormFields(data);
+            showNotification('Form fields have been populated from the QR code.');
+        } else {
+            throw new Error('No data found in the URL');
+        }
     } catch (error) {
         console.error('Error parsing QR code data:', error);
         showNotification('Error parsing QR code data. Please try again.');
