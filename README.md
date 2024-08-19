@@ -30,7 +30,7 @@ Every update in the input section updates the preview section. Before downloadin
 
     - With the `Generate QR Code` button, you can generate a QR code for the current input data, allowing you to share the link locally.
         - Below the QR code, you can download the QR code. <br> <br>
-
+- With 
 
 If it's overwhelming to fill in all the input sections, you can enter your common data like `Student Name, Student ID, Semester and Section, Session` and other information, then go to `share button -> copy link`. You can save the link in your browser as a bookmark or by any other method. When you trigger the link, your cover page data will be filled in automatically. <br> <br>
 
