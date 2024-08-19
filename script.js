@@ -418,3 +418,90 @@ async function generateAndShowQRCode() {
     link.href = qrCodeImg.src;
     link.click();
   }
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const scanQRCodeBtn = document.getElementById('scanQRCode');
+    const qrScannerModal = document.getElementById('qrScannerModal');
+    const closeBtn = qrScannerModal.querySelector('.close');
+    const cancelBtn = document.getElementById('cancelScan');
+
+    scanQRCodeBtn.addEventListener('click', startQRScanner);
+    closeBtn.onclick = closeScanner;
+    cancelBtn.onclick = closeScanner;
+
+    window.onclick = (event) => {
+        if (event.target === qrScannerModal) {
+            closeScanner();
+        }
+    };
+});
+
+const html5QrCode = new Html5Qrcode("reader");
+
+function startQRScanner() {
+    const qrScannerModal = document.getElementById('qrScannerModal');
+    qrScannerModal.style.display = 'block';
+
+    html5QrCode.start(
+        { facingMode: "environment" },
+        {
+            fps: 10,
+            qrbox: { width: 250, height: 250 }
+        },
+        onScanSuccess,
+        onScanFailure
+    ).catch((err) => {
+        console.error(`Unable to start scanning: ${err}`);
+        showNotification('Unable to start the QR scanner. Please check your camera permissions.');
+    });
+}
+
+function closeScanner() {
+    const qrScannerModal = document.getElementById('qrScannerModal');
+    qrScannerModal.style.display = 'none';
+    html5QrCode.stop().catch(err => console.error(err));
+}
+
+function onScanSuccess(decodedText, decodedResult) {
+    closeScanner();
+    
+    try {
+        const data = JSON.parse(decodeURIComponent(decodedText.split('?data=')[1]));
+        populateFormFields(data);
+        showNotification('Form fields have been populated from the QR code.');
+    } catch (error) {
+        console.error('Error parsing QR code data:', error);
+        showNotification('Error parsing QR code data. Please try again.');
+    }
+}
+
+function onScanFailure(error) {
+ 
+    console.warn(`QR code scanning failed: ${error}`);
+}
+
+function populateFormFields(data) {
+    Object.keys(data).forEach(key => {
+        const element = document.getElementById(key);
+        if (element) {
+            if (key === 'logoSelect') {
+                const logoSelect = document.getElementById('logoSelect');
+                data.logoSelection.forEach(logo => {
+                    const option = logoSelect.querySelector(`option[value="${logo}"]`);
+                    if (option) {
+                        option.selected = true;
+                    }
+                });
+                logoSelect.dispatchEvent(new Event('change'));
+            } else {
+                element.value = data[key];
+                element.dispatchEvent(new Event('input'));
+            }
+        }
+    });
+    
+
+    updateContent();
+    handleLogoSelection();
+}

@@ -12,6 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 </head>
 <body>
     <h1>NUBTK Cover Page Generator</h1>
@@ -143,6 +144,7 @@
                 <button id="download" class="interactive-button">Download PDF</button>
                 <button id="shareButton" class="interactive-button">Share</button>
                 <button id="userGuideButton" class="interactive-button">User's Guide</button>
+                <button id="scanQRCode" class="interactive-button">Scan QR Code</button>
             </div>
             <div id="content">
                 <div id="logoContainer" class="logo-container">
@@ -212,6 +214,14 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <div id="readmeContent"></div>
+        </div>
+    </div>
+    <div id="qrScannerModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Scan QR Code</h2>
+          <div id="reader"></div>
+          <button id="cancelScan" class="interactive-button">Cancel</button>
         </div>
     </div>
     <footer class="site-footer">

@@ -494,3 +494,22 @@ body {
   display: block;
   margin: 20px auto;
 }
+
+#qrScannerModal .modal-content {
+  max-width: 400px;
+}
+
+#reader {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#cancelScan {
+  margin-top: 10px;
+  background-color: #dc3545;
+}
+
+#cancelScan:hover {
+  background-color: #c82333;
+}
