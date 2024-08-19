@@ -467,10 +467,8 @@ async function onScanSuccess(decodedText, decodedResult) {
     closeScanner();
     
     try {
-
-        const corsProxy = 'https://cors-anywhere.herokuapp.com/';
-        const response = await fetch(corsProxy + decodedText, { method: 'GET' });
-        const fullUrl = response.url.replace(corsProxy, '');
+        const response = await fetch(decodedText, { method: 'HEAD', redirect: 'follow' });
+        const fullUrl = response.url;
         
         const urlParams = new URLSearchParams(new URL(fullUrl).search);
         const encodedData = urlParams.get('data');
