@@ -42,6 +42,6 @@ For more details on how to set up and customize the Cover-Page-Generator project
 
 ## Contribute
 --------------
-To contribute to this project, please check out the [repository](https://github.com/QKnot/NUBTK-Cover-Page-Generator) and feel free to [contact us](https://qknot.github.io/Portfolio/) for more information.
+To contribute to this project, please check out the [repository](https://github.com/QKnot/NUBTK-Cover-Page-Generator) and feel free to [contact](https://qknot.github.io/Portfolio/) for more information.
 
 **Note:** For the best experience, please switch to desktop mode when using a mobile browser, as there are some screen responsiveness issues that we are currently working to resolve.

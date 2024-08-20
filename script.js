@@ -116,21 +116,24 @@ document.getElementById('download').addEventListener('click', () => {
             unit: 'mm',
             format: 'a4',
             orientation: 'portrait',
-            compress: true
+            compress: true,
+            precision: 16
         });
-        const scale = 2.5;  
+        const scale = 6; 
         const width = doc.internal.pageSize.getWidth();
         const height = doc.internal.pageSize.getHeight();
         html2canvas(element, {
             scale: scale,
             logging: false,
             useCORS: true,
-            letterRendering: true,  
-            allowTaint: true,  
-            backgroundColor: null  
+            letterRendering: true,
+            allowTaint: true,
+            backgroundColor: null,
+            imageTimeout: 0, 
+            removeContainer: true 
         }).then(canvas => {
-            const imgData = canvas.toDataURL('image/jpeg', 0.8); 
-            doc.addImage(imgData, 'JPEG', 0, 0, width, height);
+            const imgData = canvas.toDataURL('image/jpeg', 0.95); 
+            doc.addImage(imgData, 'JPEG', 0, 0, width, height, undefined, 'SLOW'); 
             doc.save(`${sanitizedFileName}.pdf`);
         }).catch(err => {
             console.error("Error in html2canvas:", err);
@@ -346,15 +349,22 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleLogoSelection() {
         const logoContainer = document.getElementById('logoContainer');
         logoContainer.innerHTML = '';
-        
+    
+        let showHeading = true;
+    
         Array.from(logoSelect.selectedOptions).forEach(option => {
             const width = option.dataset.width || 250;  
             const height = option.dataset.height || 250; 
             addLogoToContent(option.value, option.text, width, height);
+    
+            if (option.value === 'image/Nubtklogo5xx.png' || option.value === 'image/Nubtklogo6xx.png') {
+                showHeading = false;
+            }
         });
     
-        if (logoContainer.children.length === 0) {
-            addLogoToContent('image/Nubtklogo.jpg', 'NUBTK Logo', 250, 250);
+        const heading = document.querySelector('#content h1');
+        if (heading) {
+            heading.style.display = showHeading ? 'block' : 'none';
         }
     }
 
@@ -367,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
         logoContainer.appendChild(logo);
     }
 
-    addLogoToContent('image/Nubtklogo.jpg', 'NUBTK Logo');
+    addLogoToContent('image/Nubtklogo1xx.png', 'NUBTK Logo: 1');
 
     addInputListeners();
     updateContent();
