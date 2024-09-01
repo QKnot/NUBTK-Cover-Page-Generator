@@ -357,7 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const height = option.dataset.height || 250; 
             addLogoToContent(option.value, option.text, width, height);
     
-            if (option.value === 'image/Nubtklogo5xx.png' || option.value === 'image/Nubtklogo6xx.png') {
+            if (option.value === 'image/Nubtklogo5xx.png' || option.value === 'image/Nubtklogo6xx.png' || option.value === 'image/Nubtklogo7xx.png' || option.value === 'image/Nubtklogo8xx.png') {
                 showHeading = false;
             }
         });
