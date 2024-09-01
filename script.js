@@ -403,7 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
   
 async function generateAndShowQRCode() {
-    const coversite = "http://127.0.0.1:5501/index.html?data=%7B%22logoSelect%22%3A%22image%2FNubtklogo.jpg%22%2C%22coverpagename%22%3A%22%22%2C%22department%22%3A%22%22%2C%22courseTitle%22%3A%22%22%2C%22courseCode%22%3A%22%22%2C%22coverType%22%3A%22%22%2C%22titleName%22%3A%22%22%2C%22teacherName%22%3A%22%22%2C%22teacherDesignation%22%3A%22%22%2C%22teacherDepartment%22%3A%22%22%2C%22studentName%22%3A%22%22%2C%22studentId%22%3A%22%22%2C%22section%22%3A%22%22%2C%22session%22%3A%22%22%2C%22submissionDate%22%3A%22%22%2C%22logoSelection%22%3A%5B%22image%2FNubtklogo.jpg%22%5D%7D";
+    const coversite = "https://qknot.github.io/NUBTK-Cover-Page-Generator/?data=%7B%22logoSelect%22%3A%22image%2FNubtklogo1xx.png%22%2C%22coverpagename%22%3A%22%22%2C%22department%22%3A%22%22%2C%22courseTitle%22%3A%22%22%2C%22courseCode%22%3A%22%22%2C%22coverType%22%3A%22%22%2C%22titleName%22%3A%22%22%2C%22teacherName%22%3A%22%22%2C%22teacherDesignation%22%3A%22%22%2C%22teacherDepartment%22%3A%22%22%2C%22studentName%22%3A%22%22%2C%22studentId%22%3A%22%22%2C%22section%22%3A%22%22%2C%22session%22%3A%22%22%2C%22submissionDate%22%3A%22%22%2C%22logoSelection%22%3A%5B%22image%2FNubtklogo1xx.png%22%5D%7D";
     const shareableLink = generateShareableLink();
     let shortLink;
     if(coversite !== shareableLink){
