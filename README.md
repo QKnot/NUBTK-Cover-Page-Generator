@@ -2,6 +2,7 @@
 ----------------------------
 
 The Cover-Page-Generator is an open-source project designed to streamline the creation of cover pages for Northern University of Business & Technology Khulna(NUBTK). 
+
 ## Input Section 
 -----------------
 - `Select Logos`: You can select different types of logos for your cover page. `Note`: If you don't select any logo, the first logo will be used by default.
