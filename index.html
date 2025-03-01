@@ -13,6 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script> -->
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-W27RK1M2VR"></script>
     <script>
@@ -59,11 +60,11 @@
                 <option value="law">Law</option>
             </select>
         
-            <label for="courseTitle">Course Title:</label>
+            <label for="courseTitle"><strong>Course Title:</strong></label>
             <input type="text" id="courseTitle" class="demo-input" placeholder="Enter a course title." data-demo="Database Management System" list="courseTitleList">
             <datalist id="courseTitleList"></datalist>
         
-            <label for="courseCode">Course Code:</label>
+            <label for="courseCode"><strong>Course Code:</strong></label>
             <input type="text" id="courseCode" class="demo-input" placeholder="Enter the course code." data-demo="CSE 3101" list="courseCodeList">
             <datalist id="courseCodeList">
                 <option value="CSE ">
@@ -85,45 +86,45 @@
                 <option value="PRESENTATION ">
             </datalist>
         
-            <label for="titleName">Title:</label>
-            <input type="text" id="titleName" class="demo-input" placeholder="Enter the course title." data-demo="Creating a Student Cover Page Database Using SQL (Standard Query Language)" list="titleNameList">
+            <label for="titleName">Title:(optional)</label>
+            <input type="text" id="titleName" class="demo-input" placeholder="Enter the Cover Page title." data-demo="Creating a Student Cover Page Database Using SQL (Standard Query Language)" list="titleNameList">
             <datalist id="titleNameList"></datalist>
         
             <label for="teacherName">Teacher's Name:</label>
             <input type="text" id="teacherName" class="demo-input" placeholder="Enter the course teacher's name." data-demo="Kazi Asif Ahmed" list="teacherNameList">
             <datalist id="teacherNameList">
-                <!-- <option value="Dr. Anwarul Haque Joarder">Dr. Anwarul Haque Joarder (Dean on leave)</option> -->
-                <option value="Md. Rabiul Islam">Md. Rabiul Islam (Dean)</option>
-                <option value="Md. Riaz Mahmud">Md. Riaz Mahmud (Department Head)</option>
-                <option value="Md. Deloar Hossain">Md. Deloar Hossain (Senior Lecturer)</option>
-                <option value="Ferdib-Al-Islam">Ferdib-Al-Islam (Senior Lecturer)</option>
-                <option value="Md. Tahmid Hasan">Md. Tahmid Hasan (Lecturer)</option>
-                <option value="Md. Nazim Uddin">Md. Nazim Uddin (Lecturer)</option>
-                <option value="Partha Protim Gharami">Partha Protim Gharami (Lecturer)</option>
-                <option value="Md. Apu Hosen">Md. Apu Hosen (Lecturer)</option>
-                <option value="Nazmus Sakib">Nazmus Sakib (Lecturer)</option>
-                <option value="Md. Azizul Islam">Md. Azizul Islam (Lecturer)</option>
-                <option value="Kazi Asif Ahmed">Kazi Asif Ahmed (Lecturer)</option>
-                <option value="Md. Hasibul Islam">Md. Hasibul Islam (Lecturer)</option>
-                <option value="Arjan Ghosh">Arjan Ghosh (Lecturer)</option>
-                <option value="Shahadat Hoshen Moz">Shahadat Hoshen Moz (Lecturer)</option>
-                <option value="Md. Mahamudul Hasan Khalid">Md. Mahamudul Hasan Khalid (Lecturer)</option>
-                <option value="Md. Toufiqul Islam">Md. Toufiqul Islam (Lecturer)</option>
-                <option value="Md. Shamim Parvej">Md. Shamim Parvej (Lecturer)</option>
-                <option value="Nuzhat Tabassum">Nuzhat Tabassum (Lecturer)</option>
-                <option value="Md. Azizul Haque">Md. Azizul Haque (Lecturer)</option>
-                <option value="Md. Abid Afsan Hamid">Md. Abid Afsan Hamid (Lecturer)</option>
-                <option value="Vashkar Kar">Vashkar Kar (Lecturer)</option>
-                <option value="Mahbub-E-Elahi">Mahbub-E-Elahi (Lecturer)</option>
-                <option value="G.M. Mamun Al Imran">G.M. Mamun Al Imran (Lecturer)</option>
-                <option value="Tahera Parvin">Tahera Parvin (Lecturer)</option>
-                <option value="Md. Mossadek Touhid">Md. Mossadek Touhid (Lecturer)</option>
-                <option value="Mahadi Hasan">Mahadi Hasan (Lecturer)</option>
-                <option value="Md. Anarul Islam">Md. Anarul Islam (Lecturer)</option>
-                <option value="Talha Al Junaid">Talha Al Junaid (Lecturer)</option>
-                <option value="Rashik Reza Fahim">Rashik Reza Fahim (Lecturer)</option>
-                <option value="Pulak Kundu">Pulak Kundu (lecturer)</option>
-                <option value="Mst. Farjana Alam">Mst. Farjana Alam (lecturer)</option>
+                <option value="Dr. Anwarul Haque Joarder">Dr. Anwarul Haque Joarder</option>
+                <option value="Md. Rabiul Islam">Md. Rabiul Islam</option>
+                <option value="Md. Riaz Mahmud">Md. Riaz Mahmud</option>
+                <option value="Md. Deloar Hossain">Md. Deloar Hossain</option>
+                <option value="Ferdib-Al-Islam">Ferdib-Al-Islam</option>
+                <option value="Md. Tahmid Hasan">Md. Tahmid Hasan</option>
+                <option value="Md. Nazim Uddin">Md. Nazim Uddin</option>
+                <option value="Partha Protim Gharami">Partha Protim Gharami</option>
+                <option value="Md. Apu Hosen">Md. Apu Hosen</option>
+                <option value="Nazmus Sakib">Nazmus Sakib</option>
+                <option value="Md. Azizul Islam">Md. Azizul Islam</option>
+                <option value="Kazi Asif Ahmed">Kazi Asif Ahmed</option>
+                <option value="Md. Hasibul Islam">Md. Hasibul Islam</option>
+                <option value="Arjan Ghosh">Arjan Ghosh</option>
+                <option value="Shahadat Hoshen Moz">Shahadat Hoshen Moz</option>
+                <option value="Md. Mahamudul Hasan Khalid">Md. Mahamudul Hasan Khalid</option>
+                <option value="Md. Toufiqul Islam">Md. Toufiqul Islam</option>
+                <option value="Md. Shamim Parvej">Md. Shamim Parvej</option>
+                <option value="Nuzhat Tabassum">Nuzhat Tabassum</option>
+                <option value="Md. Azizul Haque">Md. Azizul Haque</option>
+                <option value="Md. Abid Afsan Hamid">Md. Abid Afsan Hamid</option>
+                <option value="Vashkar Kar">Vashkar Kar</option>
+                <option value="Mahbub-E-Elahi">Mahbub-E-Elahi</option>
+                <option value="G.M. Mamun Al Imran">G.M. Mamun Al Imran</option>
+                <option value="Tahera Parvin">Tahera Parvin</option>
+                <option value="Md. Mossadek Touhid">Md. Mossadek Touhid</option>
+                <option value="Mahadi Hasan">Mahadi Hasan</option>
+                <option value="Md. Anarul Islam">Md. Anarul Islam</option>
+                <option value="Talha Al Junaid">Talha Al Junaid</option>
+                <option value="Rashik Reza Fahim">Rashik Reza Fahim</option>
+                <option value="Pulak Kundu">Pulak Kundu</option>
+                <option value="Mst. Farjana Alam">Mst. Farjana Alam</option>
             </datalist>
               
         
@@ -197,10 +198,10 @@
                 </div>            
                 <h1><span style="font-weight: 700;">Northern University of Business & Technology Khulna</span></h1>
                 <h2 id="departmentText"><span style="font-weight: 700;"></span></h2>
-                <p class="course-info">Course Title: <span id="courseTitleText"></span></p>
-                <p class="course-info">Course Code: <span id="courseCodeText"></span></p>
+                <p class="course-info"><strong>Course Title: </strong><span id="courseTitleText"></span></p>
+                <p class="course-info"><strong>Course Code: </strong><span id="courseCodeText"></span></p>
                 <h2 id="coverTypeText"><span style="font-weight: 700;"></span></h2>
-                <p class="center-text">Title: <span id="titleNameText"></span></p>
+                <p class="center-text"><span id="titleNameText"></span></p>
                 <table class="submission-table">
                     <tr>
                         <th>Submitted To</th>

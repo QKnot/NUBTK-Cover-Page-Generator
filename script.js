@@ -7,7 +7,7 @@ function addInputListeners() {
 
 function updateContent() {
     const fields = [
-        'courseTitle', 'courseCode', 'titleName', 'submissionDate',
+        'courseTitle', 'courseCode', 'submissionDate',
         'teacherName', 'studentName', 'studentId', 'section', 'session'
     ];
     
@@ -15,6 +15,10 @@ function updateContent() {
         const value = document.getElementById(field).value;
         document.getElementById(field + 'Text').textContent = value;
     });
+
+    // Handle title name separately
+    const titleName = document.getElementById('titleName').value;
+    document.getElementById('titleNameText').textContent = titleName ? 'Title: ' + titleName : titleName;
 
     const submissionDate = document.getElementById('submissionDate').value;
     const formattedDate = submissionDate ? formatDate(submissionDate) : '';
@@ -29,7 +33,6 @@ function updateContent() {
     const departmentSelect = document.getElementById('department');
     const selectedDepartment = departmentSelect.options[departmentSelect.selectedIndex].text;
     document.querySelector('#departmentText span').textContent = 'Department of ' + selectedDepartment;
-  
     const departmentAbbreviations = {
         computer_science: "CSE",                
         civil_engineering: "CE",                
@@ -67,7 +70,7 @@ function formatDate(inputDate) {
 
 function areAllFieldsFilled() {
     const requiredFields = [
-        'courseTitle', 'courseCode', 'coverType', 'titleName', 'submissionDate',
+        'courseTitle', 'courseCode', 'coverType', 'submissionDate',
         'teacherName', 'teacherDesignation', 'studentName', 'studentId', 'section', 'session'
     ];
 
