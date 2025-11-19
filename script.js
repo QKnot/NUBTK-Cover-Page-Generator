@@ -660,4 +660,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     editTab.addEventListener('click', () => switchTab('edit'));
     previewTab.addEventListener('click', () => switchTab('preview'));
+
+    // Show preview by default on page load
+    switchTab('preview');
 });
