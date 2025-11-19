@@ -1,4 +1,98 @@
+// Global data storage for courses and faculty
+// Data is loaded via script tags in index.html (courses.js and faculty.js)
+
+// Student data persistence functions
+function saveStudentData() {
+    const studentData = {
+        studentName: document.getElementById('studentName').value,
+        studentId: document.getElementById('studentId').value,
+        section: document.getElementById('section').value
+    };
+
+    try {
+        localStorage.setItem('nubtk_student_data', JSON.stringify(studentData));
+        console.log('Student data saved to localStorage');
+    } catch (error) {
+        console.error('Error saving student data:', error);
+    }
+}
+
+function loadStudentData() {
+    try {
+        const savedData = localStorage.getItem('nubtk_student_data');
+        if (savedData) {
+            const studentData = JSON.parse(savedData);
+
+            // Auto-fill the fields if they exist
+            if (studentData.studentName) {
+                document.getElementById('studentName').value = studentData.studentName;
+            }
+            if (studentData.studentId) {
+                document.getElementById('studentId').value = studentData.studentId;
+            }
+            if (studentData.section) {
+                document.getElementById('section').value = studentData.section;
+            }
+
+            // Trigger input events to update the preview
+            document.getElementById('studentName').dispatchEvent(new Event('input'));
+            document.getElementById('studentId').dispatchEvent(new Event('input'));
+            document.getElementById('section').dispatchEvent(new Event('input'));
+
+            console.log('Student data loaded from localStorage');
+        }
+    } catch (error) {
+        console.error('Error loading student data:', error);
+    }
+}
+
+
+// Auto-fill course title based on course code
+function setupCourseCodeAutofill() {
+    const courseCodeInput = document.getElementById('courseCode');
+    const courseTitleInput = document.getElementById('courseTitle');
+
+    console.log('Setting up course code autofill. coursesData:', coursesData ? coursesData.length : 'undefined');
+
+    courseCodeInput.addEventListener('input', () => {
+        const courseCode = courseCodeInput.value.trim().toUpperCase();
+        console.log('Course code input:', courseCode);
+
+        if (courseCode && coursesData) {
+            const course = coursesData.find(c => c.code.toUpperCase() === courseCode);
+            console.log('Found course:', course);
+            if (course) {
+                courseTitleInput.value = course.title;
+                courseTitleInput.dispatchEvent(new Event('input'));
+            }
+        }
+    });
+}
+
+// Auto-fill teacher designation based on teacher name
+function setupTeacherNameAutofill() {
+    const teacherNameInput = document.getElementById('teacherName');
+    const teacherDesignationSelect = document.getElementById('teacherDesignation');
+
+    console.log('Setting up teacher name autofill. facultyData:', facultyData ? facultyData.length : 'undefined');
+
+    teacherNameInput.addEventListener('input', () => {
+        const teacherName = teacherNameInput.value.trim();
+        console.log('Teacher name input:', teacherName);
+
+        if (teacherName && facultyData) {
+            const faculty = facultyData.find(f => f.name === teacherName);
+            console.log('Found faculty:', faculty);
+            if (faculty) {
+                teacherDesignationSelect.value = faculty.designation;
+                teacherDesignationSelect.dispatchEvent(new Event('change'));
+            }
+        }
+    });
+}
+
 function addInputListeners() {
+
     const inputs = document.querySelectorAll('input, select');
     inputs.forEach(input => {
         input.addEventListener('input', updateContent);
@@ -8,17 +102,17 @@ function addInputListeners() {
 function updateContent() {
     const fields = [
         'courseTitle', 'courseCode', 'submissionDate',
-        'teacherName', 'studentName', 'studentId', 'section', 'session'
+        'teacherName', 'studentName', 'studentId', 'section'
     ];
-    
+
     fields.forEach(field => {
         const value = document.getElementById(field).value;
         document.getElementById(field + 'Text').textContent = value;
     });
 
-    // Handle title name separately
+    // Handle title name separately - make only "Title:" bold
     const titleName = document.getElementById('titleName').value;
-    document.getElementById('titleNameText').textContent = titleName ? 'Title: ' + titleName : titleName;
+    document.getElementById('titleNameText').innerHTML = titleName ? '<strong>Title:</strong> ' + titleName : '';
 
     const submissionDate = document.getElementById('submissionDate').value;
     const formattedDate = submissionDate ? formatDate(submissionDate) : '';
@@ -28,24 +122,25 @@ function updateContent() {
     document.getElementById('coverTypeText').textContent = coverType;
 
     const teacherDesignation = document.getElementById('teacherDesignation').value;
-    document.getElementById('teacherDesignationText').textContent = teacherDesignation;
+    // Add comma after designation if it exists
+    document.getElementById('teacherDesignationText').textContent = teacherDesignation ? teacherDesignation + ',' : '';
 
     const departmentSelect = document.getElementById('department');
     const selectedDepartment = departmentSelect.options[departmentSelect.selectedIndex].text;
     document.querySelector('#departmentText span').textContent = 'Department of ' + selectedDepartment;
     const departmentAbbreviations = {
-        computer_science: "CSE",                
-        civil_engineering: "CE",                
-        electrical_engineering: "EEE",          
-        architecture: "Arch",                   
-        business_administration: "BBA",         
-        economics: "ECO",                       
-        bangla: "BNG",                          
-        english: "ENG",                         
-        journalism: "JMC",                      
-        law: "LAW"                              
+        computer_science: "CSE",
+        civil_engineering: "CE",
+        electrical_engineering: "EEE",
+        architecture: "Arch",
+        business_administration: "BBA",
+        economics: "ECO",
+        bangla: "BNG",
+        english: "ENG",
+        journalism: "JMC",
+        law: "LAW"
     };
-    
+
     const teacherDepartmentSelect = document.getElementById('teacherDepartment');
     // const departmentAbbreviation = departmentAbbreviations[departmentSelect.value] || departmentAbbreviations[teacherDepartmentSelect.value] || "N/A";
     let departmentAbbreviation;
@@ -62,7 +157,7 @@ function updateContent() {
 function formatDate(inputDate) {
     const date = new Date(inputDate);
     const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
 }
@@ -71,7 +166,7 @@ function formatDate(inputDate) {
 function areAllFieldsFilled() {
     const requiredFields = [
         'courseTitle', 'courseCode', 'coverType', 'submissionDate',
-        'teacherName', 'teacherDesignation', 'studentName', 'studentId', 'section', 'session'
+        'teacherName', 'teacherDesignation', 'studentName', 'studentId', 'section'
     ];
 
     for (let field of requiredFields) {
@@ -98,9 +193,9 @@ document.getElementById('download').addEventListener('click', () => {
 
     const element = document.getElementById('content');
     let coverPageName;
-    if(document.getElementById('coverpagename').value !== ""){
+    if (document.getElementById('coverpagename').value !== "") {
         coverPageName = document.getElementById('coverpagename').value;
-    }else{
+    } else {
         coverPageName = document.getElementById('studentName').value;
     }
     var sanitizedFileName = coverPageName.replace(/\s+/g, '_');
@@ -122,7 +217,7 @@ document.getElementById('download').addEventListener('click', () => {
             compress: true,
             precision: 16
         });
-        const scale = 6; 
+        const scale = 6;
         const width = doc.internal.pageSize.getWidth();
         const height = doc.internal.pageSize.getHeight();
         html2canvas(element, {
@@ -132,12 +227,15 @@ document.getElementById('download').addEventListener('click', () => {
             letterRendering: true,
             allowTaint: true,
             backgroundColor: null,
-            imageTimeout: 0, 
-            removeContainer: true 
+            imageTimeout: 0,
+            removeContainer: true
         }).then(canvas => {
-            const imgData = canvas.toDataURL('image/jpeg', 0.95); 
-            doc.addImage(imgData, 'JPEG', 0, 0, width, height, undefined, 'SLOW'); 
+            const imgData = canvas.toDataURL('image/jpeg', 0.95);
+            doc.addImage(imgData, 'JPEG', 0, 0, width, height, undefined, 'SLOW');
             doc.save(`${sanitizedFileName}.pdf`);
+
+            // Save student data to localStorage for future use
+            saveStudentData();
         }).catch(err => {
             console.error("Error in html2canvas:", err);
             alert("Error creating PDF. Please check console for details.");
@@ -149,11 +247,11 @@ document.getElementById('download').addEventListener('click', () => {
 });
 
 document.querySelectorAll('.demo-input').forEach(input => {
-    input.addEventListener('focus', function() {
+    input.addEventListener('focus', function () {
         this.setAttribute('placeholder', this.dataset.demo);
     });
 
-    input.addEventListener('blur', function() {
+    input.addEventListener('blur', function () {
         this.setAttribute('placeholder', '');
     });
 });
@@ -164,7 +262,7 @@ function generateShareableLink() {
     inputs.forEach(input => {
         data[input.id] = input.value;
     });
-    
+
     const logoSelect = document.getElementById('logoSelect');
     data.logoSelection = Array.from(logoSelect.selectedOptions).map(option => option.value);
 
@@ -175,15 +273,15 @@ function generateShareableLink() {
 
 function shareLink() {
     const shareableLink = generateShareableLink();
-    
+
     if (navigator.share) {
         navigator.share({
             title: 'Cover Page Generator Data',
             text: 'Check out my cover page data!',
             url: shareableLink,
         })
-        .then(() => console.log('Successful share'))
-        .catch((error) => console.log('Error sharing', error));
+            .then(() => console.log('Successful share'))
+            .catch((error) => console.log('Error sharing', error));
     } else {
         prompt('Copy this link to share:', shareableLink);
     }
@@ -193,7 +291,7 @@ function shareLink() {
 function loadSharedData() {
     const urlParams = new URLSearchParams(window.location.search);
     const sharedData = urlParams.get('data');
-    
+
     if (sharedData) {
         try {
             const data = JSON.parse(decodeURIComponent(sharedData));
@@ -225,10 +323,18 @@ document.getElementById('shareButton').addEventListener('click', async () => awa
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Setup autofill functionality
+    setupCourseCodeAutofill();
+    setupTeacherNameAutofill();
+
+    // Existing initialization
     addInputListeners();
     updateContent();
-    loadSharedData(); 
-    handleLogoSelection(); 
+    loadSharedData();
+    handleLogoSelection();
+
+    // Load saved student data from localStorage
+    loadStudentData();
 });
 
 async function shortenUrl(longUrl) {
@@ -245,35 +351,35 @@ async function shortenUrl(longUrl) {
 async function shareLink() {
     const shareableLink = generateShareableLink();
     const shortLink = await shortenUrl(shareableLink);
-    
+
     const modal = document.getElementById('shareModal');
     const span = document.getElementsByClassName("close")[0];
-    
+
     modal.style.display = "block";
 
-    span.onclick = function() {
+    span.onclick = function () {
         modal.style.display = "none";
     }
 
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
     }
 
-    document.getElementById('copyLink').onclick = function() {
+    document.getElementById('copyLink').onclick = function () {
         navigator.clipboard.writeText(shortLink).then(() => {
-          showNotification('Short link copied to clipboard!');
+            showNotification('Short link copied to clipboard!');
         });
     }
 
-    document.getElementById('shareMail').onclick = function() {
+    document.getElementById('shareMail').onclick = function () {
         const subject = encodeURIComponent("Cover Page Generator Data");
         const body = encodeURIComponent(`Check out my cover page data through the following link: ${shortLink}`);
         window.location.href = `mailto:?subject=${subject}&body=${body}`;
     }
 
-    document.getElementById('shareMailNubtk').onclick = function() {
+    document.getElementById('shareMailNubtk').onclick = function () {
         const recipient = "haquenubtk@gmail.com";
         const subject = encodeURIComponent("Cover Page Generator Data");
         const body = encodeURIComponent(`Check out my cover page data through the following link: ${shortLink}`);
@@ -285,9 +391,9 @@ function showNotification(message) {
     const notification = document.getElementById('notification');
     notification.textContent = message;
     notification.classList.add('show');
-    
+
     setTimeout(() => {
-      notification.classList.remove('show');
+        notification.classList.remove('show');
     }, 3000);
 }
 
@@ -302,20 +408,20 @@ function displayReadmeContent() {
         })
         .then(data => {
             const htmlContent = marked.parse(data);
-            
+
             var modal = document.getElementById('readmeModal');
             var readmeContent = document.getElementById('readmeContent');
             var span = document.getElementsByClassName("close")[0];
-            
+
             readmeContent.innerHTML = htmlContent;
             modal.style.display = "block";
-            
-            span.onclick = function() {
+
+            span.onclick = function () {
                 modal.style.display = "none";
             }
-            
 
-            window.onclick = function(event) {
+
+            window.onclick = function (event) {
                 if (event.target == modal) {
                     modal.style.display = "none";
                 }
@@ -328,16 +434,16 @@ function displayReadmeContent() {
 }
 
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var userGuideButton = document.getElementById('userGuideButton');
     if (userGuideButton) {
         userGuideButton.addEventListener('click', displayReadmeContent);
     }
 
-   
+
     var closeButton = document.querySelector('#readmeModal .close');
     if (closeButton) {
-        closeButton.addEventListener('click', function() {
+        closeButton.addEventListener('click', function () {
             document.getElementById('readmeModal').style.display = "none";
         });
     }
@@ -352,19 +458,19 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleLogoSelection() {
         const logoContainer = document.getElementById('logoContainer');
         logoContainer.innerHTML = '';
-    
+
         let showHeading = true;
-    
+
         Array.from(logoSelect.selectedOptions).forEach(option => {
-            const width = option.dataset.width || 250;  
-            const height = option.dataset.height || 250; 
+            const width = option.dataset.width || 250;
+            const height = option.dataset.height || 250;
             addLogoToContent(option.value, option.text, width, height);
-    
+
             if (option.value === 'image/Nubtklogo5xx.png' || option.value === 'image/Nubtklogo6xx.png' || option.value === 'image/Nubtklogo7xx.png' || option.value === 'image/Nubtklogo8xx.png') {
                 showHeading = false;
             }
         });
-    
+
         const heading = document.querySelector('#content h1');
         if (heading) {
             heading.style.display = showHeading ? 'block' : 'none';
@@ -393,23 +499,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const qrCodeModal = document.getElementById('qrCodeModal');
     const closeQRCodeModal = qrCodeModal.querySelector('.close');
     const downloadQRCodeBtn = document.getElementById('downloadQRCode');
-  
+
     generateQRCodeBtn.addEventListener('click', generateAndShowQRCode);
     closeQRCodeModal.addEventListener('click', () => qrCodeModal.style.display = 'none');
     downloadQRCodeBtn.addEventListener('click', downloadQRCode);
-  
+
     window.addEventListener('click', (event) => {
-      if (event.target === qrCodeModal) {
-        qrCodeModal.style.display = 'none';
-      }
+        if (event.target === qrCodeModal) {
+            qrCodeModal.style.display = 'none';
+        }
     });
 });
-  
+
 async function generateAndShowQRCode() {
     const coversite = "https://qknot.github.io/NUBTK-Cover-Page-Generator/?data=%7B%22logoSelect%22%3A%22image%2FNubtklogo1xx.png%22%2C%22coverpagename%22%3A%22%22%2C%22department%22%3A%22%22%2C%22courseTitle%22%3A%22%22%2C%22courseCode%22%3A%22%22%2C%22coverType%22%3A%22%22%2C%22titleName%22%3A%22%22%2C%22teacherName%22%3A%22%22%2C%22teacherDesignation%22%3A%22%22%2C%22teacherDepartment%22%3A%22%22%2C%22studentName%22%3A%22%22%2C%22studentId%22%3A%22%22%2C%22section%22%3A%22%22%2C%22session%22%3A%22%22%2C%22submissionDate%22%3A%22%22%2C%22logoSelection%22%3A%5B%22image%2FNubtklogo1xx.png%22%5D%7D";
     const shareableLink = generateShareableLink();
     let shortLink;
-    if(coversite !== shareableLink){
+    if (coversite !== shareableLink) {
         shortLink = await shortenUrl(shareableLink);
     } else {
         shortLink = "https://qknot.github.io/NUBTK-Cover-Page-Generator/";
@@ -423,14 +529,14 @@ async function generateAndShowQRCode() {
 
     document.getElementById('qrCodeModal').style.display = 'block';
 }
-  
-  function downloadQRCode() {
+
+function downloadQRCode() {
     const qrCodeImg = document.querySelector('#qrcode img');
     const link = document.createElement('a');
     link.download = 'qrcode.png';
     link.href = qrCodeImg.src;
     link.click();
-  }
+}
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -478,14 +584,14 @@ function closeScanner() {
 
 async function onScanSuccess(decodedText, decodedResult) {
     closeScanner();
-    
+
     try {
         const response = await fetch(decodedText, { method: 'HEAD', redirect: 'follow' });
         const fullUrl = response.url;
-        
+
         const urlParams = new URLSearchParams(new URL(fullUrl).search);
         const encodedData = urlParams.get('data');
-        
+
         if (encodedData) {
             const data = JSON.parse(decodeURIComponent(encodedData));
             populateFormFields(data);
@@ -500,7 +606,7 @@ async function onScanSuccess(decodedText, decodedResult) {
 }
 
 function onScanFailure(error) {
- 
+
     console.warn(`QR code scanning failed: ${error}`);
 }
 
@@ -523,8 +629,34 @@ function populateFormFields(data) {
             }
         }
     });
-    
+
 
     updateContent();
     handleLogoSelection();
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const editTab = document.getElementById('editTab');
+    const previewTab = document.getElementById('previewTab');
+    const inputSection = document.getElementById('inputSection');
+    const outputSection = document.getElementById('outputSection');
+
+    function switchTab(tab) {
+        if (tab === 'edit') {
+            editTab.classList.add('active');
+            previewTab.classList.remove('active');
+            inputSection.classList.remove('hidden');
+            outputSection.classList.add('hidden');
+        } else {
+            previewTab.classList.add('active');
+            editTab.classList.remove('active');
+            outputSection.classList.remove('hidden');
+            inputSection.classList.add('hidden');
+            // Update content when switching to preview to ensure latest data
+            updateContent();
+        }
+    }
+
+    editTab.addEventListener('click', () => switchTab('edit'));
+    previewTab.addEventListener('click', () => switchTab('preview'));
+});

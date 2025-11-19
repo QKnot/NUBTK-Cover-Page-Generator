@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Northern University of Business & Technology Khulna Cover Page Generator</title>
+    <title>NUBTK Cover Page Generator</title>
     <link rel="icon" href="image/cpg.png" type="image/png">
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
@@ -17,18 +22,29 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-W27RK1M2VR"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-    gtag('config', 'G-W27RK1M2VR');
+        gtag('config', 'G-W27RK1M2VR');
     </script>
 
+    <!-- Load course and faculty data -->
+    <script src="Json/courses.js"></script>
+    <script src="Json/faculty.js"></script>
+
 </head>
+
 <body>
     <h1>NUBTK Cover Page Generator</h1>
+
+    <div class="toggle-container">
+        <button id="editTab" class="toggle-btn active">Edit</button>
+        <button id="previewTab" class="toggle-btn">Preview</button>
+    </div>
+
     <div class="container">
-        <div class="input-section">
+        <div id="inputSection" class="input-section">
             <h2>Input Details</h2>
             <label for="logoSelect">Select Logos(Optional):</label>
             <select id="logoSelect">
@@ -40,11 +56,14 @@
                 <option value="image/Nubtklogo6xx.png" data-width="550" data-height="300">NUBTK Logo: 6</option>
                 <option value="image/Nubtklogo7xx.png" data-width="550" data-height="300">NUBTK Logo: 7</option>
                 <option value="image/Nubtklogo8xx.png" data-width="550" data-height="300">NUBTK Logo: 8</option>
+                <option value="./image/NUBTKlogo9.png" data-width="550" data-height="300">NUBTK Logo: 9</option>
+            
             </select>
             <label for="coverpagename">Cover page name(Optional):</label>
-            <input type="text" id="coverpagename" class="demo-input" placeholder="Enter a cover page name" data-demo="Database Cover Page" list="coverpagenameList">
+            <input type="text" id="coverpagename" class="demo-input" placeholder="Enter a cover page name"
+                data-demo="Database Cover Page" list="coverpagenameList">
             <datalist id="coverpagenameList"></datalist>
-        
+
             <label for="department">Department of:</label>
             <select id="department">
                 <option value="">Select a Department</option>
@@ -59,13 +78,9 @@
                 <option value="journalism">Journalism and Mass Communication</option>
                 <option value="law">Law</option>
             </select>
-        
-            <label for="courseTitle"><strong>Course Title:</strong></label>
-            <input type="text" id="courseTitle" class="demo-input" placeholder="Enter a course title." data-demo="Database Management System" list="courseTitleList">
-            <datalist id="courseTitleList"></datalist>
-        
             <label for="courseCode"><strong>Course Code:</strong></label>
-            <input type="text" id="courseCode" class="demo-input" placeholder="Enter the course code." data-demo="CSE 3101" list="courseCodeList">
+            <input type="text" id="courseCode" class="demo-input" placeholder="Enter the course code."
+                data-demo="CSE 3101" list="courseCodeList">
             <datalist id="courseCodeList">
                 <option value="CSE ">
                 <option value="MATH ">
@@ -75,9 +90,14 @@
                 <option value="HUM ">
                 <option value="GED ">
             </datalist>
-        
+            <label for="courseTitle"><strong>Course Title:</strong></label>
+            <input type="text" id="courseTitle" class="demo-input" placeholder="Enter a course title."
+                data-demo="Database Management System" list="courseTitleList">
+            <datalist id="courseTitleList"></datalist>
+
             <label for="coverType">Type of Cover Page:</label>
-            <input type="text" id="coverType" class="demo-input" placeholder="Enter the cover page type." data-demo="ASSIGNMENT" list="coverTypeList">
+            <input type="text" id="coverType" class="demo-input" placeholder="Enter the cover page type."
+                data-demo="ASSIGNMENT" list="coverTypeList">
             <datalist id="coverTypeList">
                 <option value="ASSIGNMENT ">
                 <option value="LAB ">
@@ -85,13 +105,16 @@
                 <option value="PROJECT ">
                 <option value="PRESENTATION ">
             </datalist>
-        
+
             <label for="titleName">Title:(optional)</label>
-            <input type="text" id="titleName" class="demo-input" placeholder="Enter the Cover Page title." data-demo="Creating a Student Cover Page Database Using SQL (Standard Query Language)" list="titleNameList">
+            <input type="text" id="titleName" class="demo-input" placeholder="Enter the Cover Page title."
+                data-demo="Creating a Student Cover Page Database Using SQL (Standard Query Language)"
+                list="titleNameList">
             <datalist id="titleNameList"></datalist>
-        
+
             <label for="teacherName">Teacher's Name:</label>
-            <input type="text" id="teacherName" class="demo-input" placeholder="Enter the course teacher's name." data-demo="Kazi Asif Ahmed" list="teacherNameList">
+            <input type="text" id="teacherName" class="demo-input" placeholder="Enter the course teacher's name."
+                data-demo="Md. Apu Hosen" list="teacherNameList">
             <datalist id="teacherNameList">
                 <option value="Dr. Anwarul Haque Joarder">Dr. Anwarul Haque Joarder</option>
                 <option value="Md. Rabiul Islam">Md. Rabiul Islam</option>
@@ -126,12 +149,19 @@
                 <option value="Pulak Kundu">Pulak Kundu</option>
                 <option value="Mst. Farjana Alam">Mst. Farjana Alam</option>
             </datalist>
-              
-        
+
+
             <label for="teacherDesignation">Teacher's Designation:</label>
             <select id="teacherDesignation">
                 <option value="">Select a Teacher Designation</option>
+                <option value="Head">Head</option>
+                <option value="Coordinator">Coordinator</option>
+                <option value="Advisory Dean">Advisory Dean</option>
+                <option value="Advisor (GED)">Advisor (GED)</option>
+                <option value="Professor & Dean (DBA)">Professor & Dean (DBA)</option>
+                <option value="Associate Prof. & Head (GED)">Associate Prof. & Head (GED)</option>
                 <option value="Lecturer">Lecturer</option>
+                <option value="Lecturer (C)">Lecturer (C)</option>
                 <option value="Senior Lecturer">Senior Lecturer</option>
                 <option value="Assistant Professor">Assistant Professor</option>
                 <option value="Associate Professor">Associate Professor</option>
@@ -164,38 +194,37 @@
             </select>
 
             <label for="studentName">Student Name:</label>
-            <input type="text" id="studentName" class="demo-input" placeholder="Enter the student's name." data-demo="Rahul Kumar Ghosh" list="studentNameList">
+            <input type="text" id="studentName" class="demo-input" placeholder="Enter the student's name."
+                data-demo="Rahul Kumar Ghosh" list="studentNameList">
             <datalist id="studentNameList"></datalist>
-        
+
             <label for="studentId">Student ID:</label>
-            <input type="text" id="studentId" class="demo-input" placeholder="Enter the student's ID." data-demo="11220120819" list="studentIdList">
+            <input type="text" id="studentId" class="demo-input" placeholder="Enter the student's ID."
+                data-demo="11220120819" list="studentIdList">
             <datalist id="studentIdList"></datalist>
-        
+
             <label for="section">Semester and Section:</label>
-            <input type="text" id="section" class="demo-input" placeholder="Enter the student's semester and section." data-demo="5B" list="sectionList">
+            <input type="text" id="section" class="demo-input" placeholder="Enter the student's semester and section."
+                data-demo="8B" list="sectionList">
             <datalist id="sectionList"></datalist>
-        
-            <label for="session">Session:</label>
-            <select id="session">
-                <option value="">Select a Session</option>
-                <option value="Spring">Spring</option>
-                <option value="Fall">Fall</option>
-                <option value="Summer">Summer</option>
-            </select>
-        
+
+
+
             <label for="submissionDate">Date of Submission:</label>
             <input type="date" id="submissionDate">
         </div>
-        <div class="output-section">
+        <div id="outputSection" class="output-section hidden">
             <div class="button-container">
-                <button id="download" class="interactive-button">Download PDF</button>
-                <button id="shareButton" class="interactive-button">Share</button>
-                <button id="userGuideButton" class="interactive-button">User's Guide</button>
-                <button id="scanQRCode" class="interactive-button">Scan QR Code</button>
+                <button id="download" class="interactive-button"><i class="fas fa-file-pdf"></i> Download PDF</button>
+
+                <button id="shareButton" class="interactive-button"><i class="fas fa-share-alt"></i> Share</button>
+                <button id="userGuideButton" class="interactive-button"><i class="fas fa-book"></i> User's
+                    Guide</button>
+                <button id="scanQRCode" class="interactive-button"><i class="fas fa-qrcode"></i> Scan QR Code</button>
             </div>
             <div id="content">
                 <div id="logoContainer" class="logo-container">
-                </div>            
+                </div>
                 <h1><span style="font-weight: 700;">Northern University of Business & Technology Khulna</span></h1>
                 <h2 id="departmentText"><span style="font-weight: 700;"></span></h2>
                 <p class="course-info"><strong>Course Title: </strong><span id="courseTitleText"></span></p>
@@ -211,50 +240,51 @@
                         <td>
                             <p><span id="teacherNameText"></span></p>
                             <p><span id="teacherDesignationText"></span></p>
-                            <p>Department of <span id="departmentAbbreviationText"></span>, NUBTK.</p>
+                            <p>Department of <span id="departmentAbbreviationText"></span></p>
+                            <p>Northern University of Business & Technology Khulna.</p>
                         </td>
                         <td>
                             <p>Name: <span id="studentNameText"></span></p>
                             <p>Student ID: <span id="studentIdText"></span></p>
                             <p>Section: <span id="sectionText"></span></p>
-                            <p>Session: <span id="sessionText"></span></p>
+                            <p>Northern University of Business & Technology Khulna.</p>
                         </td>
                     </tr>
                 </table>
-                <p class="center-text">Date of Submission: <span id="submissionDateText"></span></p>
+                <p class="center-text"><strong>Date of Submission:</strong> <span id="submissionDateText"></span></p>
             </div>
         </div>
     </div>
     <div id="shareModal" class="modal">
         <div class="modal-content">
-          <span class="close">&times;</span>
-          <h2>Share Cover Page Data</h2>
-          <div class="share-options">
-            <button id="copyLink" class="share-option">
-              <i class="fas fa-clipboard"></i>
-              <span>Copy Link</span>
-            </button>
-            <button id="shareMail" class="share-option">
-                <i class="fas fa-envelope"></i>
-                <span>Mail</span>
-            </button>
-            <button id="shareMailNubtk" class="share-option">
-                <i class="fas fa-envelope"></i>
-                <span>NUBTK</span>
-            </button>     
-            <button id="generateQRCode" class="share-option">
-                <i class="fas fa-qrcode"></i>
-                <span>Generate QR Code</span>
-            </button>
-            <div id="qrCodeModal" class="modal">
-                <div class="modal-content">
-                  <span class="close">&times;</span>
-                  <h2>QR Code</h2>
-                  <div id="qrcode"></div>
-                  <button id="downloadQRCode" class="interactive-button">Download QR Code</button>
+            <span class="close">&times;</span>
+            <h2>Share Cover Page Data</h2>
+            <div class="share-options">
+                <button id="copyLink" class="share-option">
+                    <i class="fas fa-clipboard"></i>
+                    <span>Copy Link</span>
+                </button>
+                <button id="shareMail" class="share-option">
+                    <i class="fas fa-envelope"></i>
+                    <span>Mail</span>
+                </button>
+                <button id="shareMailNubtk" class="share-option">
+                    <i class="fas fa-envelope"></i>
+                    <span>NUBTK</span>
+                </button>
+                <button id="generateQRCode" class="share-option">
+                    <i class="fas fa-qrcode"></i>
+                    <span>Generate QR Code</span>
+                </button>
+                <div id="qrCodeModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h2>QR Code</h2>
+                        <div id="qrcode"></div>
+                        <button id="downloadQRCode" class="interactive-button">Download QR Code</button>
+                    </div>
                 </div>
-            </div>       
-          </div>
+            </div>
         </div>
     </div>
     <div id="readmeModal" class="modal">
@@ -265,25 +295,27 @@
     </div>
     <div id="qrScannerModal" class="modal">
         <div class="modal-content">
-          <span class="close">&times;</span>
-          <h2>Scan QR Code</h2>
-          <div id="reader"></div>
-          <button id="cancelScan" class="interactive-button">Cancel</button>
+            <span class="close">&times;</span>
+            <h2>Scan QR Code</h2>
+            <div id="reader"></div>
+            <button id="cancelScan" class="interactive-button">Cancel</button>
         </div>
     </div>
     <footer class="site-footer">
         <div class="footer-content">
-          <p>&copy; 2024 Northern University of Business & Technology Khulna Cover Page Generator</p>
-          <nav class="footer-nav">
-            <a href="https://github.com/QKnot/Cover-Page-Generator.git" target="_blank" rel="noopener noreferrer" class="footer-icon">
-              <i class="fab fa-github" title="Github"></i>
-            </a>
-            <a href="https://qknot.github.io/Portfolio/" target="_blank" rel="noopener noreferrer">Developer</a>
-          </nav>
+            <p>&copy; 2024 Northern University of Business & Technology Khulna Cover Page Generator</p>
+            <nav class="footer-nav">
+                <a href="https://github.com/QKnot/Cover-Page-Generator.git" target="_blank" rel="noopener noreferrer"
+                    class="footer-icon">
+                    <i class="fab fa-github" title="Github"></i>
+                </a>
+                <a href="https://qknot.github.io/Portfolio/" target="_blank" rel="noopener noreferrer">Developer</a>
+            </nav>
         </div>
     </footer>
     <div id="notification" class="notification"></div>
     <script src="script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 </body>
+
 </html>
