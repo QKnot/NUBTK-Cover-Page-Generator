@@ -191,6 +191,10 @@ document.getElementById('download').addEventListener('click', () => {
         return;
     }
 
+    // Save student data to localStorage before attempting PDF generation
+    // This ensures data is saved even if PDF generation fails
+    saveStudentData();
+
     const element = document.getElementById('content');
     let coverPageName;
     if (document.getElementById('coverpagename').value !== "") {
@@ -233,9 +237,6 @@ document.getElementById('download').addEventListener('click', () => {
             const imgData = canvas.toDataURL('image/jpeg', 0.95);
             doc.addImage(imgData, 'JPEG', 0, 0, width, height, undefined, 'SLOW');
             doc.save(`${sanitizedFileName}.pdf`);
-
-            // Save student data to localStorage for future use
-            saveStudentData();
         }).catch(err => {
             console.error("Error in html2canvas:", err);
             alert("Error creating PDF. Please check console for details.");

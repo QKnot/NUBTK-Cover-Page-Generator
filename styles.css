@@ -651,11 +651,16 @@ body {
 @media (max-width: 768px) {
   .container {
     padding: 10px;
+    padding-bottom: 60px;
+    /* Increased bottom padding for better footer separation */
+    min-height: calc(100vh - 200px);
+    /* Ensure container has minimum height */
   }
 
   .input-section {
     padding: 20px;
-    margin: 10px auto;
+    margin: 10px auto 20px;
+    /* Added bottom margin */
   }
 
   .footer-content {
@@ -672,23 +677,45 @@ body {
   #content {
     transform-origin: top center;
     transform: scale(0.45);
-    /* Start with a smaller scale for mobile */
-    margin-bottom: -140mm;
-    /* Compensate for the empty space left by scaling */
+    margin-bottom: -120mm;
+    /* Further reduced negative margin */
+    margin-top: 20px;
+    /* Add top margin for separation */
+  }
+
+  .output-section {
+    margin-bottom: 50px;
+    /* Increased space between preview and footer */
+    padding-bottom: 20px;
+  }
+
+  .site-footer {
+    padding: 30px 20px;
+    /* Adjusted padding with horizontal padding */
+    margin-top: 30px;
+    /* Increased top margin */
   }
 
   /* Adjust scale for slightly larger mobile screens */
   @media (min-width: 400px) {
     #content {
       transform: scale(0.55);
-      margin-bottom: -120mm;
+      margin-bottom: -100mm;
+    }
+
+    .output-section {
+      margin-bottom: 60px;
     }
   }
 
   @media (min-width: 500px) {
     #content {
       transform: scale(0.7);
-      margin-bottom: -80mm;
+      margin-bottom: -60mm;
+    }
+
+    .output-section {
+      margin-bottom: 70px;
     }
   }
 }
