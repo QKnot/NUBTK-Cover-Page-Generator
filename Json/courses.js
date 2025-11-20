@@ -397,11 +397,58 @@ const coursesData = [
         ]
     },
     {
-        "department": "Electrical and Electronic Engineering",
-        "departmentCode": "electrical_engineering",
-        "courses": [
-            // Add EEE courses here
-            // Example: { "code": "EEE 1101", "title": "Course Title" }
+    "department": "Electrical and Electronic Engineering",
+    "departmentCode": "electrical_engineering",
+    "courses":
+        [
+            { "code": "EEE 1101", "title": "Basic Electrical Engineering" },
+            { "code": "EEE 1102", "title": "Basic Electrical Engineering Lab" },
+            { "code": "EEE 1201", "title": "Electronics I" },
+            { "code": "EEE 1202", "title": "Electronics I Lab" },
+            { "code": "EEE 1203", "title": "Computer Fundamentals & Programming" },
+            { "code": "EEE 1204", "title": "Computer Fundamentals & Programming Lab" },
+            { "code": "EEE 2101", "title": "Electronics II" },
+            { "code": "EEE 2102", "title": "Electronics II Lab" },
+            { "code": "EEE 2103", "title": "Electrical Circuits and Filter Design" },
+            { "code": "EEE 2104", "title": "Electrical Circuits and Filter Design Lab" },
+            { "code": "EEE 2105", "title": "Electromagnetic Fields & Waves" },
+            { "code": "EEE 2106", "title": "Engineering Drawing" },
+            { "code": "EEE 2201", "title": "Signals and Systems" },
+            { "code": "EEE 2202", "title": "Electrical and Electronic System Simulation Lab" },
+            { "code": "EEE 2203", "title": "Electrical Machines I" },
+            { "code": "EEE 2204", "title": "Electrical Machines I Laboratory" },
+            { "code": "EEE 2207", "title": "Electrical Measurement and Instrumentation" },
+            { "code": "EEE 2208", "title": "Electrical Measurement and Instrumentation Lab" },
+            { "code": "EEE 3101", "title": "Digital Signal Processing" },
+            { "code": "EEE 3102", "title": "Digital Signal Processing Lab" },
+            { "code": "EEE 3103", "title": "Microprocessor and Assembly Language" },
+            { "code": "EEE 3104", "title": "Microprocessor and Assembly Language Lab" },
+            { "code": "EEE 3105", "title": "Power System" },
+            { "code": "EEE 3106", "title": "Power System Laboratory" },
+            { "code": "EEE 3207", "title": "RADAR Satellite and Optical Communication" },
+            { "code": "EEE 3201", "title": "Communication Engineering I" },
+            { "code": "EEE 3202", "title": "Communication Engineering I Lab" },
+            { "code": "EEE 3203", "title": "Control Systems Engineering" },
+            { "code": "EEE 3204", "title": "Control Systems Engineering Lab" },
+            { "code": "EEE 3205", "title": "Electrical Machines II" },
+            { "code": "EEE 3206", "title": "Electrical Machines II Laboratory" },
+            { "code": "EEE 4105", "title": "VLSI Design & Nanotechnology" },
+            { "code": "EEE 4106", "title": "VLSI Design Laboratory" },
+            { "code": "EEE 4100", "title": "Project/Thesis (Part A)" },
+            { "code": "EEE 4102", "title": "Industrial Training" },
+            { "code": "EEE 4103", "title": "Power Electronics and Industrial Drives" },
+            { "code": "EEE 4104", "title": "Power Electronics and Industrial Drives Lab" },
+            { "code": "EEE 4201", "title": "Power Plant Engineering" },
+            { "code": "EEE 4205", "title": "Communication Engineering II" },
+            { "code": "EEE 4206", "title": "Communication Engineering II Lab" },
+            { "code": "EEE 4115", "title": "Renewable Energy Technology (OP-I)" },
+            { "code": "EEE 4125", "title": "MOS Devices (Op-II)" },
+            { "code": "EEE 4200", "title": "Project/Thesis (Part B)" },
+            { "code": "EEE 4211", "title": "Telecommunication Engineering (Option III)" },
+            { "code": "CSE 4219", "title": "Embedded Systems (Option IV)" },
+            { "code": "CSE 4220", "title": "Embedded Systems Lab (Option IV)" },
+            { "code": "EEE 4203", "title": "Switchgear and Protection" },
+            { "code": "EEE 4204", "title": "Switchgear and Protection Lab" }
         ]
     },
     {
@@ -413,11 +460,68 @@ const coursesData = [
         ]
     },
     {
-        "department": "English",
-        "departmentCode": "english",
-        "courses": [
-            // Add English courses here
-            // Example: { "code": "ENG 1101", "title": "Course Title" }
+    "department": "ELL (English Language & Literature)",
+    "departmentCode": "english",
+    "courses": 
+        [
+            { "code": "ENG 0111", "title": "Remedial English" },
+            { "code": "ENG 0112", "title": "Listening and Speaking Skills" },
+            { "code": "ENG 0113", "title": "Reading and Writing Skills" },
+            { "code": "ENG 0114", "title": "Introduction to Stylistics" },
+            { "code": "GED 0115", "title": "Emergence of Bangladesh" },
+            { "code": "CIT 0116", "title": "Introduction to Computers" },
+
+            { "code": "ENG 0121", "title": "Advanced English Grammar" },
+            { "code": "ENG 0122", "title": "History of English Literature" },
+            { "code": "ENG 0123", "title": "Introduction to Poetry" },
+            { "code": "ENG 0124", "title": "Introduction to Prose: Fiction" },
+            { "code": "ENG 0125", "title": "Introduction to Prose: Non-Fiction" },
+            { "code": "ENG 0126", "title": "Introduction to Drama" },
+
+            { "code": "ENG 0211", "title": "History of English Language" },
+            { "code": "ENG 0212", "title": "Introduction to Linguistics" },
+            { "code": "ENG 0213", "title": "Old and Middle English Literature" },
+            { "code": "ENG 0214", "title": "Elizabethan and Jacobean Drama" },
+            { "code": "ENG 0215", "title": "17th Century Poetry" },
+            { "code": "ENG 0216", "title": "Academic Writing" },
+            { "code": "BAN 0217", "title": "Bangla Literature" },
+
+            { "code": "ENG 0221", "title": "Phonetics and Phonology" },
+            { "code": "ENG 0222", "title": "Romantic Poetry" },
+            { "code": "ENG 0223", "title": "17th Century Prose and Drama" },
+            { "code": "ENG 0224", "title": "18th Century English Poetry" },
+            { "code": "ENG 0225", "title": "18th Century English Prose and Fiction" },
+            { "code": "GED 0226", "title": "Introduction to Psychology" },
+
+            { "code": "ENG 0311", "title": "Gender and Literature" },
+            { "code": "ENG 0312", "title": "American Poetry" },
+            { "code": "ENG 0313", "title": "Victorian Poetry" },
+            { "code": "ENG 0314", "title": "Syntax and Semantics" },
+            { "code": "ENG 0315", "title": "20th Century English Poetry (Till 1945)" },
+            { "code": "ENG 0316", "title": "Classics in Translation" },
+            { "code": "GED 0317", "title": "Philosophy" },
+
+            { "code": "ENG 0321", "title": "20th Century English Fiction (Till 1945)" },
+            { "code": "ENG 0322", "title": "American Fiction and Drama" },
+            { "code": "ENG 0323", "title": "Victorian Fiction" },
+            { "code": "ENG 0324", "title": "Literary Criticism" },
+            { "code": "ENG 0325", "title": "Material Development, Testing and Evaluation" },
+            { "code": "ENG 0326", "title": "South Asian Writing in English" },
+            { "code": "ENG 0327", "title": "Translation Studies" },
+
+            { "code": "ENG 4105", "title": "Translation Studies" },
+            { "code": "ENG 4107", "title": "20th Century English Drama (1900-1945)" },
+            { "code": "ENG 4201", "title": "Material Development and Testing" },
+            { "code": "ENG 4203", "title": "Literary Theory" },
+            { "code": "ENG 4205", "title": "American Literature-II" },
+            { "code": "ENG 4207", "title": "Research Methodology" },
+            { "code": "ENG 4301", "title": "English for Employability" },
+            { "code": "ENG 4303", "title": "English Language Teaching (ELT)" },
+            { "code": "ENG 4305", "title": "Project" },
+
+            { "code": "ENG 1205", "title": "History of English Literature" },
+            { "code": "GED 1207", "title": "Introduction to Sociology" },
+            { "code": "INT 2307", "title": "Philosophy" }
         ]
     },
     {
