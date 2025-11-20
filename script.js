@@ -52,44 +52,139 @@ function setupCourseCodeAutofill() {
     const courseCodeInput = document.getElementById('courseCode');
     const courseTitleInput = document.getElementById('courseTitle');
 
-    console.log('Setting up course code autofill. coursesData:', coursesData ? coursesData.length : 'undefined');
+    console.log('Setting up course code autofill. coursesData:', coursesData ? 'loaded' : 'undefined');
 
     courseCodeInput.addEventListener('input', () => {
         const courseCode = courseCodeInput.value.trim().toUpperCase();
         console.log('Course code input:', courseCode);
 
-        if (courseCode && coursesData) {
-            const course = coursesData.find(c => c.code.toUpperCase() === courseCode);
-            console.log('Found course:', course);
-            if (course) {
-                courseTitleInput.value = course.title;
+        if (courseCode && coursesData && Array.isArray(coursesData)) {
+            // Search across all departments
+            let foundCourse = null;
+
+            for (const dept of coursesData) {
+                if (dept.courses && Array.isArray(dept.courses)) {
+                    const course = dept.courses.find(c => c.code.toUpperCase() === courseCode);
+                    if (course) {
+                        foundCourse = course;
+                        break;
+                    }
+                }
+            }
+
+            console.log('Found course:', foundCourse);
+            if (foundCourse) {
+                courseTitleInput.value = foundCourse.title;
                 courseTitleInput.dispatchEvent(new Event('input'));
             }
         }
     });
 }
 
-// Auto-fill teacher designation based on teacher name
+// Auto-fill teacher designation and department based on teacher name
 function setupTeacherNameAutofill() {
     const teacherNameInput = document.getElementById('teacherName');
-    const teacherDesignationSelect = document.getElementById('teacherDesignation');
+    const teacherDesignationInput = document.getElementById('teacherDesignation');
+    const teacherDepartmentSelect = document.getElementById('teacherDepartment');
 
-    console.log('Setting up teacher name autofill. facultyData:', facultyData ? facultyData.length : 'undefined');
+    console.log('Setting up teacher name autofill. facultyData:', facultyData ? 'loaded' : 'undefined');
 
     teacherNameInput.addEventListener('input', () => {
         const teacherName = teacherNameInput.value.trim();
         console.log('Teacher name input:', teacherName);
 
-        if (teacherName && facultyData) {
-            const faculty = facultyData.find(f => f.name === teacherName);
-            console.log('Found faculty:', faculty);
-            if (faculty) {
-                teacherDesignationSelect.value = faculty.designation;
-                teacherDesignationSelect.dispatchEvent(new Event('change'));
+        if (teacherName && facultyData && Array.isArray(facultyData)) {
+            // Search across all departments
+            let foundFaculty = null;
+            let foundDepartment = null;
+
+            for (const dept of facultyData) {
+                const faculty = dept.faculty.find(f => f.name === teacherName);
+                if (faculty) {
+                    foundFaculty = faculty;
+                    foundDepartment = dept;
+                    break;
+                }
+            }
+
+            console.log('Found faculty:', foundFaculty, 'in department:', foundDepartment?.department);
+
+            if (foundFaculty && foundDepartment) {
+                // Auto-fill designation only if it exists
+                if (foundFaculty.designation) {
+                    teacherDesignationInput.value = foundFaculty.designation;
+                    teacherDesignationInput.dispatchEvent(new Event('input'));
+                    console.log('Auto-filled designation:', foundFaculty.designation);
+                } else {
+                    console.log('No designation found for this faculty member');
+                }
+
+                // Auto-fill department based on which department the teacher belongs to
+                teacherDepartmentSelect.value = foundDepartment.departmentCode;
+                teacherDepartmentSelect.dispatchEvent(new Event('change'));
+
+                console.log('Auto-filled department:', foundDepartment.department);
             }
         }
     });
 }
+
+// Populate datalists with course codes and teacher names for autocomplete
+function populateDataLists() {
+    // Populate course code datalist from all departments
+    if (coursesData && Array.isArray(coursesData)) {
+        const courseCodeList = document.getElementById('courseCodeList');
+        if (courseCodeList) {
+            courseCodeList.innerHTML = ''; // Clear existing options
+
+            // Iterate through all departments and their courses
+            coursesData.forEach(dept => {
+                if (dept.courses && Array.isArray(dept.courses)) {
+                    dept.courses.forEach(course => {
+                        const option = document.createElement('option');
+                        option.value = course.code;
+                        option.textContent = `${course.code} - ${course.title} (${dept.department})`;
+                        courseCodeList.appendChild(option);
+                    });
+                }
+            });
+
+            const totalCourses = coursesData.reduce((sum, dept) => {
+                return sum + (dept.courses ? dept.courses.length : 0);
+            }, 0);
+            console.log('Populated course code datalist with', totalCourses, 'courses from', coursesData.length, 'departments');
+        }
+    }
+
+    // Populate teacher name datalist from all departments
+    if (facultyData && Array.isArray(facultyData)) {
+        const teacherNameList = document.getElementById('teacherNameList');
+        if (teacherNameList) {
+            teacherNameList.innerHTML = ''; // Clear existing options
+
+            // Iterate through all departments and their faculty
+            facultyData.forEach(dept => {
+                dept.faculty.forEach(faculty => {
+                    const option = document.createElement('option');
+                    option.value = faculty.name;
+
+                    // Build text content with optional designation
+                    if (faculty.designation) {
+                        option.textContent = `${faculty.name} - ${faculty.designation} (${dept.department})`;
+                    } else {
+                        option.textContent = `${faculty.name} (${dept.department})`;
+                    }
+
+                    teacherNameList.appendChild(option);
+                });
+            });
+
+            const totalFaculty = facultyData.reduce((sum, dept) => sum + dept.faculty.length, 0);
+            console.log('Populated teacher name datalist with', totalFaculty, 'faculty members from', facultyData.length, 'departments');
+        }
+    }
+}
+
 
 function addInputListeners() {
 
@@ -324,6 +419,9 @@ document.getElementById('shareButton').addEventListener('click', async () => awa
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Populate datalists for autocomplete
+    populateDataLists();
+
     // Setup autofill functionality
     setupCourseCodeAutofill();
     setupTeacherNameAutofill();

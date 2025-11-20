@@ -57,7 +57,7 @@
                 <option value="image/Nubtklogo7xx.png" data-width="550" data-height="300">NUBTK Logo: 7</option>
                 <option value="image/Nubtklogo8xx.png" data-width="550" data-height="300">NUBTK Logo: 8</option>
                 <option value="./image/NUBTKlogo9.png" data-width="550" data-height="300">NUBTK Logo: 9</option>
-            
+
             </select>
             <label for="coverpagename">Cover page name(Optional):</label>
             <input type="text" id="coverpagename" class="demo-input" placeholder="Enter a cover page name"
@@ -80,30 +80,38 @@
             </select>
             <label for="courseCode"><strong>Course Code:</strong></label>
             <input type="text" id="courseCode" class="demo-input" placeholder="Enter the course code."
-                data-demo="CSE 3101" list="courseCodeList">
-            <datalist id="courseCodeList">
-                <option value="CSE ">
-                <option value="MATH ">
-                <option value="PHY ">
-                <option value="IPE ">
-                <option value="ENG ">
-                <option value="HUM ">
-                <option value="GED ">
-            </datalist>
+                data-demo="CSE 4202" list="courseCodeList">
+            <datalist id="courseCodeList"></datalist>
+
             <label for="courseTitle"><strong>Course Title:</strong></label>
             <input type="text" id="courseTitle" class="demo-input" placeholder="Enter a course title."
-                data-demo="Database Management System" list="courseTitleList">
+                data-demo="Nueral Networks" list="courseTitleList">
             <datalist id="courseTitleList"></datalist>
 
             <label for="coverType">Type of Cover Page:</label>
             <input type="text" id="coverType" class="demo-input" placeholder="Enter the cover page type."
                 data-demo="ASSIGNMENT" list="coverTypeList">
             <datalist id="coverTypeList">
-                <option value="ASSIGNMENT ">
-                <option value="LAB ">
-                <option value="LAB BOOK ">
-                <option value="PROJECT ">
-                <option value="PRESENTATION ">
+                <option value="ASSIGNMENT">
+                <option value="LAB">
+                <option value="LAB BOOK">
+                <option value="PROJECT">
+                <option value="PRESENTATION">
+                <option value="HOMEWORK">
+                <option value="MIDTERM">
+                <option value="FINAL">
+                <option value="TERM PAPER">
+                <option value="REPORT">
+                <option value="THESIS">
+                <option value="CASE STUDY">
+                <option value="QUIZ">
+                <option value="CLASS TEST">
+                <option value="VIVA">
+                <option value="PRACTICAL">
+                <option value="FIELD REPORT">
+                <option value="PORTFOLIO">
+                <option value="RESEARCH PAPER">
+                <option value="COURSEWORK"></option>
             </datalist>
 
             <label for="titleName">Title:(optional)</label>
@@ -152,31 +160,33 @@
 
 
             <label for="teacherDesignation">Teacher's Designation:</label>
-            <select id="teacherDesignation">
-                <option value="">Select a Teacher Designation</option>
-                <option value="Head">Head</option>
-                <option value="Coordinator">Coordinator</option>
-                <option value="Advisory Dean">Advisory Dean</option>
-                <option value="Advisor (GED)">Advisor (GED)</option>
-                <option value="Professor & Dean (DBA)">Professor & Dean (DBA)</option>
-                <option value="Associate Prof. & Head (GED)">Associate Prof. & Head (GED)</option>
-                <option value="Lecturer">Lecturer</option>
-                <option value="Lecturer (C)">Lecturer (C)</option>
-                <option value="Senior Lecturer">Senior Lecturer</option>
-                <option value="Assistant Professor">Assistant Professor</option>
-                <option value="Associate Professor">Associate Professor</option>
-                <option value="Professor">Professor</option>
-                <option value="Distinguished Professor">Distinguished Professor</option>
-                <option value="Emeritus Professor">Emeritus Professor</option>
-                <option value="Adjunct Professor">Adjunct Professor</option>
-                <option value="Visiting Professor">Visiting Professor</option>
-                <option value="Research Professor">Research Professor</option>
-                <option value="Teaching Assistant">Teaching Assistant</option>
-                <option value="Instructor">Instructor</option>
-                <option value="Postdoctoral Researcher">Postdoctoral Researcher</option>
-                <option value="Department Head">Department Head</option>
-                <option value="Dean">Dean</option>
-            </select>
+            <input type="text" id="teacherDesignation" class="demo-input"
+                placeholder="Enter or select teacher's designation" data-demo="Senior Lecturer"
+                list="teacherDesignationList">
+            <datalist id="teacherDesignationList">
+                <option value="Head">
+                <option value="Dean">
+                <option value="Coordinator">
+                <option value="Advisory Dean">
+                <option value="Advisor (GED)">
+                <option value="Professor & Dean (DBA)">
+                <option value="Associate Prof. & Head (GED)">
+                <option value="Assistant Professor">
+                <option value="Associate Professor">
+                <option value="Professor">
+                <option value="Senior Lecturer">
+                <option value="Lecturer">
+                <option value="Lecturer (C)">
+                <option value="Distinguished Professor">
+                <option value="Emeritus Professor">
+                <option value="Adjunct Professor">
+                <option value="Visiting Professor">
+                <option value="Research Professor">
+                <option value="Teaching Assistant">
+                <option value="Instructor">
+                <option value="Postdoctoral Researcher">
+                <option value="Department Head">
+            </datalist>
 
             <label for="teacherDepartment">Teacher's Department(Optional):</label>
             <select id="teacherDepartment">
