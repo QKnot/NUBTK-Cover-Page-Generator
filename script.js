@@ -231,9 +231,9 @@ function updateContent() {
         business_administration: "BBA",
         economics: "ECO",
         bangla: "BNG",
-        english: "ENG",
+        english: "ELL",
         journalism: "JMC",
-        law: "LAW"
+        law: "LLB"
     };
 
     const teacherDepartmentSelect = document.getElementById('teacherDepartment');
