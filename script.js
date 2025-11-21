@@ -81,6 +81,40 @@ function setupCourseCodeAutofill() {
     });
 }
 
+// Auto-fill course code based on course title
+function setupCourseTitleAutofill() {
+    const courseCodeInput = document.getElementById('courseCode');
+    const courseTitleInput = document.getElementById('courseTitle');
+
+    console.log('Setting up course title autofill. coursesData:', coursesData ? 'loaded' : 'undefined');
+
+    courseTitleInput.addEventListener('input', () => {
+        const courseTitle = courseTitleInput.value.trim();
+        console.log('Course title input:', courseTitle);
+
+        if (courseTitle && coursesData && Array.isArray(coursesData)) {
+            // Search across all departments
+            let foundCourse = null;
+
+            for (const dept of coursesData) {
+                if (dept.courses && Array.isArray(dept.courses)) {
+                    const course = dept.courses.find(c => c.title.toLowerCase() === courseTitle.toLowerCase());
+                    if (course) {
+                        foundCourse = course;
+                        break;
+                    }
+                }
+            }
+
+            console.log('Found course by title:', foundCourse);
+            if (foundCourse) {
+                courseCodeInput.value = foundCourse.code;
+                courseCodeInput.dispatchEvent(new Event('input'));
+            }
+        }
+    });
+}
+
 // Auto-fill teacher designation and department based on teacher name
 function setupTeacherNameAutofill() {
     const teacherNameInput = document.getElementById('teacherName');
@@ -129,7 +163,7 @@ function setupTeacherNameAutofill() {
     });
 }
 
-// Populate datalists with course codes and teacher names for autocomplete
+// Populate datalists with course codes, course titles, and teacher names for autocomplete
 function populateDataLists() {
     // Populate course code datalist from all departments
     if (coursesData && Array.isArray(coursesData)) {
@@ -153,6 +187,26 @@ function populateDataLists() {
                 return sum + (dept.courses ? dept.courses.length : 0);
             }, 0);
             console.log('Populated course code datalist with', totalCourses, 'courses from', coursesData.length, 'departments');
+        }
+
+        // Populate course title datalist from all departments
+        const courseTitleList = document.getElementById('courseTitleList');
+        if (courseTitleList) {
+            courseTitleList.innerHTML = ''; // Clear existing options
+
+            // Iterate through all departments and their courses
+            coursesData.forEach(dept => {
+                if (dept.courses && Array.isArray(dept.courses)) {
+                    dept.courses.forEach(course => {
+                        const option = document.createElement('option');
+                        option.value = course.title;
+                        option.textContent = `${course.title} - ${course.code} (${dept.department})`;
+                        courseTitleList.appendChild(option);
+                    });
+                }
+            });
+
+            console.log('Populated course title datalist with', coursesData.reduce((sum, dept) => sum + (dept.courses ? dept.courses.length : 0), 0), 'courses');
         }
     }
 
@@ -417,6 +471,23 @@ function loadSharedData() {
 
 document.getElementById('shareButton').addEventListener('click', async () => await shareLink());
 
+// Function to set the current date as the default submission date
+function setCurrentDate() {
+    const submissionDateInput = document.getElementById('submissionDate');
+
+    // Always set today's date as the default
+    // This will be overridden if there's shared data from a URL
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+
+    submissionDateInput.value = formattedDate;
+    submissionDateInput.dispatchEvent(new Event('input'));
+
+    console.log('Set current date:', formattedDate);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     // Populate datalists for autocomplete
@@ -424,11 +495,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Setup autofill functionality
     setupCourseCodeAutofill();
+    setupCourseTitleAutofill();
     setupTeacherNameAutofill();
 
     // Existing initialization
     addInputListeners();
     updateContent();
+
+    // Set current date as default submission date BEFORE loading shared data
+    // This ensures the date is always set by default, but can be overridden by shared URLs
+    setCurrentDate();
+
+    // Load shared data from URL (this can override the default date if present in URL)
     loadSharedData();
     handleLogoSelection();
 
