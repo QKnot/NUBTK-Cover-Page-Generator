@@ -209,14 +209,12 @@ body>h1::after {
   width: 210mm;
   height: 297mm;
   padding: 20mm;
-  background: white;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
+  background: #fff;
   display: flex;
   flex-direction: column;
   font-family: 'Times New Roman', Times, serif;
-  /* Keep formal font for cover page */
 }
+
 
 .logo {
   width: 250px;
