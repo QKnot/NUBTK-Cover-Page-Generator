@@ -379,11 +379,16 @@ document.getElementById('download').addEventListener('click', () => {
             useCORS: true,
             letterRendering: true,
             allowTaint: true,
-            backgroundColor: null,
+            backgroundColor: '#ffffff',
             imageTimeout: 0,
-            removeContainer: true
+            removeContainer: true,
+            width: element.offsetWidth,
+            height: element.offsetHeight,
+            windowWidth: element.offsetWidth,
+            windowHeight: element.offsetHeight
         }).then(canvas => {
             const imgData = canvas.toDataURL('image/jpeg', 0.95);
+            // Add image with exact dimensions to prevent border artifacts
             doc.addImage(imgData, 'JPEG', 0, 0, width, height, undefined, 'SLOW');
             doc.save(`${sanitizedFileName}.pdf`);
         }).catch(err => {

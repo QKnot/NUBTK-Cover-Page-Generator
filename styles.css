@@ -213,6 +213,8 @@ body>h1::after {
   display: flex;
   flex-direction: column;
   font-family: 'Times New Roman', Times, serif;
+  border: none;
+  box-sizing: border-box;
 }
 
 
@@ -914,5 +916,25 @@ body {
   .preview-logo-btn {
     min-width: 44px;
     padding: 10px 14px;
+  }
+}
+
+/* Print and PDF Generation Styles */
+@page {
+  margin: 0;
+  padding: 0;
+}
+
+@media print {
+  #content {
+    margin: 0;
+    padding: 20mm;
+    border: none;
+    box-shadow: none;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
   }
 }
