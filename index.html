@@ -47,18 +47,22 @@
         <div id="inputSection" class="input-section">
             <h2>Input Details</h2>
             <label for="logoSelect">Select Logos(Optional):</label>
-            <select id="logoSelect">
-                <option value="image/Nubtklogo1xx.png" data-width="250" data-height="250">NUBTK Logo: 1</option>
-                <option value="image/Nubtklogo2xx.png" data-width="500" data-height="200">NUBTK Logo: 2</option>
-                <option value="image/Nubtklogo3xx.png" data-width="500" data-height="200">NUBTK Logo: 3</option>
-                <option value="image/Nubtklogo4xx.png" data-width="250" data-height="250">NUBTK Logo: 4</option>
-                <option value="image/Nubtklogo5xx.png" data-width="550" data-height="300">NUBTK Logo: 5</option>
-                <option value="image/Nubtklogo6xx.png" data-width="550" data-height="300">NUBTK Logo: 6</option>
-                <option value="image/Nubtklogo7xx.png" data-width="550" data-height="300">NUBTK Logo: 7</option>
-                <option value="image/Nubtklogo8xx.png" data-width="550" data-height="300">NUBTK Logo: 8</option>
-                <option value="./image/NUBTKlogo9.png" data-width="550" data-height="300">NUBTK Logo: 9</option>
-
-            </select>
+            <div style="display: flex; gap: 10px; align-items: flex-start; margin-bottom: 20px;">
+                <select id="logoSelect" style="flex: 1; margin-bottom: 0;">
+                    <option value="image/Nubtklogo1xx.png" data-width="250" data-height="250">NUBTK Logo: 1</option>
+                    <option value="image/Nubtklogo2xx.png" data-width="500" data-height="200">NUBTK Logo: 2</option>
+                    <option value="image/Nubtklogo3xx.png" data-width="500" data-height="200">NUBTK Logo: 3</option>
+                    <option value="image/Nubtklogo4xx.png" data-width="250" data-height="250">NUBTK Logo: 4</option>
+                    <option value="image/Nubtklogo5xx.png" data-width="550" data-height="300">NUBTK Logo: 5</option>
+                    <option value="image/Nubtklogo6xx.png" data-width="550" data-height="300">NUBTK Logo: 6</option>
+                    <option value="image/Nubtklogo7xx.png" data-width="550" data-height="300">NUBTK Logo: 7</option>
+                    <option value="image/Nubtklogo8xx.png" data-width="550" data-height="300">NUBTK Logo: 8</option>
+                    <option value="./image/NUBTKlogo9.png" data-width="550" data-height="300">NUBTK Logo: 9</option>
+                </select>
+                <button id="previewLogoBtn" class="preview-logo-btn" title="Preview Logo">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
             <label for="coverpagename">Cover page name(Optional):</label>
             <input type="text" id="coverpagename" class="demo-input" placeholder="Enter a cover page name"
                 data-demo="Cover Page" list="coverpagenameList">
@@ -82,7 +86,7 @@
             <input type="text" id="courseTitle" class="demo-input" placeholder="Enter a course title."
                 data-demo="Nueral Networks" list="courseTitleList">
             <datalist id="courseTitleList"></datalist>
-            
+
             <label for="courseCode"><strong>Course Code:</strong></label>
             <input type="text" id="courseCode" class="demo-input" placeholder="Enter the course code."
                 data-demo="CSE 4205" list="courseCodeList">
@@ -309,6 +313,16 @@
             <h2>Scan QR Code</h2>
             <div id="reader"></div>
             <button id="cancelScan" class="interactive-button">Cancel</button>
+        </div>
+    </div>
+    <!-- Logo Preview Modal -->
+    <div id="logoPreviewModal" class="modal">
+        <div class="modal-content logo-preview-modal-content">
+            <span class="close">&times;</span>
+            <h2>Logo Preview</h2>
+            <div class="circular-logo-preview">
+                <img id="previewLogoImage" src="" alt="Logo Preview">
+            </div>
         </div>
     </div>
     <footer class="site-footer">

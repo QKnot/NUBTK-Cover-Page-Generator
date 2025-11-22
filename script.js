@@ -840,3 +840,44 @@ document.addEventListener('DOMContentLoaded', () => {
     // Show preview by default on page load
     switchTab('preview');
 });
+
+// Logo Preview Modal functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const previewLogoBtn = document.getElementById('previewLogoBtn');
+    const logoPreviewModal = document.getElementById('logoPreviewModal');
+    const previewLogoImage = document.getElementById('previewLogoImage');
+    const logoSelect = document.getElementById('logoSelect');
+    const closeBtn = logoPreviewModal.querySelector('.close');
+
+    // Open modal when preview button is clicked
+    previewLogoBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const selectedLogo = logoSelect.value;
+
+        if (selectedLogo) {
+            previewLogoImage.src = selectedLogo;
+            logoPreviewModal.style.display = 'block';
+        } else {
+            showNotification('Please select a logo first');
+        }
+    });
+
+    // Close modal when X is clicked
+    closeBtn.addEventListener('click', () => {
+        logoPreviewModal.style.display = 'none';
+    });
+
+    // Close modal when clicking outside
+    window.addEventListener('click', (event) => {
+        if (event.target === logoPreviewModal) {
+            logoPreviewModal.style.display = 'none';
+        }
+    });
+
+    // Update preview image when logo selection changes
+    logoSelect.addEventListener('change', () => {
+        if (logoPreviewModal.style.display === 'block') {
+            previewLogoImage.src = logoSelect.value;
+        }
+    });
+});
