@@ -46,6 +46,35 @@ function loadStudentData() {
     }
 }
 
+// Logo selection persistence functions
+function saveLogoSelection() {
+    const logoSelect = document.getElementById('logoSelect');
+    if (logoSelect) {
+        try {
+            localStorage.setItem('nubtk_logo_selection', logoSelect.value);
+            console.log('Logo selection saved to localStorage:', logoSelect.value);
+        } catch (error) {
+            console.error('Error saving logo selection:', error);
+        }
+    }
+}
+
+function loadLogoSelection() {
+    try {
+        const savedLogo = localStorage.getItem('nubtk_logo_selection');
+        if (savedLogo) {
+            const logoSelect = document.getElementById('logoSelect');
+            if (logoSelect) {
+                logoSelect.value = savedLogo;
+                // Trigger the change event to update the preview
+                logoSelect.dispatchEvent(new Event('change'));
+                console.log('Logo selection loaded from localStorage:', savedLogo);
+            }
+        }
+    } catch (error) {
+        console.error('Error loading logo selection:', error);
+    }
+}
 
 // Auto-fill course title based on course code
 function setupCourseCodeAutofill() {
@@ -925,7 +954,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoSelect = document.getElementById('logoSelect');
     const logoContainer = document.getElementById('logoContainer');
 
-    logoSelect.addEventListener('change', handleLogoSelection);
+    logoSelect.addEventListener('change', () => {
+        handleLogoSelection();
+        // Save logo selection whenever it changes
+        saveLogoSelection();
+    });
 
     function handleLogoSelection() {
         const logoContainer = document.getElementById('logoContainer');
@@ -966,7 +999,19 @@ document.addEventListener('DOMContentLoaded', () => {
         logoContainer.appendChild(logo);
     }
 
-    addLogoToContent('image/Nubtklogo1xx.png', 'NUBTK Logo: 1');
+    // Load the saved logo selection from localStorage, or use default
+    const savedLogo = localStorage.getItem('nubtk_logo_selection');
+    if (savedLogo) {
+        const logoSelect = document.getElementById('logoSelect');
+        if (logoSelect) {
+            logoSelect.value = savedLogo;
+            // Trigger handleLogoSelection to display the saved logo
+            handleLogoSelection();
+        }
+    } else {
+        // Default to first logo if no saved selection
+        addLogoToContent('image/Nubtklogo1xx.png', 'NUBTK Logo: 1');
+    }
 
     addInputListeners();
     updateContent();
