@@ -115,49 +115,223 @@ function setupCourseTitleAutofill() {
     });
 }
 
+// Store the last selected datalist option text for teacher
+let lastTeacherDatalistText = null;
+
 // Auto-fill teacher designation and department based on teacher name
 function setupTeacherNameAutofill() {
     const teacherNameInput = document.getElementById('teacherName');
     const teacherDesignationInput = document.getElementById('teacherDesignation');
     const teacherDepartmentSelect = document.getElementById('teacherDepartment');
+    const teacherNameList = document.getElementById('teacherNameList');
 
     console.log('Setting up teacher name autofill. facultyData:', facultyData ? 'loaded' : 'undefined');
 
+    // Listen for when user selects from the datalist
+    // The 'change' event fires when the input loses focus after a value change
+    teacherNameInput.addEventListener('change', () => {
+        const teacherName = teacherNameInput.value.trim();
+        console.log('Teacher name changed:', teacherName);
+
+        if (teacherName && facultyData && Array.isArray(facultyData)) {
+            performTeacherAutofill(teacherName, lastTeacherDatalistText);
+        }
+    });
+
+    // Also listen on input for immediate feedback
     teacherNameInput.addEventListener('input', () => {
         const teacherName = teacherNameInput.value.trim();
         console.log('Teacher name input:', teacherName);
 
-        if (teacherName && facultyData && Array.isArray(facultyData)) {
-            // Search across all departments
-            let foundFaculty = null;
-            let foundDepartment = null;
+        // Check if this matches a datalist option
+        if (teacherNameList && teacherName) {
+            const matchingOptions = Array.from(teacherNameList.options).filter(
+                opt => opt.value === teacherName
+            );
 
-            for (const dept of facultyData) {
-                const faculty = dept.faculty.find(f => f.name === teacherName);
-                if (faculty) {
-                    foundFaculty = faculty;
-                    foundDepartment = dept;
-                    break;
-                }
+            // If there's exactly one match, store its text
+            if (matchingOptions.length === 1) {
+                lastTeacherDatalistText = matchingOptions[0].textContent;
+                console.log('Stored single match option text:', lastTeacherDatalistText);
+            } else if (matchingOptions.length > 1) {
+                console.log('Multiple matches found, will use last selected option text');
+                // Keep the previously stored text for now
             }
+        }
 
-            console.log('Found faculty:', foundFaculty, 'in department:', foundDepartment?.department);
+        if (teacherName && facultyData && Array.isArray(facultyData)) {
+            performTeacherAutofill(teacherName, lastTeacherDatalistText);
+        }
+    });
 
-            if (foundFaculty && foundDepartment) {
-                // Auto-fill designation only if it exists
-                if (foundFaculty.designation) {
-                    teacherDesignationInput.value = foundFaculty.designation;
-                    teacherDesignationInput.dispatchEvent(new Event('input'));
-                    console.log('Auto-filled designation:', foundFaculty.designation);
-                } else {
-                    console.log('No designation found for this faculty member');
+    // Add click listener on datalist to capture which option was clicked
+    if (teacherNameList) {
+        // When user interacts with input, track the current datalist options
+        teacherNameInput.addEventListener('click', () => {
+            // Set up a temporary listener to catch the selection
+            const captureSelection = () => {
+                setTimeout(() => {
+                    const value = teacherNameInput.value.trim();
+                    if (value && teacherNameList) {
+                        const matchingOptions = Array.from(teacherNameList.options).filter(
+                            opt => opt.value === value
+                        );
+                        if (matchingOptions.length > 0) {
+                            // Try to find which one was likely selected based on visual position
+                            // For now, just store the first match's text
+                            lastTeacherDatalistText = matchingOptions[0].textContent;
+                            console.log('Captured selection text:', lastTeacherDatalistText);
+                        }
+                    }
+                }, 100);
+            };
+            teacherNameInput.addEventListener('blur', captureSelection, { once: true });
+        });
+    }
+}
+
+function performTeacherAutofill(teacherName, datalistText) {
+    const teacherDesignationInput = document.getElementById('teacherDesignation');
+    const teacherDepartmentSelect = document.getElementById('teacherDepartment');
+
+    let foundFaculty = null;
+    let foundDepartment = null;
+    let selectedDepartmentName = null;
+
+    // If we have datalist text, extract department from it
+    if (datalistText) {
+        const match = datalistText.match(/\(([^)]+)\)$/);
+        if (match) {
+            selectedDepartmentName = match[1];
+            console.log('Extracted department from datalist:', selectedDepartmentName);
+        }
+    }
+
+    // Search for the teacher in the appropriate department
+    for (const dept of facultyData) {
+        // If we have a specific department from datalist, only match that department
+        if (selectedDepartmentName && dept.department !== selectedDepartmentName) {
+            continue;
+        }
+
+        const faculty = dept.faculty.find(f => f.name === teacherName);
+        if (faculty) {
+            foundFaculty = faculty;
+            foundDepartment = dept;
+            break;
+        }
+    }
+
+    console.log('Found faculty:', foundFaculty, 'in department:', foundDepartment?.department);
+
+    if (foundFaculty && foundDepartment) {
+        // Auto-fill designation only if it exists
+        if (foundFaculty.designation) {
+            teacherDesignationInput.value = foundFaculty.designation;
+            teacherDesignationInput.dispatchEvent(new Event('input'));
+            console.log('Auto-filled designation:', foundFaculty.designation);
+        } else {
+            console.log('No designation found for this faculty member');
+        }
+
+        // Auto-fill department based on which department the teacher belongs to
+        teacherDepartmentSelect.value = foundDepartment.departmentCode;
+        teacherDepartmentSelect.dispatchEvent(new Event('change'));
+
+        console.log('Auto-filled department:', foundDepartment.department);
+    }
+}
+
+// Flag to prevent circular dependencies during autofill
+let isAutoFilling = false;
+
+// Auto-fill student ID and department based on student name
+function setupStudentNameAutofill() {
+    const studentNameInput = document.getElementById('studentName');
+    const studentIdInput = document.getElementById('studentId');
+    const departmentSelect = document.getElementById('department');
+
+    console.log('Setting up student name autofill. studentsData:', studentsData ? 'loaded' : 'undefined');
+
+    studentNameInput.addEventListener('input', () => {
+        // Skip if we're currently auto-filling to prevent circular dependencies
+        if (isAutoFilling) return;
+
+        const studentName = studentNameInput.value.trim();
+        console.log('Student name input:', studentName);
+
+        if (studentName && studentsData && studentsData.students && Array.isArray(studentsData.students)) {
+            // Search for the student in the students array
+            const foundStudent = studentsData.students.find(s => s.name === studentName);
+
+            console.log('Found student:', foundStudent);
+
+            if (foundStudent) {
+                // Set flag to prevent circular dependency
+                isAutoFilling = true;
+
+                // Auto-fill student ID
+                studentIdInput.value = foundStudent.studentId;
+                studentIdInput.dispatchEvent(new Event('input'));
+                console.log('Auto-filled student ID:', foundStudent.studentId);
+
+                // Auto-fill department from studentsData
+                if (studentsData.departmentCode) {
+                    departmentSelect.value = studentsData.departmentCode;
+                    departmentSelect.dispatchEvent(new Event('change'));
+                    console.log('Auto-filled department:', studentsData.department);
                 }
 
-                // Auto-fill department based on which department the teacher belongs to
-                teacherDepartmentSelect.value = foundDepartment.departmentCode;
-                teacherDepartmentSelect.dispatchEvent(new Event('change'));
+                // Reset flag after a short delay
+                setTimeout(() => {
+                    isAutoFilling = false;
+                }, 100);
+            }
+        }
+    });
+}
 
-                console.log('Auto-filled department:', foundDepartment.department);
+// Auto-fill student name and department based on student ID
+function setupStudentIdAutofill() {
+    const studentNameInput = document.getElementById('studentName');
+    const studentIdInput = document.getElementById('studentId');
+    const departmentSelect = document.getElementById('department');
+
+    console.log('Setting up student ID autofill. studentsData:', studentsData ? 'loaded' : 'undefined');
+
+    studentIdInput.addEventListener('input', () => {
+        // Skip if we're currently auto-filling to prevent circular dependencies
+        if (isAutoFilling) return;
+
+        const studentId = studentIdInput.value.trim();
+        console.log('Student ID input:', studentId);
+
+        if (studentId && studentsData && studentsData.students && Array.isArray(studentsData.students)) {
+            // Search for the student in the students array
+            const foundStudent = studentsData.students.find(s => s.studentId === studentId);
+
+            console.log('Found student:', foundStudent);
+
+            if (foundStudent) {
+                // Set flag to prevent circular dependency
+                isAutoFilling = true;
+
+                // Auto-fill student name
+                studentNameInput.value = foundStudent.name;
+                studentNameInput.dispatchEvent(new Event('input'));
+                console.log('Auto-filled student name:', foundStudent.name);
+
+                // Auto-fill department from studentsData
+                if (studentsData.departmentCode) {
+                    departmentSelect.value = studentsData.departmentCode;
+                    departmentSelect.dispatchEvent(new Event('change'));
+                    console.log('Auto-filled department:', studentsData.department);
+                }
+
+                // Reset flag after a short delay
+                setTimeout(() => {
+                    isAutoFilling = false;
+                }, 100);
             }
         }
     });
@@ -236,6 +410,163 @@ function populateDataLists() {
             const totalFaculty = facultyData.reduce((sum, dept) => sum + dept.faculty.length, 0);
             console.log('Populated teacher name datalist with', totalFaculty, 'faculty members from', facultyData.length, 'departments');
         }
+    }
+
+    // Populate student name and ID datalists
+    if (studentsData && studentsData.students && Array.isArray(studentsData.students)) {
+        const studentNameList = document.getElementById('studentNameList');
+        const studentIdList = document.getElementById('studentIdList');
+
+        if (studentNameList) {
+            studentNameList.innerHTML = ''; // Clear existing options
+
+            // Iterate through all students
+            studentsData.students.forEach(student => {
+                const option = document.createElement('option');
+                option.value = student.name;
+                option.textContent = `${student.name} - ${student.studentId} (${studentsData.department})`;
+                studentNameList.appendChild(option);
+            });
+
+            console.log('Populated student name datalist with', studentsData.students.length, 'students from', studentsData.department);
+        }
+
+        if (studentIdList) {
+            studentIdList.innerHTML = ''; // Clear existing options
+
+            // Iterate through all students
+            studentsData.students.forEach(student => {
+                const option = document.createElement('option');
+                option.value = student.studentId;
+                option.textContent = `${student.studentId} - ${student.name} (${studentsData.department})`;
+                studentIdList.appendChild(option);
+            });
+
+            console.log('Populated student ID datalist with', studentsData.students.length, 'student IDs from', studentsData.department);
+        }
+    }
+}
+
+// Filter datalists based on selected department
+function filterDataListsByDepartment(selectedDepartmentCode) {
+    console.log('Filtering datalists by department:', selectedDepartmentCode);
+
+    // Filter course code datalist
+    if (coursesData && Array.isArray(coursesData)) {
+        const courseCodeList = document.getElementById('courseCodeList');
+        if (courseCodeList) {
+            courseCodeList.innerHTML = ''; // Clear existing options
+
+            // Sort and filter departments
+            const sortedDepts = [...coursesData].sort((a, b) =>
+                a.department.localeCompare(b.department)
+            );
+
+            sortedDepts.forEach(dept => {
+                // If a department is selected, only show courses from that department
+                if (selectedDepartmentCode && dept.departmentCode !== selectedDepartmentCode) {
+                    return; // Skip this department
+                }
+
+                if (dept.courses && Array.isArray(dept.courses)) {
+                    dept.courses.forEach(course => {
+                        const option = document.createElement('option');
+                        option.value = course.code;
+                        option.textContent = `${course.code} - ${course.title} (${dept.department})`;
+                        courseCodeList.appendChild(option);
+                    });
+                }
+            });
+
+            const totalCourses = courseCodeList.querySelectorAll('option').length;
+            console.log('Filtered course code datalist:', totalCourses, 'courses');
+        }
+
+        // Filter course title datalist
+        const courseTitleList = document.getElementById('courseTitleList');
+        if (courseTitleList) {
+            courseTitleList.innerHTML = ''; // Clear existing options
+
+            // Sort and filter departments
+            const sortedDepts = [...coursesData].sort((a, b) =>
+                a.department.localeCompare(b.department)
+            );
+
+            sortedDepts.forEach(dept => {
+                // If a department is selected, only show courses from that department
+                if (selectedDepartmentCode && dept.departmentCode !== selectedDepartmentCode) {
+                    return; // Skip this department
+                }
+
+                if (dept.courses && Array.isArray(dept.courses)) {
+                    dept.courses.forEach(course => {
+                        const option = document.createElement('option');
+                        option.value = course.title;
+                        option.textContent = `${course.title} - ${course.code} (${dept.department})`;
+                        courseTitleList.appendChild(option);
+                    });
+                }
+            });
+
+            const totalCourses = courseTitleList.querySelectorAll('option').length;
+            console.log('Filtered course title datalist:', totalCourses, 'courses');
+        }
+    }
+
+    // Filter teacher name datalist
+    if (facultyData && Array.isArray(facultyData)) {
+        const teacherNameList = document.getElementById('teacherNameList');
+        if (teacherNameList) {
+            teacherNameList.innerHTML = ''; // Clear existing options
+
+            // Sort and filter departments
+            const sortedDepts = [...facultyData].sort((a, b) =>
+                a.department.localeCompare(b.department)
+            );
+
+            sortedDepts.forEach(dept => {
+                // If a department is selected, only show faculty from that department
+                if (selectedDepartmentCode && dept.departmentCode !== selectedDepartmentCode) {
+                    return; // Skip this department
+                }
+
+                if (dept.faculty && Array.isArray(dept.faculty)) {
+                    dept.faculty.forEach(faculty => {
+                        const option = document.createElement('option');
+                        option.value = faculty.name;
+
+                        // Build text content with optional designation
+                        if (faculty.designation) {
+                            option.textContent = `${faculty.name} - ${faculty.designation} (${dept.department})`;
+                        } else {
+                            option.textContent = `${faculty.name} (${dept.department})`;
+                        }
+
+                        teacherNameList.appendChild(option);
+                    });
+                }
+            });
+
+            const totalFaculty = teacherNameList.querySelectorAll('option').length;
+            console.log('Filtered teacher name datalist:', totalFaculty, 'faculty members');
+        }
+    }
+}
+
+// Setup department change listener to filter datalists
+function setupDepartmentFilter() {
+    const departmentSelect = document.getElementById('department');
+
+    if (departmentSelect) {
+        departmentSelect.addEventListener('change', () => {
+            const selectedDepartment = departmentSelect.value;
+
+            // Filter datalists based on selected department
+            // If no department is selected (empty string), show all options
+            filterDataListsByDepartment(selectedDepartment || null);
+        });
+
+        console.log('Department filter listener set up');
     }
 }
 
@@ -502,6 +833,11 @@ document.addEventListener('DOMContentLoaded', () => {
     setupCourseCodeAutofill();
     setupCourseTitleAutofill();
     setupTeacherNameAutofill();
+    setupStudentNameAutofill();
+    setupStudentIdAutofill();
+
+    // Setup department-based filtering
+    setupDepartmentFilter();
 
     // Existing initialization
     addInputListeners();
