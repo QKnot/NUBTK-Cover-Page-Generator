@@ -245,11 +245,10 @@ function performTeacherAutofill(teacherName, datalistText) {
 // Flag to prevent circular dependencies during autofill
 let isAutoFilling = false;
 
-// Auto-fill student ID and department based on student name
+// Auto-fill student ID based on student name
 function setupStudentNameAutofill() {
     const studentNameInput = document.getElementById('studentName');
     const studentIdInput = document.getElementById('studentId');
-    const departmentSelect = document.getElementById('department');
 
     console.log('Setting up student name autofill. studentsData:', studentsData ? 'loaded' : 'undefined');
 
@@ -275,13 +274,6 @@ function setupStudentNameAutofill() {
                 studentIdInput.dispatchEvent(new Event('input'));
                 console.log('Auto-filled student ID:', foundStudent.studentId);
 
-                // Auto-fill department from studentsData
-                if (studentsData.departmentCode) {
-                    departmentSelect.value = studentsData.departmentCode;
-                    departmentSelect.dispatchEvent(new Event('change'));
-                    console.log('Auto-filled department:', studentsData.department);
-                }
-
                 // Reset flag after a short delay
                 setTimeout(() => {
                     isAutoFilling = false;
@@ -291,11 +283,10 @@ function setupStudentNameAutofill() {
     });
 }
 
-// Auto-fill student name and department based on student ID
+// Auto-fill student name based on student ID
 function setupStudentIdAutofill() {
     const studentNameInput = document.getElementById('studentName');
     const studentIdInput = document.getElementById('studentId');
-    const departmentSelect = document.getElementById('department');
 
     console.log('Setting up student ID autofill. studentsData:', studentsData ? 'loaded' : 'undefined');
 
@@ -320,13 +311,6 @@ function setupStudentIdAutofill() {
                 studentNameInput.value = foundStudent.name;
                 studentNameInput.dispatchEvent(new Event('input'));
                 console.log('Auto-filled student name:', foundStudent.name);
-
-                // Auto-fill department from studentsData
-                if (studentsData.departmentCode) {
-                    departmentSelect.value = studentsData.departmentCode;
-                    departmentSelect.dispatchEvent(new Event('change'));
-                    console.log('Auto-filled department:', studentsData.department);
-                }
 
                 // Reset flag after a short delay
                 setTimeout(() => {
