@@ -246,41 +246,11 @@ function performTeacherAutofill(teacherName, datalistText) {
 let isAutoFilling = false;
 
 // Auto-fill student ID based on student name
+// DISABLED: Autofill only works for student ID, not for student name
 function setupStudentNameAutofill() {
-    const studentNameInput = document.getElementById('studentName');
-    const studentIdInput = document.getElementById('studentId');
-
-    console.log('Setting up student name autofill. studentsData:', studentsData ? 'loaded' : 'undefined');
-
-    studentNameInput.addEventListener('input', () => {
-        // Skip if we're currently auto-filling to prevent circular dependencies
-        if (isAutoFilling) return;
-
-        const studentName = studentNameInput.value.trim();
-        console.log('Student name input:', studentName);
-
-        if (studentName && studentsData && studentsData.students && Array.isArray(studentsData.students)) {
-            // Search for the student in the students array
-            const foundStudent = studentsData.students.find(s => s.name === studentName);
-
-            console.log('Found student:', foundStudent);
-
-            if (foundStudent) {
-                // Set flag to prevent circular dependency
-                isAutoFilling = true;
-
-                // Auto-fill student ID
-                studentIdInput.value = foundStudent.studentId;
-                studentIdInput.dispatchEvent(new Event('input'));
-                console.log('Auto-filled student ID:', foundStudent.studentId);
-
-                // Reset flag after a short delay
-                setTimeout(() => {
-                    isAutoFilling = false;
-                }, 100);
-            }
-        }
-    });
+    // This function is intentionally disabled to prevent autofilling student ID when student name is entered
+    // Datalist recommendations for student names will still work
+    console.log('Student name autofill is disabled. Only datalist recommendations are available.');
 }
 
 // Auto-fill student name based on student ID
