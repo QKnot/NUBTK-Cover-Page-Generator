@@ -168,23 +168,74 @@ const facultyData = [
         "department": "Business Administration",
         "departmentCode": "business_administration",
         "faculty": [
-            { "name": "Prof. Jalal Uddin Ahmed", "designation": "Professor & Dean" },
-            { "name": "Prof. Dr. Mia Abdur Rashid", "designation": "Professor & Head" },
-            { "name": "Rumana Perveen", "designation": "Associate Professor (On Leave)" },
-            { "name": "Md. Maruful Islam Rasel", "designation": "Assistant Professor" },
-            { "name": "Md. Jahangir Alam", "designation": "Assistant Professor" },
-            { "name": "Md Arif Hasan Khan", "designation": "Assistant Professor in Finance" },
-            { "name": "Shaikh Golam Rakib", "designation": "Assistant Professor" },
-            { "name": "Md. Ramjan Hossain", "designation": "Assistant Professor" },
-            { "name": "Md. Arifuzzaman", "designation": "Senior Lecturer" },
-            { "name": "Rejuana Sultana", "designation": "Senior Lecturer" },
-            { "name": "Md. Vaskar Islam", "designation": "Lecturer" },
-            { "name": "Waheda Islam", "designation": "Lecturer" },
-            { "name": "Asaf-Ud-Daula", "designation": "Lecturer" },
-            { "name": "Fairuz Rahman", "designation": "Lecturer" },
-            { "name": "Shahanaz Sultana", "designation": "Lecturer" },
-            { "name": "Syed Shamim Hasan", "designation": "Lecturer" },
-            { "name": "Naznin Nahar Ome", "designation": "Lecturer" }
+            {
+                "name": "Prof. Jalal Uddin Ahmed",
+                "designation": "Professor & Dean"
+            },
+            {
+                "name": "Prof. Dr. Mia Abdur Rashid",
+                "designation": "Professor & Head"
+            },
+            {
+                "name": "Rumana Perveen",
+                "designation": "Associate Professor"
+            },
+            {
+                "name": "Md. Maruful Islam Rasel",
+                "designation": "Assistant Professor"
+            },
+            {
+                "name": "Md. Jahangir Alam",
+                "designation": "Assistant Professor"
+            },
+            {
+                "name": "Md Arif Hasan Khan",
+                "designation": "Assistant Professor in Finance"
+            },
+            {
+                "name": "Shaikh Golam Rakib",
+                "designation": "Assistant Professor"
+            },
+            {
+                "name": "Md. Ramjan Hossain",
+                "designation": "Assistant Professor"
+            },
+            {
+                "name": "Md. Arifuzzaman",
+                "designation": "Senior Lecturer"
+            },
+            {
+                "name": "Rejuana Sultana",
+                "designation": "Senior Lecturer"
+            },
+            {
+                "name": "Md. Vaskar Islam",
+                "designation": "Lecturer"
+            },
+            {
+                "name": "Waheda Islam",
+                "designation": "Lecturer"
+            },
+            {
+                "name": "Asaf-Ud-Daula",
+                "designation": "Lecturer"
+            },
+            {
+                "name": "Fairuz Rahman",
+                "designation": "Lecturer"
+            },
+            {
+                "name": "Shahanaz Sultana",
+                "designation": "Lecturer"
+            },
+            {
+                "name": "Syed Shamim Hasan",
+                "designation": "Lecturer"
+            },
+            {
+                "name": "Naznin Nahar Ome",
+                "designation": "Lecturer"
+            }
         ]
     },
     {

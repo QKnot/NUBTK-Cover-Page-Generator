@@ -651,6 +651,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (option.value === 'image/Nubtklogo5xx.png' || option.value === 'image/Nubtklogo6xx.png' || option.value === 'image/Nubtklogo7xx.png' || option.value === 'image/Nubtklogo8xx.png') {
                 showHeading = false;
             }
+
+            // Auto-select department if logo has a data-department attribute
+            if (option.dataset.department) {
+                const departmentSelect = document.getElementById('department');
+                departmentSelect.value = option.dataset.department;
+                departmentSelect.dispatchEvent(new Event('change'));
+                console.log('Auto-selected department:', option.dataset.department);
+            }
         });
 
         const heading = document.querySelector('#content h1');

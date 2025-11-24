@@ -536,8 +536,186 @@ const coursesData = [
         "department": "Business Administration",
         "departmentCode": "business_administration",
         "courses": [
-            // Add BBA courses here
-            // Example: { "code": "BBA 1101", "title": "Course Title" }
+            {
+                "code": "BBA 2201",
+                "title": "Financial Management"
+            },
+            {
+                "code": "BBA 2202",
+                "title": "Marketing Management"
+            },
+            {
+                "code": "BBA 2203",
+                "title": "Organizational Behavior"
+            },
+            {
+                "code": "QNT 2204",
+                "title": "Business Statistics"
+            },
+            {
+                "code": "GED 2205",
+                "title": "Socio-Economic Study of Bangladesh"
+            },
+            {
+                "code": "BBA 2206",
+                "title": "Macroeconomics"
+            },
+            {
+                "code": "BBA 3101",
+                "title": "Industrial Psychology"
+            },
+            {
+                "code": "BBA 3102",
+                "title": "Advanced Statistics"
+            },
+            {
+                "code": "BBA 3103",
+                "title": "Cost Accounting"
+            },
+            {
+                "code": "BBA 3104",
+                "title": "Entrepreneurship Dev. and Small Business Mgt."
+            },
+            {
+                "code": "BBA 3105",
+                "title": "Operations Management"
+            },
+            {
+                "code": "BBA 3106",
+                "title": "International Business"
+            },
+            {
+                "code": "BBA 3201",
+                "title": "Auditing and Taxation"
+            },
+            {
+                "code": "BBA 3202",
+                "title": "Business Law and Ethics"
+            },
+            {
+                "code": "BBA 3203",
+                "title": "Human Resource Management"
+            },
+            {
+                "code": "BBA 3204",
+                "title": "Management Accounting"
+            },
+            {
+                "code": "BBA 3205",
+                "title": "Management Information System"
+            },
+            {
+                "code": "BBA 3206",
+                "title": "Strategic Management"
+            },
+            {
+                "code": "MKT 401",
+                "title": "Integrated Marketing Communications"
+            },
+            {
+                "code": "MKT 408",
+                "title": "Consumer Behavior"
+            },
+            {
+                "code": "HRM 401",
+                "title": "Strategic Human Resources Management"
+            },
+            {
+                "code": "HRM 406",
+                "title": "Change Management"
+            },
+            {
+                "code": "FIN 402",
+                "title": "Working Capital Management"
+            },
+            {
+                "code": "FIN 406",
+                "title": "Corporate Finance"
+            },
+            {
+                "code": "FIN 407",
+                "title": "Insurance and Risk Management"
+            },
+            {
+                "code": "ACC 409",
+                "title": "International Financial Reporting Standards"
+            },
+            {
+                "code": "ACC 401",
+                "title": "Advance Taxation"
+            },
+            {
+                "code": "ACC 405",
+                "title": "Advance Management Accounting"
+            },
+            {
+                "code": "ENG 101",
+                "title": "English Language - I: Sentences and Their Elements"
+            },
+            {
+                "code": "BBA 1102",
+                "title": "Introduction to Business"
+            },
+            {
+                "code": "GED 103",
+                "title": "Comparative Social System"
+            },
+            {
+                "code": "CIT 104",
+                "title": "Introduction to Computer"
+            },
+            {
+                "code": "QNT 1105",
+                "title": "Basic Mathematics"
+            },
+            {
+                "code": "BBA 1106",
+                "title": "Financial Accounting-I"
+            },
+            {
+                "code": "ENG 102",
+                "title": "English Language - II: Listening and Speaking"
+            },
+            {
+                "code": "BBA 111",
+                "title": "Principles of Management"
+            },
+            {
+                "code": "QNT 1204",
+                "title": "Business Mathematics"
+            },
+            {
+                "code": "BBA 1205",
+                "title": "Financial Accounting-II"
+            },
+            {
+                "code": "CIT 1206",
+                "title": "Computer Applications in Business"
+            },
+            {
+                "code": "BBA 109",
+                "title": "Business Communication"
+            },
+            {
+                "code": "BBA 2102",
+                "title": "Principles of Finance"
+            },
+            {
+                "code": "BBA 2103",
+                "title": "Principles of Marketing"
+            },
+            {
+                "code": "BBA 2104",
+                "title": "Microeconomics"
+            },
+            {
+                "code": "GED 2105",
+                "title": "History and Emergence of Bangladesh"
+            },
+            {
+                "code": "ENG 2101",
+                "title": "English Language - III: Reading and Writing"
+            }
         ]
     }
 ];
