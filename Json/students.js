@@ -5237,20 +5237,4 @@ const studentsData = {
     ]
 };
 
-// Create allStudentsData array by flattening students from all departments
-// For now we only have CSE students, but this structure allows for easy expansion
-const allStudentsData = studentsData.students.map(student => ({
-    ...student,
-    department: studentsData.department,
-    departmentCode: studentsData.departmentCode
-}));
 
-// Helper function to find student by name
-function findStudentByName(name) {
-    return allStudentsData.find(student => student.name === name);
-}
-
-// Helper function to find student by ID
-function findStudentById(studentId) {
-    return allStudentsData.find(student => student.studentId === studentId);
-}

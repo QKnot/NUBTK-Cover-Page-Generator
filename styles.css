@@ -214,6 +214,8 @@ body>h1::after {
   flex-direction: column;
   font-family: 'Times New Roman', Times, serif;
   border: none;
+  outline: none;
+  box-shadow: none;
   box-sizing: border-box;
 }
 
