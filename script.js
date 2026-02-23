@@ -264,8 +264,8 @@ function performTeacherAutofill(teacherName, datalistText) {
         }
 
         // Auto-fill department based on which department the teacher belongs to
-        teacherDepartmentSelect.value = foundDepartment.department;
-        teacherDepartmentSelect.dispatchEvent(new Event('input'));
+        teacherDepartmentSelect.value = foundDepartment.departmentCode;
+        teacherDepartmentSelect.dispatchEvent(new Event('change'));
 
         console.log('Auto-filled department:', foundDepartment.department);
     }
@@ -536,37 +536,17 @@ function filterDataListsByDepartment(selectedDepartmentCode) {
     }
 }
 
-// Mapping from department display names to internal codes
-const departmentNameToCode = {
-    'Computer Science and Engineering': 'computer_science',
-    'Civil Engineering': 'civil_engineering',
-    'Electrical and Electronic Engineering': 'electrical_engineering',
-    'Architecture': 'architecture',
-    'Business Administration': 'business_administration',
-    'Economics': 'economics',
-    'Bangla': 'bangla',
-    'English Language & Literature': 'english',
-    'Journalism and Mass Communication': 'journalism',
-    'LLB': 'law'
-};
-
-// Reverse mapping from code to display name
-const departmentCodeToName = Object.fromEntries(
-    Object.entries(departmentNameToCode).map(([name, code]) => [code, name])
-);
-
 // Setup department change listener to filter datalists
 function setupDepartmentFilter() {
-    const departmentInput = document.getElementById('department');
+    const departmentSelect = document.getElementById('department');
 
-    if (departmentInput) {
-        departmentInput.addEventListener('input', () => {
-            const departmentName = departmentInput.value.trim();
-            const departmentCode = departmentNameToCode[departmentName] || null;
+    if (departmentSelect) {
+        departmentSelect.addEventListener('change', () => {
+            const selectedDepartment = departmentSelect.value;
 
             // Filter datalists based on selected department
-            // If no valid department is entered, show all options
-            filterDataListsByDepartment(departmentCode);
+            // If no department is selected (empty string), show all options
+            filterDataListsByDepartment(selectedDepartment || null);
         });
 
         console.log('Department filter listener set up');
@@ -608,9 +588,9 @@ function updateContent() {
     // Add comma after designation if it exists
     document.getElementById('teacherDesignationText').textContent = teacherDesignation ? teacherDesignation + ',' : '';
 
-    const departmentInput = document.getElementById('department');
-    const departmentName = departmentInput.value.trim();
-    document.querySelector('#departmentText span').textContent = departmentName ? 'Department of ' + departmentName : '';
+    const departmentSelect = document.getElementById('department');
+    const selectedDepartment = departmentSelect.options[departmentSelect.selectedIndex].text;
+    document.querySelector('#departmentText span').textContent = 'Department of ' + selectedDepartment;
     const departmentAbbreviations = {
         computer_science: "CSE",
         civil_engineering: "CE",
@@ -621,20 +601,18 @@ function updateContent() {
         bangla: "BNG",
         english: "ELL",
         journalism: "JMC",
-        law: "LLB"
+        law: "Law"
     };
 
-    const teacherDepartmentInput = document.getElementById('teacherDepartment');
-    const teacherDeptName = teacherDepartmentInput.value.trim();
-    const teacherDeptCode = departmentNameToCode[teacherDeptName] || null;
-    const mainDeptCode = departmentNameToCode[departmentName] || null;
+    const teacherDepartmentSelect = document.getElementById('teacherDepartment');
+    // const departmentAbbreviation = departmentAbbreviations[departmentSelect.value] || departmentAbbreviations[teacherDepartmentSelect.value] || "N/A";
     let departmentAbbreviation;
-    if (teacherDeptCode) {
-        departmentAbbreviation = departmentAbbreviations[teacherDeptCode];
-    } else if (mainDeptCode) {
-        departmentAbbreviation = departmentAbbreviations[mainDeptCode];
+    if (teacherDepartmentSelect.value !== "") {
+        departmentAbbreviation = departmentAbbreviations[teacherDepartmentSelect.value];
+    } else if (departmentSelect.value !== "") {
+        departmentAbbreviation = departmentAbbreviations[departmentSelect.value];
     } else {
-        departmentAbbreviation = departmentName || "N/A";
+        departmentAbbreviation = "N/A";
     }
     document.getElementById('departmentAbbreviationText').textContent = departmentAbbreviation;
 }
@@ -661,8 +639,8 @@ function areAllFieldsFilled() {
         }
     }
 
-    const departmentValue = document.getElementById('department').value.trim();
-    if (!departmentValue) {
+    const departmentValue = document.getElementById('department').value;
+    if (departmentValue === "") {
         return false;
     }
 
@@ -999,11 +977,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Auto-select department if logo has a data-department attribute
             if (option.dataset.department) {
-                const departmentInput = document.getElementById('department');
-                const deptName = departmentCodeToName[option.dataset.department] || option.dataset.department;
-                departmentInput.value = deptName;
-                departmentInput.dispatchEvent(new Event('input'));
-                console.log('Auto-selected department:', deptName);
+                const departmentSelect = document.getElementById('department');
+                departmentSelect.value = option.dataset.department;
+                departmentSelect.dispatchEvent(new Event('change'));
+                console.log('Auto-selected department:', option.dataset.department);
             }
         });
 

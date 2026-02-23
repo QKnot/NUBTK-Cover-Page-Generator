@@ -81,18 +81,17 @@
             </datalist>
 
             <label for="department">Department of:</label>
-            <input type="text" id="department" class="demo-input" placeholder="Enter the department name."
-                data-demo="Computer Science and Engineering" list="departmentList">
-            <datalist id="departmentList">
-                <option value="Computer Science and Engineering">
-                <option value="Civil Engineering">
-                <option value="Electrical and Electronic Engineering">
-                <option value="Architecture">
-                <option value="Business Administration">
-                <option value="English Language & Literature">
-                <option value="Journalism and Mass Communication">
-                <option value="LLB">
-            </datalist>
+            <select id="department">
+                <option value="">Select a Department</option>
+                <option value="computer_science">Computer Science and Engineering</option>
+                <option value="civil_engineering">Civil Engineering</option>
+                <option value="electrical_engineering">Electrical and Electronic Engineering</option>
+                <option value="architecture">Architecture</option>
+                <option value="business_administration">Business Administration</option>
+                <option value="english">English Language & Literature</option>
+                <option value="journalism">Journalism and Mass Communication</option>
+                <option value="law">Law</option>
+            </select>
             <label for="courseTitle"><strong>Course Title:</strong></label>
             <input type="text" id="courseTitle" class="demo-input" placeholder="Enter a course title."
                 data-demo="Nueral Networks" list="courseTitleList">
@@ -204,20 +203,19 @@
             </datalist>
 
             <label for="teacherDepartment">Teacher's Department(Optional):</label>
-            <input type="text" id="teacherDepartment" class="demo-input" placeholder="Enter teacher's department"
-                data-demo="Computer Science and Engineering" list="teacherDepartmentList">
-            <datalist id="teacherDepartmentList">
-                <option value="Computer Science and Engineering">
-                <option value="Civil Engineering">
-                <option value="Electrical and Electronic Engineering">
-                <option value="Architecture">
-                <option value="Business Administration">
-                <option value="Economics">
-                <option value="Bangla">
-                <option value="English Language & Literature">
-                <option value="Journalism and Mass Communication">
-                <option value="LLB">
-            </datalist>
+            <select id="teacherDepartment">
+                <option value="">Select a Department</option>
+                <option value="computer_science">Computer Science and Engineering</option>
+                <option value="civil_engineering">Civil Engineering</option>
+                <option value="electrical_engineering">Electrical and Electronic Engineering</option>
+                <option value="architecture">Architecture</option>
+                <option value="business_administration">Business Administration</option>
+                <option value="economics">Economics</option>
+                <option value="bangla">Bangla</option>
+                <option value="english">English Language & Literature</option>
+                <option value="journalism">Journalism and Mass Communication</option>
+                <option value="law">Law</option>
+            </select>
 
             <label for="studentId">Student ID:</label>
             <input type="text" id="studentId" class="demo-input" placeholder="Enter the student's ID."
