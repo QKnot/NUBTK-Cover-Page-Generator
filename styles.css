@@ -940,3 +940,216 @@ body {
     padding: 0;
   }
 }
+
+/* ===== Saved Instances Section ===== */
+.saved-instances-section {
+  background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 50%, #f5f0ff 100%);
+  border: 1px solid #d4dff7;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  transition: box-shadow 0.3s ease;
+}
+
+.saved-instances-section:hover {
+  box-shadow: 0 4px 16px rgba(52, 152, 219, 0.1);
+}
+
+.saved-instances-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.saved-instances-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.saved-instances-title i {
+  color: #3498db;
+  font-size: 16px;
+}
+
+.save-instance-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  box-shadow: 0 3px 10px rgba(46, 204, 113, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.save-instance-btn:hover {
+  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+}
+
+.save-instance-btn:active {
+  transform: scale(0.97);
+}
+
+.save-instance-btn i {
+  font-size: 12px;
+}
+
+.saved-instances-list {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 4px 2px 8px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.saved-instances-list::-webkit-scrollbar {
+  height: 6px;
+}
+
+.saved-instances-list::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 3px;
+}
+
+.saved-instances-list::-webkit-scrollbar-thumb {
+  background: #c5d0e6;
+  border-radius: 3px;
+}
+
+.saved-instances-list::-webkit-scrollbar-thumb:hover {
+  background: #a0b4d0;
+}
+
+.instance-card {
+  position: relative;
+  min-width: 180px;
+  max-width: 220px;
+  background: white;
+  border: 1px solid #e0e6ed;
+  border-radius: 10px;
+  padding: 14px 14px 10px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.instance-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3498db, #9b59b6);
+  border-radius: 10px 10px 0 0;
+}
+
+.instance-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.18);
+  border-color: #3498db;
+}
+
+.instance-card-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.instance-card-date {
+  font-size: 11px;
+  color: #95a5a6;
+}
+
+.instance-card-delete {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(231, 76, 60, 0.08);
+  color: #e74c3c;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.instance-card:hover .instance-card-delete {
+  opacity: 1;
+}
+
+.instance-card-delete:hover {
+  background: #e74c3c;
+  color: white;
+  transform: scale(1.15);
+}
+
+.empty-state {
+  width: 100%;
+  text-align: center;
+  color: #95a5a6;
+  font-size: 13px;
+  padding: 12px 0;
+  margin: 0;
+}
+
+.empty-state i {
+  margin-right: 6px;
+  font-size: 14px;
+}
+
+/* Mobile overrides for saved instances */
+@media (max-width: 768px) {
+  .saved-instances-section {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+
+  .saved-instances-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .save-instance-btn {
+    justify-content: center;
+    width: 100%;
+    padding: 10px 16px;
+  }
+
+  .instance-card {
+    min-width: 160px;
+  }
+
+  .instance-card-delete {
+    opacity: 1;
+  }
+}

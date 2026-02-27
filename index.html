@@ -47,6 +47,26 @@
     <div class="container">
         <div id="inputSection" class="input-section">
             <h2>Input Details</h2>
+
+            <!-- Saved Cover Pages Section -->
+            <div class="saved-instances-section">
+                <div class="saved-instances-header">
+                    <div class="saved-instances-title">
+                        <i class="fas fa-bookmark"></i>
+                        <span>Saved Cover Pages</span>
+                    </div>
+                    <button id="saveInstanceBtn" class="save-instance-btn" title="Save current form data">
+                        <i class="fas fa-plus"></i> Save Current
+                    </button>
+                </div>
+                <div id="savedInstancesList" class="saved-instances-list">
+                    <p class="empty-state" id="emptyStateMsg">
+                        <i class="fas fa-folder-open"></i> No saved cover pages yet. Fill the form and click "Save
+                        Current".
+                    </p>
+                </div>
+            </div>
+
             <label for="logoSelect">Select Logos(Optional):</label>
             <div style="display: flex; gap: 10px; align-items: flex-start; margin-bottom: 20px;">
                 <select id="logoSelect" style="flex: 1; margin-bottom: 0;">

@@ -1229,3 +1229,154 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
+// ===== Saved Cover Page Instances =====
+
+const SAVED_INSTANCES_KEY = 'nubtk_saved_instances';
+
+function collectFormData() {
+    const data = {};
+    const fields = [
+        'logoSelect', 'coverpagename', 'department',
+        'courseTitle', 'courseCode', 'coverType', 'titleName',
+        'teacherName', 'teacherDesignation', 'teacherDepartment',
+        'studentId', 'studentName', 'section', 'submissionDate'
+    ];
+    fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) data[id] = el.value;
+    });
+    return data;
+}
+
+function getInstanceDisplayName(data) {
+    const parts = [];
+    if (data.coverType) parts.push(data.coverType.toUpperCase());
+    if (data.courseCode) parts.push(data.courseCode);
+    if (parts.length > 0) return parts.join(' — ');
+    if (data.courseTitle) return data.courseTitle;
+    if (data.teacherName) return data.teacherName;
+    return new Date().toLocaleDateString();
+}
+
+function getSavedInstances() {
+    try {
+        return JSON.parse(localStorage.getItem(SAVED_INSTANCES_KEY)) || [];
+    } catch {
+        return [];
+    }
+}
+
+function saveSavedInstances(instances) {
+    localStorage.setItem(SAVED_INSTANCES_KEY, JSON.stringify(instances));
+}
+
+function saveInstance() {
+    const data = collectFormData();
+    const instances = getSavedInstances();
+    const instance = {
+        id: Date.now().toString(),
+        name: getInstanceDisplayName(data),
+        savedAt: new Date().toISOString(),
+        data: data
+    };
+    instances.unshift(instance);
+    saveSavedInstances(instances);
+    renderSavedInstances();
+    showNotification('Cover page data saved!');
+}
+
+function loadInstance(id) {
+    const instances = getSavedInstances();
+    const instance = instances.find(inst => inst.id === id);
+    if (!instance) return;
+
+    const data = instance.data;
+
+    // Set select fields first (department, teacherDepartment, logoSelect)
+    ['department', 'teacherDepartment', 'logoSelect'].forEach(selectId => {
+        if (data[selectId] !== undefined) {
+            const el = document.getElementById(selectId);
+            if (el) {
+                el.value = data[selectId];
+                el.dispatchEvent(new Event('change'));
+            }
+        }
+    });
+
+    // Set input fields
+    const inputFields = [
+        'coverpagename', 'courseTitle', 'courseCode', 'coverType', 'titleName',
+        'teacherName', 'teacherDesignation',
+        'studentId', 'studentName', 'section', 'submissionDate'
+    ];
+    inputFields.forEach(fieldId => {
+        if (data[fieldId] !== undefined) {
+            const el = document.getElementById(fieldId);
+            if (el) {
+                el.value = data[fieldId];
+                el.dispatchEvent(new Event('input'));
+            }
+        }
+    });
+
+    // Update preview and logo
+    updateContent();
+    handleLogoSelection();
+    showNotification(`Loaded: ${instance.name}`);
+}
+
+function deleteInstance(id) {
+    if (!confirm('Delete this saved cover page?')) return;
+    let instances = getSavedInstances();
+    instances = instances.filter(inst => inst.id !== id);
+    saveSavedInstances(instances);
+    renderSavedInstances();
+    showNotification('Saved cover page deleted.');
+}
+
+function renderSavedInstances() {
+    const container = document.getElementById('savedInstancesList');
+    if (!container) return;
+
+    const instances = getSavedInstances();
+    container.innerHTML = '';
+
+    if (instances.length === 0) {
+        container.innerHTML = `
+            <p class="empty-state" id="emptyStateMsg">
+                <i class="fas fa-folder-open"></i> No saved cover pages yet. Fill the form and click "Save Current".
+            </p>`;
+        return;
+    }
+
+    instances.forEach(inst => {
+        const card = document.createElement('div');
+        card.className = 'instance-card';
+        card.title = `Click to load: ${inst.name}`;
+
+        const savedDate = new Date(inst.savedAt);
+        const dateStr = savedDate.toLocaleDateString('en-GB', {
+            day: '2-digit', month: 'short', year: 'numeric'
+        });
+
+        card.innerHTML = `
+            <button class="instance-card-delete" title="Delete" onclick="event.stopPropagation(); deleteInstance('${inst.id}');">&times;</button>
+            <div class="instance-card-name">${inst.name}</div>
+            <div class="instance-card-date"><i class="fas fa-clock" style="margin-right:4px;font-size:10px;"></i>${dateStr}</div>
+        `;
+
+        card.addEventListener('click', () => loadInstance(inst.id));
+        container.appendChild(card);
+    });
+}
+
+// Wire up save button and render on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const saveBtn = document.getElementById('saveInstanceBtn');
+    if (saveBtn) {
+        saveBtn.addEventListener('click', saveInstance);
+    }
+    renderSavedInstances();
+});
